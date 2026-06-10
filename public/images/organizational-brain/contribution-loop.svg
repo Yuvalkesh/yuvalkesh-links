@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" font-family="Inter, 'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <marker id="tarr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2bb3a3"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="1200" fill="#ffffff"/>
+
+  <text x="800" y="84" text-anchor="middle" font-size="38" font-weight="800" fill="#1a2340">How a Non-Developer Feeds the Brain</text>
+  <text x="800" y="120" text-anchor="middle" font-size="21" fill="#6b7280">Pull, talk, commit. The AI does the developer parts.</text>
+
+  <!-- clockwise curved arrows -->
+  <g fill="none" stroke="#2bb3a3" stroke-width="5" marker-end="url(#tarr)">
+    <path d="M1000 285 Q1360 300 1260 558"/>
+    <path d="M1260 722 Q1360 1020 1010 1020"/>
+    <path d="M590 1020 Q240 1020 340 722"/>
+    <path d="M340 558 Q240 300 590 285"/>
+  </g>
+
+  <!-- center label -->
+  <ellipse cx="800" cy="640" rx="195" ry="98" fill="#f1f3f7"/>
+  <text x="800" y="625" text-anchor="middle" font-size="26" font-weight="800" fill="#1a2340">No code.</text>
+  <text x="800" y="660" text-anchor="middle" font-size="19" fill="#6b7280">The AI does the</text>
+  <text x="800" y="685" text-anchor="middle" font-size="19" fill="#6b7280">developer parts.</text>
+
+  <!-- step 1 (top) -->
+  <rect x="600" y="185" width="400" height="150" rx="18" fill="#1a2340"/>
+  <circle cx="600" cy="185" r="30" fill="#e0a93c"/>
+  <text x="600" y="195" text-anchor="middle" font-size="30" font-weight="800" fill="#1a2340">1</text>
+  <text x="800" y="252" text-anchor="middle" font-size="27" font-weight="700" fill="#ffffff">git pull</text>
+  <text x="800" y="287" text-anchor="middle" font-size="19" fill="#aeb6cc">get the latest brain</text>
+
+  <!-- step 2 (right) -->
+  <rect x="1060" y="565" width="400" height="150" rx="18" fill="#1a2340"/>
+  <circle cx="1060" cy="565" r="30" fill="#e0a93c"/>
+  <text x="1060" y="575" text-anchor="middle" font-size="30" font-weight="800" fill="#1a2340">2</text>
+  <text x="1260" y="632" text-anchor="middle" font-size="27" font-weight="700" fill="#ffffff">Talk to Claude Code</text>
+  <text x="1260" y="667" text-anchor="middle" font-size="19" fill="#aeb6cc">in plain language</text>
+
+  <!-- step 3 (bottom) -->
+  <rect x="600" y="945" width="400" height="150" rx="18" fill="#1a2340"/>
+  <circle cx="600" cy="945" r="30" fill="#e0a93c"/>
+  <text x="600" y="955" text-anchor="middle" font-size="30" font-weight="800" fill="#1a2340">3</text>
+  <text x="800" y="1010" text-anchor="middle" font-size="27" font-weight="700" fill="#ffffff">Claude writes the</text>
+  <text x="800" y="1045" text-anchor="middle" font-size="27" font-weight="700" fill="#ffffff">right Markdown file</text>
+
+  <!-- step 4 (left) -->
+  <rect x="140" y="565" width="400" height="150" rx="18" fill="#1a2340"/>
+  <circle cx="140" cy="565" r="30" fill="#e0a93c"/>
+  <text x="140" y="575" text-anchor="middle" font-size="30" font-weight="800" fill="#1a2340">4</text>
+  <text x="340" y="632" text-anchor="middle" font-size="27" font-weight="700" fill="#ffffff">Commit</text>
+  <text x="340" y="667" text-anchor="middle" font-size="19" fill="#aeb6cc">saved for everyone</text>
+</svg>

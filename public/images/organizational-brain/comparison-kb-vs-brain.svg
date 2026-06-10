@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" font-family="Inter, 'Helvetica Neue', Arial, sans-serif">
+  <rect width="1600" height="1200" fill="#ffffff"/>
+
+  <text x="800" y="80" text-anchor="middle" font-size="38" font-weight="800" fill="#1a2340">Knowledge Base vs Organizational Brain</text>
+  <text x="800" y="116" text-anchor="middle" font-size="21" fill="#6b7280">A knowledge base stores. A brain reasons and acts.</text>
+
+  <!-- headers -->
+  <rect x="140" y="160" width="620" height="92" rx="14" fill="#eef1f6"/>
+  <text x="450" y="218" text-anchor="middle" font-size="27" font-weight="800" fill="#6b7280" letter-spacing="1">KNOWLEDGE BASE</text>
+  <rect x="840" y="160" width="620" height="92" rx="14" fill="#1a2340"/>
+  <text x="1150" y="218" text-anchor="middle" font-size="27" font-weight="800" fill="#ffffff" letter-spacing="1">ORGANIZATIONAL BRAIN</text>
+
+  <!-- row 1 -->
+  <rect x="140" y="272" width="620" height="140" rx="14" fill="#f1f3f7"/>
+  <circle cx="195" cy="342" r="7" fill="#9aa3b2"/>
+  <text x="235" y="352" font-size="28" fill="#3a4055">Stores documents</text>
+  <rect x="840" y="272" width="620" height="140" rx="14" fill="#eaf0fb"/>
+  <path d="M888 344 l12 13 l24 -28" fill="none" stroke="#2e9e5b" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="945" y="352" font-size="28" font-weight="700" fill="#1a2340">Reasons &amp; acts</text>
+
+  <!-- row 2 -->
+  <rect x="140" y="430" width="620" height="140" rx="14" fill="#f1f3f7"/>
+  <circle cx="195" cy="500" r="7" fill="#9aa3b2"/>
+  <text x="235" y="510" font-size="28" fill="#3a4055">Keyword retrieval</text>
+  <rect x="840" y="430" width="620" height="140" rx="14" fill="#eaf0fb"/>
+  <path d="M888 502 l12 13 l24 -28" fill="none" stroke="#2e9e5b" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="945" y="500" font-size="26" font-weight="700" fill="#1a2340">Synthesized answers</text>
+  <text x="945" y="530" font-size="26" font-weight="700" fill="#1a2340">with sources</text>
+
+  <!-- row 3 -->
+  <rect x="140" y="588" width="620" height="140" rx="14" fill="#f1f3f7"/>
+  <circle cx="195" cy="658" r="7" fill="#9aa3b2"/>
+  <text x="235" y="668" font-size="28" fill="#3a4055">Static pile of docs</text>
+  <rect x="840" y="588" width="620" height="140" rx="14" fill="#eaf0fb"/>
+  <path d="M888 660 l12 13 l24 -28" fill="none" stroke="#2e9e5b" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="945" y="668" font-size="28" font-weight="700" fill="#1a2340">Versioned living map</text>
+
+  <!-- row 4 -->
+  <rect x="140" y="746" width="620" height="140" rx="14" fill="#f1f3f7"/>
+  <circle cx="195" cy="816" r="7" fill="#9aa3b2"/>
+  <text x="235" y="826" font-size="28" fill="#3a4055">Human-only memory</text>
+  <rect x="840" y="746" width="620" height="140" rx="14" fill="#eaf0fb"/>
+  <path d="M888 818 l12 13 l24 -28" fill="none" stroke="#2e9e5b" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="945" y="826" font-size="28" font-weight="700" fill="#1a2340">Human + AI memory</text>
+
+  <!-- row 5 -->
+  <rect x="140" y="904" width="620" height="140" rx="14" fill="#f1f3f7"/>
+  <circle cx="195" cy="974" r="7" fill="#9aa3b2"/>
+  <text x="235" y="984" font-size="28" fill="#3a4055">Siloed per tool</text>
+  <rect x="840" y="904" width="620" height="140" rx="14" fill="#eaf0fb"/>
+  <path d="M888 976 l12 13 l24 -28" fill="none" stroke="#2e9e5b" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="945" y="984" font-size="28" font-weight="700" fill="#1a2340">One shared memory</text>
+
+  <text x="800" y="1130" text-anchor="middle" font-size="22" font-style="italic" fill="#6b7280">A knowledge base stores and retrieves. A brain reasons across it and acts.</text>
+</svg>

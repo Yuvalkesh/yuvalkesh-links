@@ -19,9 +19,10 @@ interface Props {
   slug: string;
   headings?: Heading[];
   faq?: { q: string; a: string }[];
+  morePosts?: { slug: string; title: string; description: string; lang: 'he' | 'en'; pubDate: Date }[];
 }
 
-const { title, description, pubDate, updatedDate, lang, tags, ogImage, coverImage, canonical, translationOf, slug, headings = [], faq = [] } = Astro.props;
+const { title, description, pubDate, updatedDate, lang, tags, ogImage, coverImage, canonical, translationOf, slug, headings = [], faq = [], morePosts = [] } = Astro.props;
 
 const dir = lang === 'he' ? 'rtl' : 'ltr';
 const site = Astro.site!.href.replace(/\/$/, '');
@@ -36,6 +37,10 @@ const otherLang = lang === 'he' ? 'en' : 'he';
 const backLabel = lang === 'he' ? 'לכל המאמרים →' : '← All articles';
 const tocLabel = lang === 'he' ? 'תוכן עניינים' : 'Table of Contents';
 const followLabel = lang === 'he' ? 'בואו נמשיך לדבר' : "Let's keep talking";
+const followSub = lang === 'he'
+  ? 'אלפי בונים כבר בפנים. שאלות, פרויקטים, ומה שעובד באמת.'
+  : 'Thousands of builders are already inside. Questions, builds, and what actually works.';
+const moreLabel = lang === 'he' ? 'עוד מאמרים' : 'More articles';
 const dateLocale = lang === 'he' ? 'he-IL' : 'en-US';
 const fmt = (d: Date) => d.toLocaleDateString(dateLocale, { year: 'numeric', month: 'long', day: 'numeric' });
 
@@ -190,6 +195,7 @@ const socials = [
     }
     .cover {
       width: 100%;
+      height: auto;
       border-radius: 18px;
       border: 1px solid var(--line);
       margin-bottom: 32px;
@@ -280,35 +286,69 @@ const socials = [
     .author .a-name { font-weight: 800; font-size: 15.5px; }
     .author .a-sub { color: var(--muted); font-size: 13.5px; }
     .author a { color: inherit; text-decoration: none; }
-    .follow { margin-top: 30px; }
-    .follow-title {
-      font-size: 14px; font-weight: 800; letter-spacing: 0.6px;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 14px;
+    .follow {
+      margin-top: 32px;
+      background: radial-gradient(ellipse 480px 260px at 50% -60px, rgba(29,155,240,0.14), transparent 70%), #0a0c0e;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 34px 28px 30px;
+      text-align: center;
     }
-    .follow-links { display: flex; flex-direction: column; gap: 12px; }
+    .follow-title { font-size: 21px; font-weight: 800; margin-bottom: 6px; }
+    .follow-sub { color: var(--muted); font-size: 14.5px; margin-bottom: 22px; line-height: 1.55; }
+    .follow-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
     .follow-link {
-      position: relative;
-      display: flex; align-items: center; justify-content: center;
-      min-height: 54px; padding: 12px 54px;
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 20px 10px 12px;
       background: #16181c; color: #e7e9ea;
       border: 1px solid var(--line); border-radius: 999px;
-      text-decoration: none; font-size: 15.5px; font-weight: 700; text-align: center;
-      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      text-decoration: none; font-size: 14.5px; font-weight: 700;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
     }
-    .follow-link:hover { transform: translateY(-2px); background: #1d1f23; border-color: #3d4044; }
+    .follow-link:hover {
+      transform: translateY(-2px);
+      background: #1d1f23;
+      border-color: #3d4044;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.5);
+    }
     .follow-link .ico {
-      position: absolute; inset-inline-start: 12px;
-      width: 32px; height: 32px; border-radius: 50%;
-      display: grid; place-items: center;
+      width: 30px; height: 30px; border-radius: 50%;
+      display: grid; place-items: center; flex: none;
     }
-    .follow-link .ico svg { width: 18px; height: 18px; fill: #fff; }
+    .follow-link .ico svg { width: 16px; height: 16px; fill: #fff; }
     .ico-whatsapp { background: #25d366; }
     .ico-facebook { background: #1877f2; }
     .ico-twitter { background: #fff; }
     .ico-twitter svg { fill: #000; }
+    .more { margin-top: 44px; }
+    .more-title {
+      font-size: 14px; font-weight: 800; letter-spacing: 0.6px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 16px;
+    }
+    .more-list { display: flex; flex-direction: column; gap: 14px; }
+    .more-card {
+      display: block;
+      background: #0a0c0e;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px 22px;
+      text-decoration: none;
+      color: #e7e9ea;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+    .more-card:hover { transform: translateY(-2px); background: #16181c; border-color: #3d4044; }
+    .more-card h3 { font-size: 16.5px; font-weight: 800; line-height: 1.4; margin-bottom: 5px; }
+    .more-card p { color: #9ca1a5; font-size: 13.5px; line-height: 1.55; margin-bottom: 8px; }
+    .more-card .row { display: flex; align-items: center; gap: 9px; color: var(--muted); font-size: 12px; }
+    .more-card .badge {
+      font-size: 10.5px; font-weight: 700; color: var(--x-blue);
+      border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px;
+    }
     @media (max-width: 480px) {
       h1 { font-size: 27px; }
       .content { font-size: 16.5px; }
+      .follow-links { flex-direction: column; align-items: stretch; }
+      .follow-link { justify-content: center; }
     }
   </style>
 </head>
@@ -344,6 +384,7 @@ const socials = [
     </footer>
     <section class="follow">
       <div class="follow-title">{followLabel}</div>
+      <p class="follow-sub">{followSub}</p>
       <div class="follow-links">
         {socials.map((s) => (
           <a class="follow-link" href={s.href} target="_blank" rel="noopener noreferrer">
@@ -355,6 +396,23 @@ const socials = [
         ))}
       </div>
     </section>
+    {morePosts.length > 0 && (
+      <section class="more">
+        <div class="more-title">{moreLabel}</div>
+        <div class="more-list">
+          {morePosts.map((p) => (
+            <a class="more-card" href={`/blog/${p.slug}/`} dir={p.lang === 'he' ? 'rtl' : 'ltr'} lang={p.lang}>
+              <h3>{p.title}</h3>
+              <p>{p.description}</p>
+              <div class="row">
+                <span class="badge">{p.lang === 'he' ? 'עברית' : 'EN'}</span>
+                <time datetime={p.pubDate.toISOString()}>{p.pubDate.toLocaleDateString(p.lang === 'he' ? 'he-IL' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
   </article>
 </body>
 </html>

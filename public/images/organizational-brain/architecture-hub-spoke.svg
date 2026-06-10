@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" font-family="Inter, 'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#243056"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="1200" fill="#ffffff"/>
+
+  <text x="800" y="100" text-anchor="middle" font-size="38" font-weight="800" fill="#1a2340">The Organizational Brain</text>
+  <text x="800" y="138" text-anchor="middle" font-size="21" fill="#6b7280">One git repo per department · one super-brain repo above them all</text>
+
+  <!-- connectors (behind nodes) -->
+  <g stroke="#243056" stroke-width="3" marker-start="url(#arr)" marker-end="url(#arr)">
+    <line x1="620" y1="525" x2="495" y2="395"/>
+    <line x1="980" y1="525" x2="1105" y2="395"/>
+    <line x1="620" y1="675" x2="495" y2="805"/>
+    <line x1="980" y1="675" x2="1105" y2="805"/>
+  </g>
+
+  <!-- center super-brain -->
+  <rect x="620" y="525" width="360" height="150" rx="18" fill="#1a2340"/>
+  <text x="800" y="585" text-anchor="middle" font-size="28" font-weight="800" fill="#ffffff" letter-spacing="1">SUPER-BRAIN REPO</text>
+  <text x="800" y="620" text-anchor="middle" font-size="16" fill="#aeb6cc">reads + writes across all</text>
+  <text x="800" y="644" text-anchor="middle" font-size="16" fill="#aeb6cc">executive only</text>
+
+  <!-- spoke: founding layer (TL) -->
+  <rect x="195" y="285" width="300" height="110" rx="14" fill="#eef1f6" stroke="#243056" stroke-width="2"/>
+  <text x="345" y="333" text-anchor="middle" font-size="24" font-weight="700" fill="#1a2340">Founding Layer</text>
+  <text x="345" y="363" text-anchor="middle" font-size="17" fill="#6b7280">vision &amp; methodology</text>
+
+  <!-- spoke: product & tech (TR) -->
+  <rect x="1105" y="285" width="300" height="110" rx="14" fill="#eef1f6" stroke="#243056" stroke-width="2"/>
+  <text x="1255" y="333" text-anchor="middle" font-size="24" font-weight="700" fill="#1a2340">Product &amp; Tech</text>
+  <text x="1255" y="363" text-anchor="middle" font-size="17" fill="#6b7280">engineering &amp; product</text>
+
+  <!-- spoke: growth & marketing (BL) -->
+  <rect x="195" y="805" width="300" height="110" rx="14" fill="#eef1f6" stroke="#243056" stroke-width="2"/>
+  <text x="345" y="853" text-anchor="middle" font-size="24" font-weight="700" fill="#1a2340">Growth &amp; Marketing</text>
+  <text x="345" y="883" text-anchor="middle" font-size="17" fill="#6b7280">creative &amp; demand</text>
+
+  <!-- spoke: core process / protected IP (BR) -->
+  <rect x="1105" y="805" width="300" height="110" rx="14" fill="#fdf6e9" stroke="#d99a2b" stroke-width="3"/>
+  <g transform="translate(1372,814)">
+    <path d="M3 8 V5.5 a5 5 0 0 1 10 0 V8" fill="none" stroke="#b87d1a" stroke-width="2.4"/>
+    <rect x="0" y="8" width="16" height="12" rx="2" fill="#d99a2b"/>
+    <circle cx="8" cy="14" r="1.6" fill="#fff"/>
+  </g>
+  <text x="1255" y="853" text-anchor="middle" font-size="24" font-weight="700" fill="#1a2340">Core Process</text>
+  <text x="1255" y="883" text-anchor="middle" font-size="17" fill="#b87d1a">protected IP</text>
+
+  <text x="800" y="1090" text-anchor="middle" font-size="22" font-style="italic" fill="#6b7280">One brain that sees all the brains. Each team stays in its own.</text>
+</svg>

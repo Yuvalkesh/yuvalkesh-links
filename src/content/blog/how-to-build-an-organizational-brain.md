@@ -74,6 +74,8 @@ The distinction is worth making concrete:
 - A wiki is a pile of static docs. A brain is a versioned, living map that never silently loses or overwrites anything.
 - Your current tools each remember in their own silo. A brain is one shared memory the whole company and its agents draw from.
 
+![Comparison infographic: a knowledge base stores documents, does keyword retrieval, and is siloed per tool, while an organizational brain reasons and acts, gives synthesized answers with sources, and is one shared versioned memory](/images/organizational-brain/comparison-kb-vs-brain.svg)
+
 This isn't a fringe idea anymore.
 
 The framing of a "company brain" as the missing primitive for AI-native companies has moved into the mainstream startup conversation, where it's increasingly described as engineering's next competitive moat, as [Falconer's guide](https://falconer.com/guides/company-brain-competitive-moat/) lays out.
@@ -85,8 +87,6 @@ AI agents don't fail because the models are weak.
 They fail because they have no company context to stand on.
 
 ## Why Companies Have Data but No Memory
-
-![Paper collage of files scattering out of an open folder, representing company knowledge spread across disconnected tools](/images/organizational-brain/knowledge-scattered.jpg)
 
 Walk into almost any company and you'll find the same thing.
 
@@ -154,13 +154,13 @@ Only the technical lead and an executive can reach it.
 
 The cleanest way I've found to describe it out loud: it's a super-brain connected to many other brains.
 
-![Illustration of one giant brain with octopus tentacles reaching in every direction, representing the executive super-brain repo connected to every department repo](/images/organizational-brain/super-brain.jpg)
-
 It's the one brain that can see all the brains, while every team still only works inside its own.
 
 That's the whole map.
 
 A hub that sees everything, spokes that each stay in their lane.
+
+![Hub-and-spoke architecture diagram: a central super-brain repo that reads and writes across all, executive only, connected to four department repos — Founding Layer, Product and Tech, Growth and Marketing, and a protected Core Process repo](/images/organizational-brain/architecture-hub-spoke.svg)
 
 ### Why Per-Department Repos Beat One Big Repo
 
@@ -207,6 +207,8 @@ So here's the loop a non-developer actually runs to feed the brain:
 - Claude shapes that into the right Markdown file, in the right place.
 - They commit, and now the change is saved for everyone.
 
+![Circular flowchart of the non-developer contribution loop: git pull to get the latest brain, talk to Claude Code in plain language, Claude writes the right Markdown file, commit so it's saved for everyone — no code, the AI does the developer parts](/images/organizational-brain/contribution-loop.svg)
+
 No code.
 
 They look like developers.
@@ -224,8 +226,6 @@ It descends from a pattern Andrej Karpathy described: instead of doing retrieval
 People have been building personal versions of this with Claude Code, [documenting the LLM wiki pattern](https://medium.com/@markchen69/i-used-claude-code-to-build-a-personal-knowledge-base-inspired-by-karpathys-llm-wiki-pattern-6a81a9661d49) as they go.
 
 The reason Markdown is the substrate is that it's the one format that's human-readable, version-controllable, and AI-parseable all at once, a principle some teams now treat as an explicit axiom: [knowledge is Markdown](https://agentfactory.panaversity.org/docs/Programming-in-the-AI-Era/the-workbench/ten-axioms-of-programming-in-ai-driven-development/knowledge-is-markdown).
-
-![Cut-out paper collage of an open folder with interlinked files flying out, representing the LLM wiki pattern of plain-text knowledge](/images/organizational-brain/markdown-files.jpg)
 
 An organizational brain is simply that personal pattern, scaled from one person to a whole company.
 

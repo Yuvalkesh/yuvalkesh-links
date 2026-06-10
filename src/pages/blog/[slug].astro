@@ -12,6 +12,18 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content, headings } = await render(post);
+
+const morePosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .filter((p) => p.id !== post.id)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3)
+  .map((p) => ({
+    slug: p.id,
+    title: p.data.title,
+    description: p.data.description,
+    lang: p.data.lang,
+    pubDate: p.data.pubDate,
+  }));
 ---
 <ArticleLayout
   title={post.data.title}
@@ -27,6 +39,7 @@ const { Content, headings } = await render(post);
   slug={post.id}
   headings={headings}
   faq={post.data.faq}
+  morePosts={morePosts}
 >
   <Content />
 </ArticleLayout>

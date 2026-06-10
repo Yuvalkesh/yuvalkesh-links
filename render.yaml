@@ -4,3 +4,7 @@ services:
     runtime: static
     buildCommand: npm ci && npm run build
     staticPublishPath: ./dist
+    routes:
+      - type: redirect
+        source: /blog/organizational-brain-git-repo-architecture/*
+        destination: /blog/how-to-build-an-organizational-brain/
