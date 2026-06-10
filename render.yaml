@@ -2,9 +2,5 @@ services:
   - type: web
     name: yuvalkesh-links
     runtime: static
-    buildCommand: ""
-    staticPublishPath: .
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist

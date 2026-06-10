@@ -1,0 +1,197 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  lang: 'he' | 'en';
+  tags: string[];
+  ogImage?: string;
+  canonical?: string;
+  translationOf?: string;
+  slug: string;
+}
+
+const { title, description, pubDate, updatedDate, lang, tags, ogImage, canonical, translationOf, slug } = Astro.props;
+
+const dir = lang === 'he' ? 'rtl' : 'ltr';
+const site = Astro.site!.href.replace(/\/$/, '');
+const pageUrl = `${site}/blog/${slug}/`;
+const canonicalUrl = canonical ?? pageUrl;
+const ogImageUrl = ogImage ? new URL(ogImage, Astro.site).href : `${site}/avatar.jpg`;
+const otherLang = lang === 'he' ? 'en' : 'he';
+const backLabel = lang === 'he' ? 'לכל המאמרים →' : '← All articles';
+const dateLocale = lang === 'he' ? 'he-IL' : 'en-US';
+const fmt = (d: Date) => d.toLocaleDateString(dateLocale, { year: 'numeric', month: 'long', day: 'numeric' });
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  inLanguage: lang,
+  datePublished: pubDate.toISOString(),
+  dateModified: (updatedDate ?? pubDate).toISOString(),
+  image: ogImageUrl,
+  mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
+  author: {
+    '@type': 'Person',
+    name: 'Yuval Keshtcher',
+    url: site,
+    sameAs: ['https://x.com/Parzival_1991'],
+  },
+  publisher: { '@type': 'Person', name: 'Yuval Keshtcher', url: site },
+};
+---
+<!DOCTYPE html>
+<html lang={lang} dir={dir}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} | yuvkesh</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalUrl} />
+  <link rel="alternate" type="application/rss+xml" title="yuvkesh" href={`${site}/rss.xml`} />
+  {translationOf && (
+    <>
+      <link rel="alternate" hreflang={lang} href={pageUrl} />
+      <link rel="alternate" hreflang={otherLang} href={`${site}/blog/${translationOf}/`} />
+    </>
+  )}
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={pageUrl} />
+  <meta property="og:image" content={ogImageUrl} />
+  <meta property="og:locale" content={lang === 'he' ? 'he_IL' : 'en_US'} />
+  <meta property="article:published_time" content={pubDate.toISOString()} />
+  {updatedDate && <meta property="article:modified_time" content={updatedDate.toISOString()} />}
+  {tags.map((t) => <meta property="article:tag" content={t} />)}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageUrl} />
+  <meta name="twitter:creator" content="@Parzival_1991" />
+  <meta name="theme-color" content="#000000" />
+
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --x-blue: #1d9bf0; --line: #2f3336; --muted: #71767b; }
+    body {
+      font-family: 'Heebo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #000;
+      color: #e7e9ea;
+      min-height: 100vh;
+      padding: 48px 18px 64px;
+      display: flex;
+      justify-content: center;
+    }
+    .wrap { width: 100%; max-width: 680px; }
+    .top-nav { margin-bottom: 36px; }
+    .top-nav a {
+      color: var(--x-blue);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .top-nav a:hover { text-decoration: underline; }
+    h1 {
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+    .meta {
+      color: var(--muted);
+      font-size: 14.5px;
+      margin-bottom: 8px;
+    }
+    .tags { margin-bottom: 28px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      font-size: 12.5px;
+      color: var(--x-blue);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 12px;
+    }
+    .divider { border: none; border-top: 1px solid var(--line); margin-bottom: 32px; }
+    .content { font-size: 17.5px; line-height: 1.75; color: #d6d9db; }
+    .content :global(h2) { font-size: 25px; font-weight: 800; color: #e7e9ea; margin: 40px 0 14px; line-height: 1.3; }
+    .content :global(h3) { font-size: 20px; font-weight: 700; color: #e7e9ea; margin: 32px 0 10px; }
+    .content :global(p) { margin-bottom: 18px; }
+    .content :global(a) { color: var(--x-blue); text-decoration: none; }
+    .content :global(a:hover) { text-decoration: underline; }
+    .content :global(ul), .content :global(ol) { margin: 0 0 18px; padding-inline-start: 26px; }
+    .content :global(li) { margin-bottom: 8px; }
+    .content :global(blockquote) {
+      border-inline-start: 3px solid var(--x-blue);
+      padding-inline-start: 16px;
+      color: #b8bcbf;
+      margin: 0 0 18px;
+    }
+    .content :global(code) {
+      background: #16181c;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 1px 7px;
+      font-size: 15px;
+    }
+    .content :global(pre) {
+      background: #16181c;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      overflow-x: auto;
+      margin-bottom: 18px;
+      direction: ltr;
+      text-align: left;
+    }
+    .content :global(pre code) { background: none; border: none; padding: 0; }
+    .content :global(img) { max-width: 100%; border-radius: 12px; }
+    .author {
+      margin-top: 48px;
+      border-top: 1px solid var(--line);
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .author img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; }
+    .author .a-name { font-weight: 800; font-size: 15.5px; }
+    .author .a-sub { color: var(--muted); font-size: 13.5px; }
+    .author a { color: inherit; text-decoration: none; }
+    @media (max-width: 480px) {
+      h1 { font-size: 27px; }
+      .content { font-size: 16.5px; }
+    }
+  </style>
+</head>
+<body>
+  <article class="wrap">
+    <nav class="top-nav"><a href="/blog/">{backLabel}</a></nav>
+    <h1>{title}</h1>
+    <p class="meta">
+      {fmt(pubDate)}{updatedDate && ` · ${lang === 'he' ? 'עודכן' : 'Updated'} ${fmt(updatedDate)}`}
+    </p>
+    {tags.length > 0 && <div class="tags">{tags.map((t) => <span class="tag">{t}</span>)}</div>}
+    <hr class="divider" />
+    <div class="content">
+      <slot />
+    </div>
+    <footer class="author">
+      <a href="/"><img src="/avatar.jpg" alt="יובל קשטכר" /></a>
+      <div>
+        <div class="a-name"><a href="/">{lang === 'he' ? 'יובל קשטכר' : 'Yuval Keshtcher'}</a></div>
+        <div class="a-sub">{lang === 'he' ? 'בינה מלאכותית עסקית עם יובל קשטכר' : 'Building AI agents. Teaching people to build.'}</div>
+      </div>
+    </footer>
+  </article>
+</body>
+</html>

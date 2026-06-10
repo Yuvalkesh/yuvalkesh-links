@@ -1,23 +1,47 @@
-# yuvalkesh — Linktree alternative
+# yuvkesh — links page + SEO blog
 
-A single-page, Linktree-style link page for Yuval Keshtcher.
+Personal links page (Linktree alternative) + git-based blog for Yuval Keshtcher.
+Live: https://yuvkesh.onrender.com
 
-- **Handle:** @yuvalkesh
-- **Link:** להצטרפות לקבוצה בינה מלאכותית עסקית של יובל קשטכר → WhatsApp group
+## Stack
+- [Astro 5](https://astro.build) static build — pure HTML, best-case SEO
+- Articles = markdown files in `src/content/blog/` (git is the CMS)
+- Deployed as a **free Render static site** (`render.yaml`); every `git push` to `main` auto-builds and deploys
 
-## Preview locally
+## Publish an article
+Create `src/content/blog/my-slug.md`:
 
-```bash
-cd /Users/Yuval/Dev/apps/yuvalkesh-links
-python3 -m http.server 8080
-# open http://localhost:8080
+```markdown
+---
+title: "Article title"
+description: "Up to 160 chars, used for meta description + OG."
+pubDate: 2026-06-10
+lang: he            # 'he' (RTL) or 'en' (LTR)
+tags: ["tag1"]
+# optional:
+# updatedDate: 2026-06-12
+# ogImage: /images/my-image.jpg
+# draft: true
+# canonical: https://original-source.com/post
+# translationOf: my-slug-en   # slug of the paired-language version (adds hreflang)
+---
+
+Article body in markdown.
 ```
 
-## Deploy to Render (Static Site)
+Then `git add -A && git commit && git push`. Live at `/blog/my-slug/` within ~1 minute.
 
-1. Push this folder to a GitHub repo.
-2. Render → **New** → **Static Site** → connect the repo.
-3. Settings:
-   - **Build Command:** *(leave empty)*
-   - **Publish Directory:** `.`
-4. Deploy. `render.yaml` is included for Blueprint deploys (Render → New → Blueprint).
+Every article automatically gets: meta title/description, canonical, Open Graph + Twitter cards, JSON-LD Article schema, correct `lang`/`dir`, sitemap + RSS entries.
+
+## Develop
+```bash
+npm install
+npm run dev       # local dev server
+npm run build     # production build to dist/
+npm run preview   # serve dist/ locally
+```
+
+## SEO endpoints
+- `/sitemap-index.xml` (submit to Google Search Console)
+- `/rss.xml`
+- `/robots.txt`
