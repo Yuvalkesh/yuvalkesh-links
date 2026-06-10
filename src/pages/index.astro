@@ -1,5 +1,34 @@
 ---
 const site = Astro.site!.href.replace(/\/$/, '');
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': `${site}/#person`,
+      name: 'Yuval Keshtcher',
+      alternateName: ['yuvkesh', 'יובל קשטכר', 'Yuval Kesh'],
+      url: `${site}/`,
+      image: `${site}/avatar.jpg`,
+      jobTitle: 'AI Agent Developer & Educator',
+      description: 'בונה סוכני בינה מלאכותית. מלמד אנשים לבנות.',
+      sameAs: [
+        'https://x.com/Parzival_1991',
+        'https://www.facebook.com/groups/agentil',
+        'https://github.com/Yuvalkesh',
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${site}/#website`,
+      name: 'yuvkesh',
+      url: `${site}/`,
+      inLanguage: ['he', 'en'],
+      publisher: { '@id': `${site}/#person` },
+    },
+  ],
+};
 ---
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
@@ -18,6 +47,7 @@ const site = Astro.site!.href.replace(/\/$/, '');
   <meta property="og:type" content="website" />
   <meta property="og:url" content={`${site}/`} />
   <meta name="theme-color" content="#000000" />
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
