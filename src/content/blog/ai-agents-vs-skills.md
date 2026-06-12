@@ -4,6 +4,7 @@ description: "Agents are people on your team. Skills are the procedures they fol
 pubDate: 2026-06-12
 lang: en
 tags: ["AI agents", "Claude Code", "agent skills", "agentic AI"]
+translationOf: ai-agents-vs-skills-he
 coverImage:
   src: /images/blog/ai-agents-vs-skills/cover.png
   alt: "Psychedelic illustration of a wild-eyed bookkeeper in round glasses reading a burning ledger, surrounded by swirling purple and orange flames"
