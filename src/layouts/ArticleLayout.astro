@@ -173,6 +173,7 @@ const socials = [
       justify-content: space-between;
       align-items: center;
       gap: 12px;
+      min-height: 28px;
     }
     .top-nav a {
       color: var(--x-blue);
@@ -181,24 +182,33 @@ const socials = [
       font-size: 15px;
     }
     .top-nav a:hover { text-decoration: underline; }
-    .lang-toggle {
+    .lang-switch {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      padding: 6px 16px;
       background: #16181c;
       border: 1px solid var(--line);
       border-radius: 999px;
-      font-size: 14px;
-      font-weight: 700;
-      white-space: nowrap;
-      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+      overflow: hidden;
+      flex-shrink: 0;
     }
-    .top-nav a.lang-toggle:hover {
+    .lang-opt {
+      padding: 4px 13px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--muted);
       text-decoration: none;
+      white-space: nowrap;
+    }
+    .lang-opt.active {
+      background: var(--x-blue);
+      color: #fff;
+    }
+    .top-nav a.lang-opt { color: var(--muted); font-size: 13px; }
+    .top-nav a.lang-opt:hover {
+      text-decoration: none;
+      color: #e7e9ea;
       background: #1d1f23;
-      border-color: #3d4044;
-      transform: translateY(-2px);
     }
     h1 {
       font-size: 34px;
@@ -383,15 +393,18 @@ const socials = [
     <nav class="top-nav">
       <a href="/blog/">{backLabel}</a>
       {translationOf && (
-        <a
-          class="lang-toggle"
-          href={`/blog/${translationOf}/`}
-          lang={otherLang}
-          dir={otherLang === 'he' ? 'rtl' : 'ltr'}
-        >
-          <span aria-hidden="true">🌐</span>
-          {lang === 'he' ? 'Read in English' : 'קראו בעברית'}
-        </a>
+        <div class="lang-switch" dir="ltr" role="navigation" aria-label={lang === 'he' ? 'שפה' : 'Language'}>
+          {lang === 'en' ? (
+            <span class="lang-opt active" aria-current="true">EN</span>
+          ) : (
+            <a class="lang-opt" href={`/blog/${translationOf}/`} lang="en" title="Read in English">EN</a>
+          )}
+          {lang === 'he' ? (
+            <span class="lang-opt active" aria-current="true">עב</span>
+          ) : (
+            <a class="lang-opt" href={`/blog/${translationOf}/`} lang="he" title="קראו בעברית">עב</a>
+          )}
+        </div>
       )}
     </nav>
     <h1>{title}</h1>
