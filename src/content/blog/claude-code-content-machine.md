@@ -4,7 +4,6 @@ description: "The system behind this blog: an agent writes the article, pushes t
 pubDate: 2026-06-10
 lang: en
 tags: ["Claude Code", "AI agents", "content"]
-translationOf: claude-code-content-machine-he
 ---
 
 Everyone who asks me how to publish technical content gets the same answer. Don't buy a CMS. Build a pipeline.
