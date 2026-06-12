@@ -4,6 +4,7 @@ description: "Most transcripts die in a folder. The working system that turns ev
 pubDate: 2026-06-11
 lang: en
 tags: ["meeting transcripts", "knowledge base", "AI agents", "organizational brain"]
+translationOf: timlul-pgishot-maagar-yeda
 coverImage:
   src: /images/blog/meeting-transcripts-knowledge-base/folder-vs-flywheel.png
   alt: "Comparison infographic: transcripts in a folder evaporate and return keyword noise, while transcripts in a flywheel are saved, classified, update people pages, and produce two posts a day"

@@ -125,6 +125,7 @@ const socials = [
     <>
       <link rel="alternate" hreflang={lang} href={pageUrl} />
       <link rel="alternate" hreflang={otherLang} href={`${site}/blog/${translationOf}/`} />
+      <link rel="alternate" hreflang="x-default" href={lang === 'en' ? pageUrl : `${site}/blog/${translationOf}/`} />
     </>
   )}
 
@@ -166,7 +167,13 @@ const socials = [
       justify-content: center;
     }
     .wrap { width: 100%; max-width: 680px; }
-    .top-nav { margin-bottom: 36px; }
+    .top-nav {
+      margin-bottom: 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
     .top-nav a {
       color: var(--x-blue);
       text-decoration: none;
@@ -174,6 +181,25 @@ const socials = [
       font-size: 15px;
     }
     .top-nav a:hover { text-decoration: underline; }
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 16px;
+      background: #16181c;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      white-space: nowrap;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+    }
+    .top-nav a.lang-toggle:hover {
+      text-decoration: none;
+      background: #1d1f23;
+      border-color: #3d4044;
+      transform: translateY(-2px);
+    }
     h1 {
       font-size: 34px;
       font-weight: 800;
@@ -354,7 +380,20 @@ const socials = [
 </head>
 <body>
   <article class="wrap">
-    <nav class="top-nav"><a href="/blog/">{backLabel}</a></nav>
+    <nav class="top-nav">
+      <a href="/blog/">{backLabel}</a>
+      {translationOf && (
+        <a
+          class="lang-toggle"
+          href={`/blog/${translationOf}/`}
+          lang={otherLang}
+          dir={otherLang === 'he' ? 'rtl' : 'ltr'}
+        >
+          <span aria-hidden="true">🌐</span>
+          {lang === 'he' ? 'Read in English' : 'קראו בעברית'}
+        </a>
+      )}
+    </nav>
     <h1>{title}</h1>
     <p class="meta">
       {fmt(pubDate)}{updatedDate && ` · ${lang === 'he' ? 'עודכן' : 'Updated'} ${fmt(updatedDate)}`}
