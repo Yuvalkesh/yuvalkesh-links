@@ -5,7 +5,6 @@ const waMsg = encodeURIComponent('היי יובל, ראיתי את עמוד הע
 const waLink = `https://wa.me/972526414555?text=${waMsg}`;
 
 const stats = [
-  { num: '2,460', label: 'נעדרים במאגר שצה״ל אימץ' },
   { num: '+1,000', label: 'בוגרים בחברות הגדולות בעולם' },
   { num: '11', label: 'חברות בליווי פעיל כרגע' },
   { num: 'מיליוני', label: 'חשיפות בחודש לתוכן שסוכנים כותבים' },
@@ -16,7 +15,7 @@ const cases = [
     name: 'JVP',
     tag: 'קרן הון סיכון',
     built: 'בניתי לצוות ה-IR של הקרן סוכן שמייצר אוטומטית מסמך תדרוך מלא על משקיע (LP). הסוכן אוסף מה-CRM, מהרשת ומלינקדאין, מצליב הכול, מצרף ציטוטים ומקורות, ומוציא מסמך מוכן בפורמט של הקרן.',
-    outcome: 'דוח שלקח 7 עד 8 שעות עבודה ידנית נבנה עכשיו בכ-5 דקות, עם דיוק עובדתי של 95% ומעלה. הפרויקט הוצג לשותפי הקרן, כולל היו״ר ערל מרגלית, וקיבל אור ירוק להרחבה.',
+    outcome: 'דוח שלקח 7 עד 8 שעות עבודה ידנית נבנה עכשיו בכ-5 דקות, עם דיוק עובדתי של 95% ומעלה. הפרויקט הוצג לשותפי הקרן, כולל היו״ר אראל מרגלית, וקיבל אור ירוק להרחבה.',
     quote: 'this to me feels like you\'ve figured it out. It looks great.',
     who: 'Lauren Kiel, Investor Relations, JVP',
     quote2: null,
@@ -233,7 +232,7 @@ const jsonLd = {
     /* --- stats --- */
     .stats {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 14px;
       width: 100%;
     }
