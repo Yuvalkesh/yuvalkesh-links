@@ -114,7 +114,7 @@ Managed hosting runs the agent on someone else's infrastructure so you don't tou
 
 You configure the agent in a UI, click deploy, and it's live in about five minutes with automatic restarts and high uptime.
 
-This is what I actually run, and the platform I use is ClawBud.
+This is what I actually run, and the platform I use is [ClawBud](https://clawbud.ai/?ref=YUVAL25).
 
 ClawBud runs OpenClaw, the open-source operator agent, on a dedicated virtual machine with its own firewall, not a shared container where you're stacked next to strangers.
 
@@ -126,7 +126,7 @@ The honest tradeoff is that you give up some of the raw control a bare VPS gives
 
 For me that trade is obvious: a few dollars and zero maintenance beats a weekend of Docker every time.
 
-If you want to try it without committing, ClawBud has a free trial, which is the lowest-risk way to feel the difference between "my agent runs when I'm awake" and "my agent runs."
+If you want to try it without committing, [ClawBud has a free trial](https://clawbud.ai/?ref=YUVAL25), which is the lowest-risk way to feel the difference between "my agent runs when I'm awake" and "my agent runs."
 
 ## The Cost Nobody Talks About: Your Token Bill
 
