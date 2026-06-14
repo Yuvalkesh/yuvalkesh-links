@@ -1,0 +1,445 @@
+---
+const site = Astro.site!.href.replace(/\/$/, '');
+
+const waMsg = encodeURIComponent('היי יובל, ראיתי את עמוד העבודות שלך ואשמח לדבר על AI לעסק שלי');
+const waLink = `https://wa.me/972526414555?text=${waMsg}`;
+
+const stats = [
+  { num: '2,460', label: 'נעדרים במאגר שצה״ל אימץ' },
+  { num: '+1,000', label: 'בוגרים בחברות הגדולות בעולם' },
+  { num: '11', label: 'חברות בליווי פעיל כרגע' },
+  { num: 'מיליוני', label: 'חשיפות בחודש לתוכן שסוכנים כותבים' },
+];
+
+const cases = [
+  {
+    name: 'JVP',
+    tag: 'קרן הון סיכון',
+    built: 'בניתי לצוות ה-IR של הקרן סוכן שמייצר אוטומטית מסמך תדרוך מלא על משקיע (LP). הסוכן אוסף מה-CRM, מהרשת ומלינקדאין, מצליב הכול, מצרף ציטוטים ומקורות, ומוציא מסמך מוכן בפורמט של הקרן.',
+    outcome: 'דוח שלקח 7 עד 8 שעות עבודה ידנית נבנה עכשיו בכ-5 דקות, עם דיוק עובדתי של 95% ומעלה. הפרויקט הוצג לשותפי הקרן, כולל היו״ר ערל מרגלית, וקיבל אור ירוק להרחבה.',
+    quote: 'this to me feels like you\'ve figured it out. It looks great.',
+    who: 'Lauren Kiel, Investor Relations, JVP',
+    quote2: null,
+    who2: null,
+  },
+  {
+    name: 'Ginger Insurance',
+    tag: 'אינשורטק',
+    built: 'בניתי סוכן AI מול לקוחות הקצה שלא רק עונה על שאלות אלא מבצע פעולות. הוא שולח בקשה לאישור MRI במייל ללקוח ולחברה, וקובע שיחה חיה עם מנהל תיק. בנינו גם מנגנון בדיקות (eval) והטמעה מבודדת בתוך המערכת של ג\'ינג\'ר.',
+    outcome: 'הסוכן עלה לאוויר ומבצע פעולות אמת בסביבת הייצור, כולל פתיחת בקשות וקביעת פגישות מול הלקוח.',
+    quote: 'וואו. זה מדהים. זה מדהים.',
+    who: 'אושרת בן משה, מנכ״לית ומייסדת, Ginger',
+    quote2: null,
+    who2: null,
+  },
+  {
+    name: 'iPracticom',
+    tag: 'חברת תקשורת',
+    built: 'בניתי "מוח שיווקי" מבוסס ארבע מיומנויות (קריאייטיב ← תוכן ← תזמון ← ניטור) על ארכיטקטורת ויקי, שנועד להחליף סוכנות שיווק חיצונית. המערכת מייצרת פוסטים וגרפיקות חיות, והעבודה התרחבה למוח ארגוני רוחבי.',
+    outcome: 'המערכת עובדת ומפיקה פוסטים בפועל, והמנכ״ל ביקש להרחיב אותה למוח ארגוני רוחבי לכל החברה, שישרת גם את מערך השירות.',
+    quote: null,
+    who: null,
+    quote2: null,
+    who2: null,
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  '@id': `${site}/about/#profilepage`,
+  url: `${site}/about/`,
+  name: 'יובל קשטכר — יועץ ומטמיע AI',
+  mainEntity: {
+    '@type': 'Person',
+    '@id': `${site}/#person`,
+    name: 'Yuval Keshtcher',
+    alternateName: ['yuvkesh', 'יובל קשטכר'],
+    url: `${site}/`,
+    image: `${site}/avatar.jpg`,
+    jobTitle: 'AI Consultant & Implementer',
+    description: 'בונה ומטמיע מערכות AI בעסקים ובארגונים. מהאפיון ועד ההטמעה.',
+    knowsAbout: ['Artificial Intelligence', 'AI Agents', 'Automation', 'Product', 'UX'],
+    sameAs: [
+      'https://x.com/Parzival_1991',
+      'https://www.facebook.com/groups/agentil',
+      'https://github.com/Yuvalkesh',
+    ],
+  },
+};
+---
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>יובל קשטכר — יועץ ומטמיע AI</title>
+  <meta name="description" content="בונה ומטמיע מערכות AI בעסקים ובארגונים. מהאפיון ועד ההטמעה. פרויקטים נבחרים: JVP, Ginger, iPracticom." />
+  <link rel="canonical" href={`${site}/about/`} />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="יובל קשטכר — יועץ ומטמיע AI" />
+  <meta property="og:description" content="בונה ומטמיע מערכות AI בעסקים ובארגונים. מהאפיון ועד ההטמעה." />
+  <meta property="og:image" content={`${site}/avatar.jpg`} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={`${site}/about/`} />
+  <meta name="theme-color" content="#000000" />
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style is:inline>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --x-blue: #1d9bf0;
+      --line: #2f3336;
+      --muted: #71767b;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'Heebo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      background: #000;
+      color: #e7e9ea;
+      display: flex;
+      justify-content: center;
+      padding: 56px 18px 64px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: -260px;
+      inset-inline: 0;
+      margin: auto;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(29,155,240,0.22) 0%, rgba(29,155,240,0) 70%);
+      filter: blur(20px);
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0;
+      animation: glowIn 1.4s ease-out 0.2s forwards;
+    }
+    @keyframes glowIn { to { opacity: 1; } }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .fade {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: fadeUp 0.62s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+    /* --- hero --- */
+    .avatar {
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #16181c;
+      border: 1px solid var(--line);
+      box-shadow: 0 0 0 4px rgba(29,155,240,0.10), 0 10px 40px rgba(0,0,0,0.6);
+      display: block;
+      margin-bottom: 18px;
+    }
+    .name {
+      font-size: 24px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .name .verified { width: 21px; height: 21px; fill: var(--x-blue); }
+    .role {
+      font-size: 16px;
+      color: var(--x-blue);
+      font-weight: 700;
+      margin-top: 6px;
+    }
+    .lead {
+      font-size: 16px;
+      color: #cfd2d4;
+      text-align: center;
+      max-width: 480px;
+      line-height: 1.6;
+      margin: 14px 0 26px;
+    }
+
+    /* --- buttons --- */
+    .cta {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 56px;
+      padding: 14px 30px;
+      background: #25d366;
+      color: #04210f;
+      border: none;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 16.5px;
+      font-weight: 800;
+      font-family: inherit;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+      box-shadow: 0 8px 26px rgba(37,211,102,0.22);
+    }
+    .cta svg { width: 22px; height: 22px; fill: #04210f; }
+    .cta:hover { transform: translateY(-2px); filter: brightness(1.05); box-shadow: 0 12px 32px rgba(37,211,102,0.3); }
+    .cta:active { transform: translateY(0) scale(0.99); }
+
+    /* --- sections --- */
+    section { width: 100%; }
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--line);
+      margin: 44px 0;
+      border: none;
+    }
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.6px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    /* --- stats --- */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      width: 100%;
+    }
+    .stat {
+      background: #16181c;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px 12px;
+      text-align: center;
+    }
+    .stat .num { font-size: 26px; font-weight: 800; color: #fff; line-height: 1.1; }
+    .stat .lbl { font-size: 12.5px; color: var(--muted); margin-top: 8px; line-height: 1.4; }
+
+    /* --- logos --- */
+    .logo-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 22px 40px;
+    }
+    .logo-strip img {
+      height: 30px;
+      width: auto;
+      filter: grayscale(1) brightness(0) invert(1) opacity(0.6);
+      transition: filter 0.25s ease;
+    }
+    .logo-strip img.tall { height: 38px; }
+    .logo-strip img:hover { filter: grayscale(1) brightness(0) invert(1) opacity(1); }
+    .logo-word {
+      font-weight: 800;
+      font-size: 19px;
+      color: #8a9099;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+      transition: color 0.25s ease;
+    }
+    .logo-word.mono { letter-spacing: 2px; font-size: 16px; }
+    .logo-word:hover { color: #e7e9ea; }
+    .logo-mark { display: inline-flex; align-items: center; gap: 8px; }
+
+    /* --- case cards --- */
+    .cases { display: flex; flex-direction: column; gap: 18px; width: 100%; }
+    .case {
+      background: #16181c;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 24px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .case:hover { border-color: #3d4044; transform: translateY(-2px); }
+    .case-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+    .case-name { font-size: 21px; font-weight: 800; color: #fff; }
+    .case-tag {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--x-blue);
+      background: rgba(29,155,240,0.12);
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+    .case-row { margin-bottom: 14px; }
+    .case-row .k {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .case-row .v { font-size: 15px; line-height: 1.6; color: #d6d9db; }
+    .quote {
+      border-inline-start: 3px solid var(--x-blue);
+      padding-inline-start: 14px;
+      margin-top: 16px;
+    }
+    .quote p {
+      font-size: 15.5px;
+      line-height: 1.55;
+      color: #e7e9ea;
+      font-style: italic;
+    }
+    .quote .who { font-size: 13px; color: var(--muted); margin-top: 6px; font-style: normal; font-weight: 700; }
+    .quote + .quote { margin-top: 12px; }
+
+    /* --- closing --- */
+    .closing { text-align: center; }
+    .closing h2 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .closing p { font-size: 15px; color: #cfd2d4; line-height: 1.6; max-width: 420px; margin: 0 auto 22px; }
+
+    .footer {
+      margin-top: 48px;
+      text-align: center;
+    }
+    .footer .brand { font-weight: 800; font-size: 14px; letter-spacing: 0.4px; color: #e7e9ea; }
+    .footer .sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .footer a { color: var(--muted); text-decoration: none; }
+    .footer a:hover { color: var(--x-blue); }
+
+    @media (max-width: 560px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .name { font-size: 22px; }
+      .case { padding: 20px; }
+      .case-name { font-size: 19px; }
+    }
+    @media (max-width: 380px) {
+      .logo-strip { gap: 18px 26px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fade, body::before { animation: none; opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <!-- HERO -->
+    <img class="avatar fade" style="animation-delay:0.05s" src="/avatar.jpg" alt="יובל קשטכר" />
+    <div class="name fade" style="animation-delay:0.12s">
+      יובל קשטכר
+      <svg class="verified" viewBox="0 0 24 24" aria-hidden="true"><path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .494.083.964.237 1.4-1.272.65-2.147 2.018-2.147 3.6 0 1.495.782 2.798 1.942 3.486-.02.17-.032.34-.032.514 0 2.21 1.708 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.334 1.926 2.25 3.437 2.25 1.512 0 2.818-.916 3.437-2.25.415.163.865.248 1.336.248 2.11 0 3.818-1.79 3.818-4 0-.174-.012-.344-.033-.513 1.158-.687 1.943-1.99 1.943-3.484zm-6.616-3.334l-4.334 6.5c-.145.217-.382.334-.625.334-.143 0-.288-.04-.416-.126l-.115-.094-2.415-2.415c-.293-.293-.293-.768 0-1.06s.768-.294 1.06 0l1.77 1.767 3.825-5.74c.23-.345.696-.436 1.04-.207.346.23.44.696.21 1.04z"/></svg>
+    </div>
+    <div class="role fade" style="animation-delay:0.18s">יועץ ומטמיע AI · מהאפיון ועד ההטמעה</div>
+    <p class="lead fade" style="animation-delay:0.24s">אני לפני הכל איש תוכן, ורק אחר כך בונה. לפני עשור הקמתי את UX Writing Hub, בית הספר הבינלאומי לכתיבת חוויית משתמש, עם יותר מאלף בוגרים בחברות הגדולות בעולם, והרצתי את כל העסק על אוטומציות. כשהגיע Claude Code, כל פתרון עסקי שהיה לי בראש פתאום יכול היה לקרות. בניתי מנוע תוכן שהביא מיליוני חשיפות וקהילה של אלפי אנשים, ומשם הגיעו הלקוחות, מייעוץ ועד הטמעה מלאה. היום אני יושב על העסק האמיתי שלכם, מאתר איפה AI באמת מזיז את שורת הרווח, ובונה את המערכת איתכם עד שהיא עובדת, ונשארת אצלכם.</p>
+    <a class="cta fade" style="animation-delay:0.3s" href={waLink} target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.115zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+      דברו איתי בוואטסאפ
+    </a>
+
+    <!-- STATS -->
+    <hr class="divider fade" style="animation-delay:0.34s" />
+    <section class="fade" style="animation-delay:0.36s">
+      <div class="stats">
+        {stats.map((s) => (
+          <div class="stat">
+            <div class="num">{s.num}</div>
+            <div class="lbl">{s.label}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- LOGOS -->
+    <hr class="divider fade" style="animation-delay:0.4s" />
+    <section class="fade" style="animation-delay:0.42s">
+      <div class="section-title">חברות שעבדתי ועובד איתן</div>
+      <div class="logo-strip">
+        <img src="/logos/ginger.svg" alt="Ginger" class="tall" />
+        <img src="/logos/jvp.png" alt="JVP" />
+        <img src="/logos/shenkar.svg" alt="שנקר" class="tall" />
+        <span class="logo-word">Diesenhaus</span>
+        <span class="logo-mark"><img src="/logos/diviners.png" alt="Diviners" style="height:28px" /><span class="logo-word">Diviners</span></span>
+        <span class="logo-word mono">IPRACTICOM</span>
+        <span class="logo-word">Spark Founder Lab</span>
+      </div>
+    </section>
+
+    <!-- CASES -->
+    <hr class="divider fade" style="animation-delay:0.46s" />
+    <section class="fade" style="animation-delay:0.48s">
+      <div class="section-title">פרויקטים נבחרים</div>
+      <div class="cases">
+        {cases.map((c) => (
+          <article class="case">
+            <div class="case-head">
+              <span class="case-name">{c.name}</span>
+              <span class="case-tag">{c.tag}</span>
+            </div>
+            <div class="case-row">
+              <div class="k">מה נבנה</div>
+              <div class="v">{c.built}</div>
+            </div>
+            <div class="case-row">
+              <div class="k">התוצאה</div>
+              <div class="v">{c.outcome}</div>
+            </div>
+            {c.quote && (
+              <div class="quote">
+                <p>“{c.quote}”</p>
+                <div class="who">— {c.who}</div>
+              </div>
+            )}
+            {c.quote2 && (
+              <div class="quote">
+                <p>“{c.quote2}”</p>
+                <div class="who">— {c.who2}</div>
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- CLOSING -->
+    <hr class="divider fade" style="animation-delay:0.52s" />
+    <section class="closing fade" style="animation-delay:0.54s">
+      <h2>יש לכם עסק. יש לי הידע.</h2>
+      <p>בואו נבדוק יחד איפה AI באמת יזיז את המחט אצלכם. שיחה קצרה, בלי התחייבות.</p>
+      <a class="cta" href={waLink} target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.115zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        דברו איתי בוואטסאפ
+      </a>
+    </section>
+
+    <footer class="footer fade" style="animation-delay:0.58s">
+      <div class="brand"><a href="/">yuvkesh</a></div>
+      <div class="sub">בינה מלאכותית עסקית עם יובל קשטכר</div>
+    </footer>
+  </main>
+</body>
+</html>
