@@ -15,7 +15,7 @@ const cases = [
     name: 'JVP',
     tag: 'קרן הון סיכון',
     built: 'בניתי לצוות ה-IR של הקרן סוכן שמייצר אוטומטית מסמך תדרוך מלא על משקיע (LP). הסוכן אוסף מה-CRM, מהרשת ומלינקדאין, מצליב הכול, מצרף ציטוטים ומקורות, ומוציא מסמך מוכן בפורמט של הקרן.',
-    outcome: 'דוח שלקח 7 עד 8 שעות עבודה ידנית נבנה עכשיו בכ-5 דקות, עם דיוק עובדתי של 95% ומעלה. הפרויקט הוצג לשותפי הקרן, כולל היו״ר אראל מרגלית, וקיבל אור ירוק להרחבה.',
+    outcome: 'דוח שלקח שעות עבודה ידנית נבנה עכשיו בכחמש דקות, עם דיוק עובדתי של 95% ומעלה. הפרויקט הוצג לשותפי הקרן, כולל היו״ר אראל מרגלית, וקיבל אור ירוק להרחבה.',
     quote: 'this to me feels like you\'ve figured it out. It looks great.',
     who: 'Lauren Kiel, Investor Relations, JVP',
     quote2: null,
@@ -274,6 +274,34 @@ const jsonLd = {
     .logo-word:hover { color: #e7e9ea; }
     .logo-mark { display: inline-flex; align-items: center; gap: 8px; }
 
+    /* --- four hats --- */
+    .hats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      width: 100%;
+    }
+    .hat {
+      background: #16181c;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .hat:hover { border-color: #3d4044; transform: translateY(-2px); }
+    .hat .hat-ico { font-size: 26px; line-height: 1; }
+    .hat h3 { font-size: 17px; font-weight: 800; color: #fff; margin: 10px 0 6px; }
+    .hat p { font-size: 14px; line-height: 1.55; color: #b8bcbf; }
+    .hats-note {
+      text-align: center;
+      font-size: 15px;
+      color: #cfd2d4;
+      line-height: 1.65;
+      max-width: 540px;
+      margin: 20px auto 0;
+    }
+    .hats-note strong { color: var(--x-blue); }
+
     /* --- case cards --- */
     .cases { display: flex; flex-direction: column; gap: 18px; width: 100%; }
     .case {
@@ -333,6 +361,7 @@ const jsonLd = {
 
     @media (max-width: 560px) {
       .stats { grid-template-columns: repeat(2, 1fr); }
+      .hats { grid-template-columns: 1fr; }
       .name { font-size: 22px; }
       .case { padding: 20px; }
       .case-name { font-size: 19px; }
@@ -386,6 +415,35 @@ const jsonLd = {
         <span class="logo-word mono">IPRACTICOM</span>
         <span class="logo-word">Spark Founder Lab</span>
       </div>
+    </section>
+
+    <!-- METHOD: FOUR HATS -->
+    <hr class="divider fade" style="animation-delay:0.44s" />
+    <section class="fade" style="animation-delay:0.45s">
+      <div class="section-title">כל עסק בנוי מארבעה כובעים</div>
+      <div class="hats">
+        <div class="hat">
+          <div class="hat-ico">📦</div>
+          <h3>מוצר ושירות</h3>
+          <p>שירות טוב יותר ללקוח ומוצר חכם יותר. סוכנים שעונים, מתעדים ופותרים לבד.</p>
+        </div>
+        <div class="hat">
+          <div class="hat-ico">📣</div>
+          <h3>שיווק</h3>
+          <p>מנגנוני שיווק אורגני, ממומן ותוכן. תחום הליבה שלי, עם מיליוני חשיפות מוכחות.</p>
+        </div>
+        <div class="hat">
+          <div class="hat-ico">🤝</div>
+          <h3>מכירות</h3>
+          <p>תהליך מכירה, ניהול לקוח, חיבור ל־CRM ומערכות גבייה וחשבוניות.</p>
+        </div>
+        <div class="hat">
+          <div class="hat-ico">⚙️</div>
+          <h3>תפעול</h3>
+          <p>אקסלים שבורים הופכים לפלטפורמה אחת חיה. אוטומציות שמחליפות עבודה ידנית.</p>
+        </div>
+      </div>
+      <p class="hats-note">מתחילים במיפוי, מאתרים את הניצחון הקרוב, ובונים הצלחות צעד אחרי צעד עד לטרנספורמציה מלאה. המטרה תמיד אחת: <strong>שזה יזיז את שורת הרווח</strong>. לא סוכנים לשם סוכנים.</p>
     </section>
 
     <!-- CASES -->
