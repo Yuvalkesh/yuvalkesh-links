@@ -274,33 +274,14 @@ const jsonLd = {
     .logo-word:hover { color: #e7e9ea; }
     .logo-mark { display: inline-flex; align-items: center; gap: 8px; }
 
-    /* --- four hats --- */
-    .hats {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
+    /* --- four hats infographic --- */
+    .four-hats-img {
       width: 100%;
-    }
-    .hat {
-      background: #16181c;
+      height: auto;
+      display: block;
       border: 1px solid var(--line);
       border-radius: 16px;
-      padding: 20px;
-      transition: border-color 0.2s ease, transform 0.2s ease;
     }
-    .hat:hover { border-color: #3d4044; transform: translateY(-2px); }
-    .hat .hat-ico { font-size: 26px; line-height: 1; }
-    .hat h3 { font-size: 17px; font-weight: 800; color: #fff; margin: 10px 0 6px; }
-    .hat p { font-size: 14px; line-height: 1.55; color: #b8bcbf; }
-    .hats-note {
-      text-align: center;
-      font-size: 15px;
-      color: #cfd2d4;
-      line-height: 1.65;
-      max-width: 540px;
-      margin: 20px auto 0;
-    }
-    .hats-note strong { color: var(--x-blue); }
 
     /* --- case cards --- */
     .cases { display: flex; flex-direction: column; gap: 18px; width: 100%; }
@@ -361,7 +342,6 @@ const jsonLd = {
 
     @media (max-width: 560px) {
       .stats { grid-template-columns: repeat(2, 1fr); }
-      .hats { grid-template-columns: 1fr; }
       .name { font-size: 22px; }
       .case { padding: 20px; }
       .case-name { font-size: 19px; }
@@ -417,33 +397,10 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- METHOD: FOUR HATS -->
+    <!-- METHOD: FOUR HATS (infographic) -->
     <hr class="divider fade" style="animation-delay:0.44s" />
     <section class="fade" style="animation-delay:0.45s">
-      <div class="section-title">כל עסק בנוי מארבעה כובעים</div>
-      <div class="hats">
-        <div class="hat">
-          <div class="hat-ico">📦</div>
-          <h3>מוצר ושירות</h3>
-          <p>שירות טוב יותר ללקוח ומוצר חכם יותר. סוכנים שעונים, מתעדים ופותרים לבד.</p>
-        </div>
-        <div class="hat">
-          <div class="hat-ico">📣</div>
-          <h3>שיווק</h3>
-          <p>מנגנוני שיווק אורגני, ממומן ותוכן. תחום הליבה שלי, עם מיליוני חשיפות מוכחות.</p>
-        </div>
-        <div class="hat">
-          <div class="hat-ico">🤝</div>
-          <h3>מכירות</h3>
-          <p>תהליך מכירה, ניהול לקוח, חיבור ל־CRM ומערכות גבייה וחשבוניות.</p>
-        </div>
-        <div class="hat">
-          <div class="hat-ico">⚙️</div>
-          <h3>תפעול</h3>
-          <p>אקסלים שבורים הופכים לפלטפורמה אחת חיה. אוטומציות שמחליפות עבודה ידנית.</p>
-        </div>
-      </div>
-      <p class="hats-note">מתחילים במיפוי, מאתרים את הניצחון הקרוב, ובונים הצלחות צעד אחרי צעד עד לטרנספורמציה מלאה. המטרה תמיד אחת: <strong>שזה יזיז את שורת הרווח</strong>. לא סוכנים לשם סוכנים.</p>
+      <img class="four-hats-img" src="/four-hats.png" width="1600" height="1200" loading="lazy" alt="ארבעה כובעים: מוצר ושירות, שיווק, מכירות ותפעול — ארבעה מקומות שבהם AI מזיז את שורת הרווח. מתחילים במיפוי, ניצחון ראשון, ועד טרנספורמציה מלאה." />
     </section>
 
     <!-- CASES -->
