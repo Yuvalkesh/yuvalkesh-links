@@ -3,10 +3,27 @@ const site = Astro.site!.href.replace(/\/$/, '');
 
 const bookLink = 'https://calendar.app.google/Y98DRH6TpULmfevM9';
 
-const stats = [
-  { num: '+1,000', label: 'Graduates at the world’s biggest companies' },
-  { num: '11', label: 'Companies in active engagement right now' },
-  { num: 'Millions', label: 'Monthly impressions on content agents write' },
+const hats = [
+  {
+    icon: '📦',
+    title: 'Product & Service',
+    desc: 'Customer-facing agents, service systems, and solutions that improve the experience and the product itself.',
+  },
+  {
+    icon: '📣',
+    title: 'Marketing',
+    desc: 'Content engines, organic and paid systems, the breakthroughs that bring traffic. My strongest field.',
+  },
+  {
+    icon: '🎯',
+    title: 'Sales',
+    desc: 'Sales processes, CRM, call analysis, AI sales coaches, and signal-based intelligence systems.',
+  },
+  {
+    icon: '⚙️',
+    title: 'Operations',
+    desc: 'Automating manual work. Billing, invoices, reports, and processes broken across spreadsheets.',
+  },
 ];
 
 const cases = [
@@ -208,8 +225,8 @@ const jsonLd = {
       gap: 10px;
       min-height: 56px;
       padding: 14px 30px;
-      background: var(--x-blue);
-      color: #03121f;
+      background: #25d366;
+      color: #04210f;
       border: none;
       border-radius: 999px;
       text-decoration: none;
@@ -217,10 +234,10 @@ const jsonLd = {
       font-weight: 800;
       font-family: inherit;
       transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-      box-shadow: 0 8px 26px rgba(29,155,240,0.28);
+      box-shadow: 0 8px 26px rgba(37,211,102,0.22);
     }
-    .cta svg { width: 22px; height: 22px; fill: none; stroke: #03121f; stroke-width: 2; }
-    .cta:hover { transform: translateY(-2px); filter: brightness(1.07); box-shadow: 0 12px 32px rgba(29,155,240,0.36); }
+    .cta svg { width: 22px; height: 22px; fill: none; stroke: #04210f; stroke-width: 2; }
+    .cta:hover { transform: translateY(-2px); filter: brightness(1.05); box-shadow: 0 12px 32px rgba(37,211,102,0.3); }
     .cta:active { transform: translateY(0) scale(0.99); }
 
     /* --- sections --- */
@@ -240,23 +257,6 @@ const jsonLd = {
       text-align: center;
       margin-bottom: 24px;
     }
-
-    /* --- stats --- */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      width: 100%;
-    }
-    .stat {
-      background: #16181c;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 18px 12px;
-      text-align: center;
-    }
-    .stat .num { font-size: 26px; font-weight: 800; color: #fff; line-height: 1.1; }
-    .stat .lbl { font-size: 12.5px; color: var(--muted); margin-top: 8px; line-height: 1.4; }
 
     /* --- logos --- */
     .logo-strip {
@@ -286,14 +286,54 @@ const jsonLd = {
     .logo-word:hover { color: #e7e9ea; }
     .logo-mark { display: inline-flex; align-items: center; gap: 8px; }
 
-    /* --- four hats infographic --- */
-    .four-hats-img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border: 1px solid var(--line);
-      border-radius: 16px;
+    /* --- four hats method --- */
+    .method-head { text-align: center; margin-bottom: 26px; }
+    .method-head h2 { font-size: 23px; font-weight: 800; color: #fff; line-height: 1.25; }
+    .method-head .sub { font-size: 15px; color: var(--x-blue); font-weight: 700; margin-top: 6px; }
+    .method-head .tag {
+      font-size: 14.5px;
+      color: #cfd2d4;
+      line-height: 1.6;
+      max-width: 440px;
+      margin: 12px auto 0;
     }
+    .hats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      width: 100%;
+    }
+    .hat {
+      background: #16181c;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .hat:hover { border-color: #3d4044; transform: translateY(-2px); }
+    .hat .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: rgba(29,155,240,0.10);
+      border: 1px solid rgba(29,155,240,0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+      margin-bottom: 14px;
+    }
+    .hat h3 { font-size: 17.5px; font-weight: 800; color: #fff; margin-bottom: 7px; }
+    .hat p { font-size: 14px; line-height: 1.55; color: #b8bcbf; }
+    .method-foot {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: #cfd2d4;
+      text-align: center;
+      max-width: 480px;
+      margin: 24px auto 0;
+    }
+    .method-foot b { color: #fff; font-weight: 700; }
 
     /* --- case cards --- */
     .cases { display: flex; flex-direction: column; gap: 18px; width: 100%; }
@@ -352,7 +392,7 @@ const jsonLd = {
     .footer a:hover { color: var(--x-blue); }
 
     @media (max-width: 560px) {
-      .stats { grid-template-columns: repeat(2, 1fr); }
+      .hats { grid-template-columns: 1fr; }
       .name { font-size: 22px; }
       .case { padding: 20px; }
       .case-name { font-size: 19px; }
@@ -382,19 +422,6 @@ const jsonLd = {
       Book a meeting
     </a>
 
-    <!-- STATS -->
-    <hr class="divider fade" style="animation-delay:0.34s" />
-    <section class="fade" style="animation-delay:0.36s">
-      <div class="stats">
-        {stats.map((s) => (
-          <div class="stat">
-            <div class="num">{s.num}</div>
-            <div class="lbl">{s.label}</div>
-          </div>
-        ))}
-      </div>
-    </section>
-
     <!-- LOGOS -->
     <hr class="divider fade" style="animation-delay:0.4s" />
     <section class="fade" style="animation-delay:0.42s">
@@ -410,10 +437,24 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- METHOD: FOUR HATS (infographic) -->
+    <!-- METHOD: FOUR HATS (cards) -->
     <hr class="divider fade" style="animation-delay:0.44s" />
     <section class="fade" style="animation-delay:0.45s">
-      <img class="four-hats-img" src="/four-hats-en.svg" width="1600" height="1200" loading="lazy" alt="Four hats: Product & Service, Marketing, Sales and Operations — four places where AI moves the bottom line. Starts with mapping, a first win, all the way to full transformation." />
+      <div class="method-head">
+        <h2>Four Hats</h2>
+        <div class="sub">Four places where AI moves the bottom line</div>
+        <p class="tag">Every company runs on four hats. Map the pain to the right one, score a first win, expand to full transformation.</p>
+      </div>
+      <div class="hats">
+        {hats.map((h) => (
+          <article class="hat">
+            <div class="icon">{h.icon}</div>
+            <h3>{h.title}</h3>
+            <p>{h.desc}</p>
+          </article>
+        ))}
+      </div>
+      <p class="method-foot">Start with mapping, score a <b>first win you feel right away</b>, and expand gradually to full transformation. Every solution is measured by the bottom line, not by tokens.</p>
     </section>
 
     <!-- CASES -->
