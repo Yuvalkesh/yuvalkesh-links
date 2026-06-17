@@ -1,54 +1,48 @@
 ---
 const site = Astro.site!.href.replace(/\/$/, '');
 
-const waMsg = encodeURIComponent('היי יובל, ראיתי את עמוד העבודות שלך ואשמח לדבר על AI לעסק שלי');
-const waLink = `https://wa.me/972526414555?text=${waMsg}`;
+const bookLink = 'https://calendar.app.google/Y98DRH6TpULmfevM9';
 
 const stats = [
-  { num: '+1,000', label: 'בוגרים בחברות הגדולות בעולם' },
-  { num: '11', label: 'חברות בליווי פעיל כרגע' },
-  { num: 'מיליוני', label: 'חשיפות בחודש לתוכן שסוכנים כותבים' },
+  { num: '+1,000', label: 'Graduates at the world’s biggest companies' },
+  { num: '11', label: 'Companies in active engagement right now' },
+  { num: 'Millions', label: 'Monthly impressions on content agents write' },
 ];
 
 const cases = [
   {
     name: 'JVP',
-    tag: 'קרן הון סיכון',
-    built: 'בניתי לצוות ה-IR של הקרן סוכן שמייצר אוטומטית מסמך תדרוך מלא על משקיע (LP). הסוכן אוסף מה-CRM, מהרשת ומלינקדאין, מצליב הכול, מצרף ציטוטים ומקורות, ומוציא מסמך מוכן בפורמט של הקרן.',
-    outcome: 'דוח שלקח שעות עבודה ידנית נבנה עכשיו בכחמש דקות, עם דיוק עובדתי של 95% ומעלה. הפרויקט הוצג לשותפי הקרן, כולל היו״ר אראל מרגלית, וקיבל אור ירוק להרחבה.',
-    quote: 'this to me feels like you\'ve figured it out. It looks great.',
+    tag: 'Venture Capital',
+    built: 'I built the fund’s IR team an agent that automatically produces a full briefing document on an investor (LP). It pulls from the CRM, the web and LinkedIn, cross-references everything, attaches quotes and sources, and outputs a ready document in the fund’s own format.',
+    outcome: 'A report that took hours of manual work is now built in about five minutes, with factual accuracy of 95% and above. It was presented to the fund’s partners, including chairman Erel Margalit, and got the green light to expand.',
+    quote: 'this to me feels like you’ve figured it out. It looks great.',
     who: 'Lauren Kiel, Investor Relations, JVP',
-    quote2: null,
-    who2: null,
   },
   {
     name: 'Ginger Insurance',
-    tag: 'אינשורטק',
-    built: 'בניתי סוכן AI מול לקוחות הקצה שלא רק עונה על שאלות אלא מבצע פעולות. הוא שולח בקשה לאישור MRI במייל ללקוח ולחברה, וקובע שיחה חיה עם מנהל תיק. בנינו גם מנגנון בדיקות (eval) והטמעה מבודדת בתוך המערכת של ג\'ינג\'ר.',
-    outcome: 'הסוכן עלה לאוויר ומבצע פעולות אמת בסביבת הייצור, כולל פתיחת בקשות וקביעת פגישות מול הלקוח.',
-    quote: 'וואו. זה מדהים. זה מדהים.',
-    who: 'אושרת בן משה, מנכ״לית ומייסדת, Ginger',
-    quote2: null,
-    who2: null,
+    tag: 'Insurtech',
+    built: 'I built an AI agent for end customers that doesn’t just answer questions but takes real actions. It sends an MRI approval request by email to both the customer and the company, and books a live call with a case manager. We also built an eval mechanism and an isolated embed inside Ginger’s system.',
+    outcome: 'The agent went live and performs real actions in production, including opening requests and booking meetings with the customer.',
+    quote: 'Wow. This is amazing. This is amazing.',
+    who: 'Oshrat Ben Moshe, CEO and Founder, Ginger',
   },
   {
     name: 'iPracticom',
-    tag: 'חברת תקשורת',
-    built: 'בניתי "מוח שיווקי" מבוסס ארבע מיומנויות (קריאייטיב ← תוכן ← תזמון ← ניטור) על ארכיטקטורת ויקי, שנועד להחליף סוכנות שיווק חיצונית. המערכת מייצרת פוסטים וגרפיקות חיות, והעבודה התרחבה למוח ארגוני רוחבי.',
-    outcome: 'המערכת עובדת ומפיקה פוסטים בפועל, והמנכ״ל ביקש להרחיב אותה למוח ארגוני רוחבי לכל החברה, שישרת גם את מערך השירות.',
+    tag: 'Telecom',
+    built: 'I built a “marketing brain” based on four skills (creative → content → scheduling → monitoring) on a wiki architecture, designed to replace an external marketing agency. The system produces live posts and graphics.',
+    outcome: 'The system works and produces posts in practice, and the CEO asked to expand it into a company-wide organizational brain that would also serve the support team.',
     quote: null,
     who: null,
-    quote2: null,
-    who2: null,
   },
 ];
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ProfilePage',
-  '@id': `${site}/about/#profilepage`,
-  url: `${site}/about/`,
-  name: 'יובל קשטכר — יועץ ומטמיע AI',
+  '@id': `${site}/about-en/#profilepage`,
+  url: `${site}/about-en/`,
+  name: 'Yuval Keshtcher — AI Consultant & Implementer',
+  inLanguage: 'en',
   mainEntity: {
     '@type': 'Person',
     '@id': `${site}/#person`,
@@ -57,7 +51,7 @@ const jsonLd = {
     url: `${site}/`,
     image: `${site}/avatar.jpg`,
     jobTitle: 'AI Consultant & Implementer',
-    description: 'בונה ומטמיע מערכות AI בעסקים ובארגונים. מהאפיון ועד ההטמעה.',
+    description: 'Builds and implements AI systems for businesses and organizations. From mapping to full implementation.',
     knowsAbout: ['Artificial Intelligence', 'AI Agents', 'Automation', 'Product', 'UX'],
     sameAs: [
       'https://x.com/Parzival_1991',
@@ -68,29 +62,29 @@ const jsonLd = {
 };
 ---
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>יובל קשטכר — יועץ ומטמיע AI</title>
-  <meta name="description" content="בונה ומטמיע מערכות AI בעסקים ובארגונים. מהאפיון ועד ההטמעה. פרויקטים נבחרים: JVP, Ginger, iPracticom." />
-  <link rel="canonical" href={`${site}/about/`} />
-  <link rel="alternate" hreflang="he" href={`${site}/about/`} />
+  <title>Yuval Keshtcher — AI Consultant & Implementer</title>
+  <meta name="description" content="Builds and implements AI systems for businesses and organizations. From mapping to full implementation. Selected projects: JVP, Ginger, iPracticom." />
+  <link rel="canonical" href={`${site}/about-en/`} />
   <link rel="alternate" hreflang="en" href={`${site}/about-en/`} />
+  <link rel="alternate" hreflang="he" href={`${site}/about/`} />
   <link rel="alternate" hreflang="x-default" href={`${site}/about-en/`} />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="יובל קשטכר — יועץ ומטמיע AI" />
-  <meta property="og:description" content="בונה ומטמיע מערכות AI בעסקים ובארגונים. מהאפיון ועד ההטמעה." />
+  <meta property="og:title" content="Yuval Keshtcher — AI Consultant & Implementer" />
+  <meta property="og:description" content="Builds and implements AI systems for businesses and organizations. From mapping to full implementation." />
   <meta property="og:image" content={`${site}/avatar.jpg`} />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content={`${site}/about/`} />
+  <meta property="og:url" content={`${site}/about-en/`} />
   <meta name="theme-color" content="#000000" />
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <style is:inline>
     * {
@@ -109,7 +103,7 @@ const jsonLd = {
     html, body { height: 100%; }
 
     body {
-      font-family: 'Heebo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       min-height: 100vh;
       background: #000;
       color: #e7e9ea;
@@ -214,8 +208,8 @@ const jsonLd = {
       gap: 10px;
       min-height: 56px;
       padding: 14px 30px;
-      background: #25d366;
-      color: #04210f;
+      background: var(--x-blue);
+      color: #03121f;
       border: none;
       border-radius: 999px;
       text-decoration: none;
@@ -223,10 +217,10 @@ const jsonLd = {
       font-weight: 800;
       font-family: inherit;
       transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-      box-shadow: 0 8px 26px rgba(37,211,102,0.22);
+      box-shadow: 0 8px 26px rgba(29,155,240,0.28);
     }
-    .cta svg { width: 22px; height: 22px; fill: #04210f; }
-    .cta:hover { transform: translateY(-2px); filter: brightness(1.05); box-shadow: 0 12px 32px rgba(37,211,102,0.3); }
+    .cta svg { width: 22px; height: 22px; fill: none; stroke: #03121f; stroke-width: 2; }
+    .cta:hover { transform: translateY(-2px); filter: brightness(1.07); box-shadow: 0 12px 32px rgba(29,155,240,0.36); }
     .cta:active { transform: translateY(0) scale(0.99); }
 
     /* --- sections --- */
@@ -342,7 +336,6 @@ const jsonLd = {
       font-style: italic;
     }
     .quote .who { font-size: 13px; color: var(--muted); margin-top: 6px; font-style: normal; font-weight: 700; }
-    .quote + .quote { margin-top: 12px; }
 
     /* --- closing --- */
     .closing { text-align: center; }
@@ -374,19 +367,19 @@ const jsonLd = {
 </head>
 <body>
   <main class="container">
-    <a class="lang fade" style="animation-delay:0.02s" href="/about-en/">English</a>
+    <a class="lang fade" style="animation-delay:0.02s" href="/about/">עברית</a>
 
     <!-- HERO -->
-    <img class="avatar fade" style="animation-delay:0.05s" src="/avatar.jpg" alt="יובל קשטכר" />
+    <img class="avatar fade" style="animation-delay:0.05s" src="/avatar.jpg" alt="Yuval Keshtcher" />
     <div class="name fade" style="animation-delay:0.12s">
-      יובל קשטכר
+      Yuval Keshtcher
       <svg class="verified" viewBox="0 0 24 24" aria-hidden="true"><path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .494.083.964.237 1.4-1.272.65-2.147 2.018-2.147 3.6 0 1.495.782 2.798 1.942 3.486-.02.17-.032.34-.032.514 0 2.21 1.708 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.334 1.926 2.25 3.437 2.25 1.512 0 2.818-.916 3.437-2.25.415.163.865.248 1.336.248 2.11 0 3.818-1.79 3.818-4 0-.174-.012-.344-.033-.513 1.158-.687 1.943-1.99 1.943-3.484zm-6.616-3.334l-4.334 6.5c-.145.217-.382.334-.625.334-.143 0-.288-.04-.416-.126l-.115-.094-2.415-2.415c-.293-.293-.293-.768 0-1.06s.768-.294 1.06 0l1.77 1.767 3.825-5.74c.23-.345.696-.436 1.04-.207.346.23.44.696.21 1.04z"/></svg>
     </div>
-    <div class="role fade" style="animation-delay:0.18s">יועץ ומטמיע AI · מהאפיון ועד ההטמעה</div>
-    <p class="lead fade" style="animation-delay:0.24s">לפני עשור הקמתי את UX Writing Hub, בית הספר הבינלאומי לכתיבת חוויית משתמש, עם יותר מאלף בוגרים בחברות הגדולות בעולם, והרצתי את כל העסק על אוטומציות. כשהגיע Claude Code, כל פתרון עסקי שהיה לי בראש פתאום יכול היה לקרות. בניתי מנוע תוכן שהביא מיליוני חשיפות וקהילה של אלפי אנשים, ומשם הגיעו הלקוחות, מייעוץ ועד הטמעה מלאה. היום אני יושב על העסק האמיתי שלכם, מאתר איפה AI באמת מזיז את שורת הרווח, ובונה את המערכת איתכם עד שהיא עובדת, ונשארת אצלכם.</p>
-    <a class="cta fade" style="animation-delay:0.3s" href={waLink} target="_blank" rel="noopener noreferrer">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.115zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-      דברו איתי בוואטסאפ
+    <div class="role fade" style="animation-delay:0.18s">AI Consultant & Implementer · From mapping to full implementation</div>
+    <p class="lead fade" style="animation-delay:0.24s">A decade ago I founded UX Writing Hub, the international school for UX writing, with more than a thousand graduates at the world’s biggest companies, and I ran the whole business on automations. When Claude Code arrived, every business solution I had in my head suddenly became possible. I built a content engine that brought millions of impressions and a community of thousands, and that’s where the clients came from, from advisory all the way to full implementation. Today I sit on your real business, find where AI actually moves the bottom line, and build the system with you until it works, and stays with you.</p>
+    <a class="cta fade" style="animation-delay:0.3s" href={bookLink} target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2.5" x2="8" y2="6.5"/><line x1="16" y1="2.5" x2="16" y2="6.5"/></svg>
+      Book a meeting
     </a>
 
     <!-- STATS -->
@@ -405,11 +398,11 @@ const jsonLd = {
     <!-- LOGOS -->
     <hr class="divider fade" style="animation-delay:0.4s" />
     <section class="fade" style="animation-delay:0.42s">
-      <div class="section-title">חברות שעבדתי ועובד איתן</div>
+      <div class="section-title">COMPANIES I'VE WORKED AND WORK WITH</div>
       <div class="logo-strip">
         <img src="/logos/ginger.svg" alt="Ginger" class="tall" />
         <img src="/logos/jvp.png" alt="JVP" />
-        <img src="/logos/shenkar.svg" alt="שנקר" class="tall" />
+        <img src="/logos/shenkar.svg" alt="Shenkar" class="tall" />
         <span class="logo-word">Diesenhaus</span>
         <span class="logo-mark"><img src="/logos/diviners.png" alt="Diviners" style="height:28px" /><span class="logo-word">Diviners</span></span>
         <span class="logo-word mono">IPRACTICOM</span>
@@ -420,13 +413,13 @@ const jsonLd = {
     <!-- METHOD: FOUR HATS (infographic) -->
     <hr class="divider fade" style="animation-delay:0.44s" />
     <section class="fade" style="animation-delay:0.45s">
-      <img class="four-hats-img" src="/four-hats.png" width="1600" height="1200" loading="lazy" alt="ארבעה כובעים: מוצר ושירות, שיווק, מכירות ותפעול — ארבעה מקומות שבהם AI מזיז את שורת הרווח. מתחילים במיפוי, ניצחון ראשון, ועד טרנספורמציה מלאה." />
+      <img class="four-hats-img" src="/four-hats-en.svg" width="1600" height="1200" loading="lazy" alt="Four hats: Product & Service, Marketing, Sales and Operations — four places where AI moves the bottom line. Starts with mapping, a first win, all the way to full transformation." />
     </section>
 
     <!-- CASES -->
     <hr class="divider fade" style="animation-delay:0.46s" />
     <section class="fade" style="animation-delay:0.48s">
-      <div class="section-title">פרויקטים נבחרים</div>
+      <div class="section-title">SELECTED PROJECTS</div>
       <div class="cases">
         {cases.map((c) => (
           <article class="case">
@@ -435,23 +428,17 @@ const jsonLd = {
               <span class="case-tag">{c.tag}</span>
             </div>
             <div class="case-row">
-              <div class="k">מה נבנה</div>
+              <div class="k">WHAT I BUILT</div>
               <div class="v">{c.built}</div>
             </div>
             <div class="case-row">
-              <div class="k">התוצאה</div>
+              <div class="k">THE OUTCOME</div>
               <div class="v">{c.outcome}</div>
             </div>
             {c.quote && (
               <div class="quote">
                 <p>“{c.quote}”</p>
                 <div class="who">— {c.who}</div>
-              </div>
-            )}
-            {c.quote2 && (
-              <div class="quote">
-                <p>“{c.quote2}”</p>
-                <div class="who">— {c.who2}</div>
               </div>
             )}
           </article>
@@ -462,17 +449,17 @@ const jsonLd = {
     <!-- CLOSING -->
     <hr class="divider fade" style="animation-delay:0.52s" />
     <section class="closing fade" style="animation-delay:0.54s">
-      <h2>יש לכם עסק. יש לי הידע.</h2>
-      <p>בואו נבדוק יחד איפה AI באמת יזיז את המחט אצלכם. שיחה קצרה, בלי התחייבות.</p>
-      <a class="cta" href={waLink} target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.115zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-        דברו איתי בוואטסאפ
+      <h2>You have a business. I have the know-how.</h2>
+      <p>Let’s figure out together where AI will actually move the needle for you. A short call, no commitment.</p>
+      <a class="cta" href={bookLink} target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2.5" x2="8" y2="6.5"/><line x1="16" y1="2.5" x2="16" y2="6.5"/></svg>
+        Book a meeting
       </a>
     </section>
 
     <footer class="footer fade" style="animation-delay:0.58s">
       <div class="brand"><a href="/">yuvkesh</a></div>
-      <div class="sub">בינה מלאכותית עסקית עם יובל קשטכר</div>
+      <div class="sub">Business AI with Yuval Keshtcher</div>
     </footer>
   </main>
 </body>
