@@ -1,0 +1,423 @@
+---
+const site = Astro.site!.href.replace(/\/$/, '');
+
+const waMsg = encodeURIComponent('היי יובל, בהמשך לשיחה על יום האפיון לזאפ');
+const waLink = `https://wa.me/972526414555?text=${waMsg}`;
+
+const recap = [
+  {
+    t: 'מה חיפשתם',
+    d: 'פתרון סוכנים סקיילבילי ל-Agency של זאפ, שנותנת שירותי SEO, PPC ו-Social להרבה מאוד לקוחות. האתגר המרכזי שעלה: הפרדת קונטקסט מלאה פר לקוח, בלי Data Pollution בין חשבונות.',
+  },
+  {
+    t: 'מה הצעתי',
+    d: 'לא מתחילים מפיתוח. מתחילים מיום אפיון אחד שממפה את ה-workflows של האג׳נסי, מזהה איפה סוכנים באמת חוסכים שעות, ובודק את הכלכלה של זה. כולל כלכלת טוקנים: כמה עולה לייצר כל תוצר, ומתי זה מפסיק להשתלם.',
+  },
+  {
+    t: 'העיקרון שלי',
+    d: 'בינה מלאכותית עסקית. לא יוצאים לפרויקט שלא מרוויח את עצמו. חלק מהאפיון הוא להוכיח שהפתרון כלכלי לכם, לפני שנכתבת שורת קוד אחת.',
+  },
+];
+
+const includes = [
+  'יום עבודה מלא אצלכם: פגישות עם המחלקות הרלוונטיות וראיונות עם האנשים שעושים את העבודה',
+  'מיפוי workflows מלא של האג׳נסי, כולל נקודות ההפרדה הנדרשות בין לקוחות',
+  'ניתוח כלכלת טוקנים: עלות פר תוצר מול החיסכון בשעות, כדי לוודא שהפרויקט רווחי מהיום הראשון',
+  'מסמך עבודה מסודר שאתם יכולים לרוץ איתו, איתי או בלעדיי',
+];
+
+const proof = [
+  {
+    name: 'JVP',
+    tag: 'קרן הון סיכון',
+    d: 'סוכן שמכין מסמך תדריך מלא על משקיע לפני פגישה. אוסף מה-CRM, מלינקדאין ומהרשת, מצליב ומצרף מקורות. הכנה שלקחה שעות קורה היום בחמש דקות, בעלות של כדולר למסמך.',
+  },
+  {
+    name: 'Executive Search',
+    tag: 'חברת השמה, 15 יועצים',
+    d: 'מערכת שנבנתה על Base44, באגית ולא מאובטחת, נבנתה מחדש בכמה ימי עבודה. עכשיו על התשתית הזאת נבנים פתרונות סוכנים בארבעה שלבים מתוכננים.',
+  },
+  {
+    name: 'חברה ביטחונית',
+    tag: 'מפעל של 100 עובדים',
+    d: 'פרויקט הטמעה ארגוני שנסגר לאחרונה. פתרונות מאובטחים, כולל pen testing, בתוך הסביבה של הלקוח.',
+  },
+];
+---
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>זאפ × יובל קשטכר — סיכום שיחה והצעת מחיר ליום אפיון</title>
+  <meta name="description" content="סיכום השיחה עם אבירם והצעת מחיר ליום אפיון: 8,000 ₪ + מע״מ." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#000000" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style is:inline>
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    :root {
+      --x-blue: #1d9bf0;
+      --line: #2f3336;
+      --muted: #71767b;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'Heebo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      background: #000;
+      color: #e7e9ea;
+      display: flex;
+      justify-content: center;
+      padding: 56px 18px 64px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: -260px;
+      inset-inline: 0;
+      margin: auto;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(29,155,240,0.22) 0%, rgba(29,155,240,0) 70%);
+      filter: blur(20px);
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0;
+      animation: glowIn 1.4s ease-out 0.2s forwards;
+    }
+    @keyframes glowIn { to { opacity: 1; } }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .fade {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: fadeUp 0.62s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+    .doc-tag {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--x-blue);
+      background: rgba(29,155,240,0.12);
+      padding: 5px 14px;
+      border-radius: 999px;
+      letter-spacing: 0.4px;
+      margin-bottom: 18px;
+    }
+
+    .avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #16181c;
+      border: 1px solid var(--line);
+      box-shadow: 0 0 0 4px rgba(29,155,240,0.10), 0 10px 40px rgba(0,0,0,0.6);
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      text-align: center;
+      line-height: 1.35;
+    }
+    .sub {
+      font-size: 15.5px;
+      color: #cfd2d4;
+      text-align: center;
+      max-width: 480px;
+      line-height: 1.6;
+      margin: 12px 0 26px;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 56px;
+      padding: 14px 30px;
+      background: #25d366;
+      color: #04210f;
+      border: none;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 16.5px;
+      font-weight: 800;
+      font-family: inherit;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+      box-shadow: 0 8px 26px rgba(37,211,102,0.22);
+    }
+    .cta svg { width: 22px; height: 22px; fill: #04210f; }
+    .cta:hover { transform: translateY(-2px); filter: brightness(1.05); box-shadow: 0 12px 32px rgba(37,211,102,0.3); }
+    .cta:active { transform: translateY(0) scale(0.99); }
+
+    section { width: 100%; }
+    .divider { width: 100%; height: 1px; background: var(--line); margin: 42px 0; border: none; }
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.6px;
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .cards { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+    .card {
+      background: #16181c;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      transition: border-color 0.2s ease;
+    }
+    .card:hover { border-color: #3d4044; }
+    .card .k { font-size: 13px; font-weight: 800; color: var(--x-blue); margin-bottom: 6px; }
+    .card .v { font-size: 15px; line-height: 1.65; color: #d6d9db; }
+
+    /* --- price quote box --- */
+    .quote-box {
+      width: 100%;
+      background: linear-gradient(180deg, rgba(29,155,240,0.10) 0%, rgba(22,24,28,1) 60%);
+      border: 1px solid rgba(29,155,240,0.45);
+      border-radius: 22px;
+      padding: 30px 26px;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(29,155,240,0.08);
+    }
+    .quote-box .what { font-size: 17px; font-weight: 800; color: #fff; }
+    .quote-box .price {
+      font-size: 44px;
+      font-weight: 800;
+      color: #fff;
+      margin: 10px 0 2px;
+      line-height: 1.1;
+    }
+    .quote-box .vat { font-size: 14px; color: var(--muted); font-weight: 700; margin-bottom: 22px; }
+    .quote-box ul {
+      list-style: none;
+      text-align: right;
+      max-width: 500px;
+      margin: 0 auto 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .quote-box li {
+      font-size: 14.5px;
+      line-height: 1.6;
+      color: #d6d9db;
+      padding-inline-start: 26px;
+      position: relative;
+    }
+    .quote-box li::before {
+      content: "✓";
+      position: absolute;
+      inset-inline-start: 0;
+      color: var(--x-blue);
+      font-weight: 800;
+    }
+    .quote-box .after {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 460px;
+      margin: 18px auto 0;
+    }
+
+    .proof-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+    .proof-name { font-size: 18px; font-weight: 800; color: #fff; }
+    .proof-tag {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--x-blue);
+      background: rgba(29,155,240,0.12);
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .logo-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 22px 40px;
+    }
+    .logo-strip img {
+      height: 30px;
+      width: auto;
+      filter: grayscale(1) brightness(0) invert(1) opacity(0.6);
+      transition: filter 0.25s ease;
+    }
+    .logo-strip img.tall { height: 38px; }
+    .logo-strip img:hover { filter: grayscale(1) brightness(0) invert(1) opacity(1); }
+    .logo-word {
+      font-weight: 800;
+      font-size: 19px;
+      color: #8a9099;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+      transition: color 0.25s ease;
+    }
+    .logo-word.mono { letter-spacing: 2px; font-size: 16px; }
+    .logo-word:hover { color: #e7e9ea; }
+    .logo-mark { display: inline-flex; align-items: center; gap: 8px; }
+
+    .about-me {
+      font-size: 15px;
+      color: #cfd2d4;
+      line-height: 1.7;
+      text-align: center;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    .closing { text-align: center; }
+    .closing h2 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .closing p { font-size: 15px; color: #cfd2d4; line-height: 1.6; max-width: 420px; margin: 0 auto 22px; }
+
+    .footer { margin-top: 48px; text-align: center; }
+    .footer .brand { font-weight: 800; font-size: 14px; letter-spacing: 0.4px; }
+    .footer .brand a { color: #e7e9ea; text-decoration: none; }
+    .footer .sub2 { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    @media (max-width: 560px) {
+      h1 { font-size: 22px; }
+      .quote-box .price { font-size: 38px; }
+      .card { padding: 20px; }
+    }
+    @media (max-width: 380px) {
+      .logo-strip { gap: 18px 26px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fade, body::before { animation: none; opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+
+    <!-- HERO -->
+    <div class="doc-tag fade" style="animation-delay:0.02s">סיכום שיחה + הצעת מחיר · זאפ</div>
+    <img class="avatar fade" style="animation-delay:0.05s" src="/avatar.jpg" alt="יובל קשטכר" />
+    <h1 class="fade" style="animation-delay:0.1s">אבירם, היה מעולה לדבר.<br />הנה הסיכום, קצר ולעניין.</h1>
+    <p class="sub fade" style="animation-delay:0.16s">דיברנו על סוכני AI לאג׳נסי של זאפ. הצעד הראשון שהצעתי הוא יום אפיון אחד, שבסופו יש לכם מסמך עבודה ותשובה ברורה: איפה זה משתלם, כמה זה עולה, ואיך בונים את זה נכון.</p>
+    <a class="cta fade" style="animation-delay:0.22s" href={waLink} target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.115zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+      דברו איתי
+    </a>
+
+    <!-- RECAP -->
+    <hr class="divider fade" style="animation-delay:0.26s" />
+    <section class="fade" style="animation-delay:0.28s">
+      <div class="section-title">מה עלה בשיחה</div>
+      <div class="cards">
+        {recap.map((r) => (
+          <div class="card">
+            <div class="k">{r.t}</div>
+            <div class="v">{r.d}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- PRICE QUOTE -->
+    <hr class="divider fade" style="animation-delay:0.32s" />
+    <section class="fade" style="animation-delay:0.34s">
+      <div class="section-title">הצעת המחיר</div>
+      <div class="quote-box">
+        <div class="what">יום אפיון</div>
+        <div class="price">8,000 ₪</div>
+        <div class="vat">+ מע״מ</div>
+        <ul>
+          {includes.map((i) => <li>{i}</li>)}
+        </ul>
+        <a class="cta" href={waLink} target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.115zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          סוגרים תאריך
+        </a>
+        <p class="after">פרויקט ההמשך, אם תרצו, מתומחר פרויקטלית על בסיס מסמך האפיון. יוצאים אליו רק כשברור שהוא מרוויח את עצמו.</p>
+      </div>
+    </section>
+
+    <!-- PROOF -->
+    <hr class="divider fade" style="animation-delay:0.38s" />
+    <section class="fade" style="animation-delay:0.4s">
+      <div class="section-title">דוגמאות שדיברנו עליהן</div>
+      <div class="cards">
+        {proof.map((p) => (
+          <article class="card">
+            <div class="proof-head">
+              <span class="proof-name">{p.name}</span>
+              <span class="proof-tag">{p.tag}</span>
+            </div>
+            <div class="v">{p.d}</div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- LOGOS + ABOUT -->
+    <hr class="divider fade" style="animation-delay:0.44s" />
+    <section class="fade" style="animation-delay:0.46s">
+      <div class="section-title">חברות שעבדתי ועובד איתן</div>
+      <div class="logo-strip">
+        <img src="/logos/ginger.svg" alt="Ginger" class="tall" />
+        <img src="/logos/jvp.png" alt="JVP" />
+        <img src="/logos/shenkar.svg" alt="שנקר" class="tall" />
+        <span class="logo-word">Diesenhaus</span>
+        <span class="logo-mark"><img src="/logos/diviners.png" alt="Diviners" style="height:28px" /><span class="logo-word">Diviners</span></span>
+        <span class="logo-word mono">IPRACTICOM</span>
+        <span class="logo-word">Spark Founder Lab</span>
+      </div>
+    </section>
+
+    <hr class="divider fade" style="animation-delay:0.5s" />
+    <section class="fade" style="animation-delay:0.52s">
+      <div class="section-title">מי אני בשתי שורות</div>
+      <p class="about-me">הקמתי את UX Writing Hub, בית ספר בינלאומי עם יותר מאלף בוגרים בחברות הגדולות בעולם. היום אני בונה ומטמיע מערכות AI בארגונים, מהאפיון ועד ההטמעה, עם צוות של ארבעה מפתחים ו11 חברות בליווי פעיל. <a href="/about/" style="color:var(--x-blue);text-decoration:none;font-weight:700;">העמוד המלא כאן</a>.</p>
+    </section>
+
+    <!-- CLOSING -->
+    <hr class="divider fade" style="animation-delay:0.56s" />
+    <section class="closing fade" style="animation-delay:0.58s">
+      <h2>הצעד הבא פשוט</h2>
+      <p>שיחה קצרה עם בעלי העניין אצלכם, סוגרים תאריך ליום האפיון, ומשם יש לכם מסמך עבודה ביד.</p>
+      <a class="cta" href={waLink} target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.115zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        דברו איתי
+      </a>
+    </section>
+
+    <footer class="footer fade" style="animation-delay:0.62s">
+      <div class="brand"><a href="/">yuvkesh</a></div>
+      <div class="sub2">בינה מלאכותית עסקית עם יובל קשטכר</div>
+    </footer>
+  </main>
+</body>
+</html>
