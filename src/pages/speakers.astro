@@ -1,0 +1,313 @@
+---
+const site = Astro.site!.href.replace(/\/$/, '');
+
+const principles = [
+  {
+    n: '01',
+    title: 'תכיר את החדר לפני שאתה נוגע בשקופית',
+    body: 'לפני שאתה בכלל פותח את המצגת, כתוב משפט אחד: מי יושב באולם, מה הוא כבר יודע, ומה הוא רוצה. בלופ, כל מי שבחדר כבר עשה סדנה, כבר יודע מה זה סוכן, וכבר יש לו את התשתית. אז הרצאה שמסבירה "מה זה אֵיג\'נט" מבזבזת את החדר. תניח שהתשתית קיימת, ותבנה מעליה.',
+    quote: 'מה שהכי חשוב זה להכיר את החדר. להבין מול מי אנחנו מדברים. זה ה־ICP שלנו. זה בן אדם או בת אדם.',
+  },
+  {
+    n: '02',
+    title: 'תמה אחת. איקס אחד. זה מה שהם לוקחים הביתה',
+    body: 'עשר דקות זה לא מספיק בשביל שני רעיונות. אם תנסה להעביר שניים, לא יישאר אף אחד. תבחר X אחד ותחזיק אותו בראש לאורך כל ההרצאה. וכשתלך לאיבוד בשקופית או בדמו, וזה יקרה, ה־X הוא מה שמחזיר אותך לקרקע.',
+    quote: 'בלי קשר למצגת או לדמו, צריך שתהיה תמה אחת בראש שלכם. הדבר האחד שהם הולכים לקבל זה X. ותחשבו מה זה האיקס הזה.',
+  },
+  {
+    n: '03',
+    title: 'תתחיל מהאימפקט העסקי, לא מהמכניקה',
+    body: '"מה אפשר לבנות" זה בסיס. "ככה זה הרוויח לי כסף, גייס לי לקוחות, או פינה לי זמן" זה הבשר. קל להתמכר לג\'נרוט אינסופי של פלטפורמות. זה כיף, אבל מה שמבדיל אותך מכל מי שכותב "תראו מה בניתי" זה האימפקט. תן Case Study עם מספר.',
+    quote: 'אני יכול למצוא את עצמי כמו מכור שכל היום לוחץ ולא מפסיק לג\'נרט. אבל מה שמעניין זה האימפקט העסקי של הדבר הזה. זה הבשר.',
+  },
+  {
+    n: '04',
+    title: 'תשלח את הקהל הביתה עם מתנה',
+    body: 'בעידן ה־AI אתה יכול לתת לכל החדר משהו עובד בסוף ההרצאה. מיני־אפליקציה, סקיל, קובצי MD. השיווק הכי טוב הוא ערך ללא תנאי, ואז הם באים אליך מעצמם. תעצב את המתנה כך שהיא תהיה ה־X שלך, רק נייד.',
+    quote: 'השיווק הכי טוב בסופו של דבר זה לתת לאנשים ערך ללא תנאי. שפע שאתם מוציאים החוצה, אנשים רוצים עוד מזה.',
+  },
+  {
+    n: '05',
+    title: 'תראה את המספר. תספר את הסיפור',
+    body: 'שים שתי גרסאות אחת ליד השנייה ותראה את המספר. פי עשר עובד יותר טוב מכל טענה. ותן שליש מהזמן לסיפור שלך, כולל הכישלונות בדרך. זה מה שהופך את זה לאנושי. בסוף אנחנו ה־humans שבתוך הסוכנים.',
+    quote: 'Storytelling שמספר גם כישלונות זה דבר טוב. דבר שניסיתי ולא צלח, זה מה שהופך את זה לאנושי.',
+  },
+];
+
+const checklist = [
+  'כתבתי במשפט אחד מי יושב בחדר ומה הוא כבר יודע',
+  'יש לי X אחד ברור שאני חוזר אליו בפתיחה ובסגירה',
+  'הפתיחה שלי היא אימפקט, לא ארכיטקטורה',
+  'יש מספר אחד אמיתי שאני מראה על המסך',
+  'שליש מהזמן זה הסיפור שלי, כולל מה שנכשל',
+  'הכנתי מתנה עובדת לסוף ההרצאה',
+  'אם הדמו ייתקע, התמה מחזירה אותי לקרקע',
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'איך להעביר הרצאה של עשר דקות שאנשים זוכרים',
+  description: 'חמישה כללים למרצים באירועי AI, מתוך שיחת הכנה של יובל קשטכר עם דוברי The Loop.',
+  inLanguage: 'he',
+  author: { '@type': 'Person', name: 'Yuval Keshtcher', url: site },
+  publisher: { '@type': 'Person', name: 'Yuval Keshtcher', url: site },
+  mainEntityOfPage: `${site}/speakers/`,
+};
+---
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>מדריך למרצים · The Loop | yuvkesh</title>
+  <meta name="description" content="חמישה כללים למרצים באירועי AI, מתוך שיחת ההכנה של יובל קשטכר עם דוברי The Loop. תכיר את החדר, תמה אחת, אימפקט לפני מכניקה, מתנה בסוף, ומספר + סיפור." />
+  <link rel="canonical" href={`${site}/speakers/`} />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="מדריך למרצים · The Loop" />
+  <meta property="og:description" content="חמישה כללים למרצים באירועי AI, מתוך שיחת ההכנה של יובל קשטכר עם דוברי The Loop." />
+  <meta property="og:image" content={`${site}/avatar.jpg`} />
+  <meta property="og:url" content={`${site}/speakers/`} />
+  <meta name="theme-color" content="#000000" />
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style is:inline>
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    :root { --x-blue: #1d9bf0; --line: #2f3336; --muted: #71767b; --card: #16181c; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Heebo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #000;
+      color: #e7e9ea;
+      min-height: 100vh;
+      padding: 40px 18px 72px;
+      display: flex;
+      justify-content: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: -300px;
+      inset-inline: 0;
+      margin: auto;
+      width: 680px;
+      height: 680px;
+      max-width: 120vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(29,155,240,0.20) 0%, rgba(29,155,240,0) 70%);
+      filter: blur(20px);
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0;
+      animation: glowIn 1.4s ease-out 0.2s forwards;
+    }
+    @keyframes glowIn { to { opacity: 1; } }
+
+    .wrap { position: relative; z-index: 1; width: 100%; max-width: 640px; }
+
+    .fade { opacity: 0; transform: translateY(16px); animation: fadeUp 0.62s cubic-bezier(0.22,1,0.36,1) forwards; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+    .top-nav { margin-bottom: 30px; }
+    .top-nav a { color: var(--x-blue); text-decoration: none; font-weight: 600; font-size: 15px; }
+    .top-nav a:hover { text-decoration: underline; }
+
+    /* hero */
+    .kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12.5px; font-weight: 700; letter-spacing: 0.3px;
+      color: var(--x-blue);
+      border: 1px solid var(--line);
+      background: rgba(29,155,240,0.06);
+      border-radius: 999px;
+      padding: 5px 13px;
+      margin-bottom: 20px;
+    }
+    .kicker .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--x-blue); box-shadow: 0 0 8px var(--x-blue); }
+    h1 {
+      font-size: clamp(30px, 8vw, 44px);
+      font-weight: 900;
+      line-height: 1.12;
+      letter-spacing: -0.5px;
+      margin-bottom: 18px;
+    }
+    h1 .accent { color: var(--x-blue); }
+    .lede {
+      font-size: 17px;
+      line-height: 1.65;
+      color: #cfd2d4;
+      max-width: 560px;
+    }
+    .byline {
+      margin-top: 22px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .byline img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1px solid var(--line); }
+    .byline .who { font-size: 14.5px; font-weight: 700; }
+    .byline .who span { display: block; color: var(--muted); font-weight: 500; font-size: 13px; }
+
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--line), transparent); margin: 40px 0; }
+
+    /* principles */
+    .principles { display: flex; flex-direction: column; gap: 18px; }
+    .card {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 26px 24px 24px;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover { transform: translateY(-3px); border-color: #3d4044; box-shadow: 0 14px 40px rgba(0,0,0,0.5); }
+    .card .num {
+      font-size: 13px; font-weight: 800; color: var(--x-blue);
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    .card h2 { font-size: 21px; font-weight: 800; line-height: 1.3; margin-bottom: 12px; }
+    .card p { font-size: 15.5px; line-height: 1.7; color: #c4c8cb; }
+    .quote {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-inline-start: 3px solid var(--x-blue);
+      background: rgba(29,155,240,0.05);
+      border-radius: 0 12px 12px 0;
+      font-size: 14.5px;
+      line-height: 1.6;
+      color: #dfe2e4;
+      font-weight: 500;
+    }
+    .quote::before { content: "יובל: "; color: var(--x-blue); font-weight: 800; }
+
+    /* checklist */
+    .section-title { font-size: 24px; font-weight: 900; margin-bottom: 6px; letter-spacing: -0.3px; }
+    .section-sub { color: var(--muted); font-size: 14.5px; margin-bottom: 22px; }
+    .checklist {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 12px 22px;
+      list-style: none;
+    }
+    .checklist li {
+      display: flex; align-items: flex-start; gap: 13px;
+      padding: 14px 0;
+      font-size: 15.5px;
+      line-height: 1.5;
+      border-bottom: 1px solid var(--line);
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist .tick {
+      flex: none; width: 22px; height: 22px; margin-top: 1px;
+      border-radius: 50%; background: rgba(29,155,240,0.12);
+      display: grid; place-items: center;
+    }
+    .checklist .tick svg { width: 13px; height: 13px; fill: var(--x-blue); }
+
+    /* closing */
+    .closing {
+      margin-top: 40px;
+      background: linear-gradient(180deg, rgba(29,155,240,0.08), rgba(29,155,240,0.02));
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 30px 26px;
+      text-align: center;
+    }
+    .closing h3 { font-size: 22px; font-weight: 900; line-height: 1.3; margin-bottom: 12px; }
+    .closing p { font-size: 15.5px; line-height: 1.7; color: #c4c8cb; max-width: 480px; margin: 0 auto 22px; }
+    .cta {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      background: var(--x-blue); color: #fff;
+      font-weight: 700; font-size: 16px;
+      padding: 14px 28px; border-radius: 999px;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .cta:hover { transform: translateY(-2px); background: #1a8cd8; box-shadow: 0 10px 30px rgba(29,155,240,0.35); }
+    .cta svg { width: 19px; height: 19px; fill: #fff; }
+
+    .foot { margin-top: 46px; text-align: center; }
+    .foot .brand { font-weight: 800; font-size: 14px; color: #e7e9ea; }
+    .foot .sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+    @media (max-width: 420px) {
+      body { padding-top: 30px; }
+      .card { padding: 22px 20px; }
+      .card h2 { font-size: 19px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fade, body::before { animation: none; opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <nav class="top-nav fade" style="animation-delay:0.02s"><a href="/">→ חזרה לעמוד הראשי</a></nav>
+
+    <header class="fade" style="animation-delay:0.08s">
+      <span class="kicker"><span class="dot"></span>מדריך למרצים · The Loop</span>
+      <h1>איך להעביר הרצאה של עשר דקות <span class="accent">שאנשים זוכרים</span></h1>
+      <p class="lede">
+        לפני כל אירוע של The Loop אני יושב עם הדוברים ועובר איתם על ההרצאות. זה הזיקוק של מה שאני חוזר ואומר בכל שיחה כזאת. חמישה כללים, מתוך שנים של הרצאות בכנסים בכל העולם. תשמור לפני הפעם הבאה שאתה עולה לבמה.
+      </p>
+      <div class="byline">
+        <img src="/avatar.jpg" alt="יובל קשטכר" />
+        <div class="who">יובל קשטכר<span>בונה סוכני AI · שותף ב־The Loop</span></div>
+      </div>
+    </header>
+
+    <div class="divider fade" style="animation-delay:0.12s"></div>
+
+    <section class="principles">
+      {principles.map((p, i) => (
+        <article class="card fade" style={`animation-delay:${0.16 + i * 0.06}s`}>
+          <div class="num">{p.n}</div>
+          <h2>{p.title}</h2>
+          <p>{p.body}</p>
+          <div class="quote">{p.quote}</div>
+        </article>
+      ))}
+    </section>
+
+    <div class="divider fade" style="animation-delay:0.2s"></div>
+
+    <section class="fade" style="animation-delay:0.22s">
+      <h2 class="section-title">צ'קליסט לפני שעולים לבמה</h2>
+      <p class="section-sub">שבע שאלות. אם כולן ✓, אתה מוכן.</p>
+      <ul class="checklist">
+        {checklist.map((c) => (
+          <li>
+            <span class="tick" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            </span>
+            <span>{c}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="closing fade" style="animation-delay:0.26s">
+      <h3>בסוף, מה שנשאר זה הטעם שלך</h3>
+      <p>
+        כשלכולם יש את אותה תשתית, מה שמבדל זה לא הטכנולוגיה. זה מה שאתה מזין אותה. הניסיון שלך, ההקשרים שלך, הסיפור שלך. אנחנו ה־humans שבתוך הסוכנים, ואת הקרבה הזאת אף מכונה לא תיקח.
+      </p>
+      <a class="cta" href="https://chat.whatsapp.com/Eav9Kgs0nSs70YWBvHgU4r" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.115zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        הצטרפו לקהילה
+      </a>
+    </section>
+
+    <footer class="foot fade" style="animation-delay:0.3s">
+      <div class="brand">yuvkesh</div>
+      <div class="sub">בינה מלאכותית עסקית עם יובל קשטכר</div>
+    </footer>
+  </main>
+</body>
+</html>
