@@ -1,0 +1,563 @@
+---
+const site = Astro.site!.href.replace(/\/$/, '');
+const pageUrl = `${site}/prompts/`;
+---
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Prompt Writing Playbook | yuvkesh</title>
+  <meta name="description" content="How to write prompts that actually work. A practical playbook by Yuval Keshtcher — brief the AI like a teammate, not a search engine." />
+  <link rel="canonical" href={pageUrl} />
+  <link rel="alternate" type="application/rss+xml" title="yuvkesh" href={`${site}/rss.xml`} />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="The Prompt Writing Playbook" />
+  <meta property="og:description" content="How to write prompts that actually work. Brief the AI like a teammate, not a search engine." />
+  <meta property="og:url" content={pageUrl} />
+  <meta property="og:image" content={`${site}/avatar.jpg`} />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Prompt Writing Playbook" />
+  <meta name="twitter:description" content="How to write prompts that actually work. Brief the AI like a teammate, not a search engine." />
+  <meta name="twitter:image" content={`${site}/avatar.jpg`} />
+  <meta name="twitter:creator" content="@Parzival_1991" />
+  <meta name="theme-color" content="#000000" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --x-blue: #1d9bf0;
+      --line: #2f3336;
+      --muted: #71767b;
+      --bg: #000;
+      --text: #e7e9ea;
+      --body: #d6d9db;
+      --card: #16181c;
+      --card-deep: #0a0c0e;
+      --green: #2ecc71;
+      --green-bg: rgba(46,204,113,0.08);
+      --red: #f4344e;
+      --red-bg: rgba(244,52,78,0.07);
+      --amber: #f5b73d;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Heebo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 44px 18px 80px;
+      display: flex;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { width: 100%; max-width: 720px; }
+
+    .top-nav { margin-bottom: 34px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .top-nav a { color: var(--x-blue); text-decoration: none; font-weight: 600; font-size: 15px; }
+    .top-nav a:hover { text-decoration: underline; }
+    .top-nav .brand { color: var(--muted); font-weight: 800; letter-spacing: 0.3px; }
+
+    .kicker {
+      display: inline-block; font-size: 12.5px; font-weight: 800; letter-spacing: 1.2px;
+      text-transform: uppercase; color: var(--x-blue);
+      border: 1px solid var(--line); border-radius: 999px; padding: 5px 14px; margin-bottom: 20px;
+      background: rgba(29,155,240,0.06);
+    }
+    h1 { font-size: 42px; font-weight: 900; line-height: 1.15; margin-bottom: 16px; letter-spacing: -0.5px; }
+    h1 .accent { color: var(--x-blue); }
+    .lede { font-size: 19px; line-height: 1.65; color: var(--body); margin-bottom: 14px; }
+    .lede strong { color: var(--text); font-weight: 700; }
+    .byline { color: var(--muted); font-size: 14.5px; margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--line); display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+    .byline .dot { width:4px; height:4px; border-radius:50%; background: var(--muted); }
+
+    section { margin-top: 60px; }
+    .sec-num { font-size: 13px; font-weight: 800; color: var(--x-blue); letter-spacing: 1px; margin-bottom: 8px; }
+    h2 { font-size: 29px; font-weight: 800; line-height: 1.25; margin-bottom: 16px; letter-spacing: -0.3px; }
+    h3 { font-size: 20px; font-weight: 800; margin: 32px 0 12px; }
+    p { font-size: 17.5px; line-height: 1.8; color: var(--body); margin-bottom: 20px; }
+    p strong { color: var(--text); font-weight: 700; }
+    a.inline { color: var(--x-blue); text-decoration: none; }
+    a.inline:hover { text-decoration: underline; }
+    ul, ol { margin: 0 0 22px; padding-inline-start: 22px; }
+    li { font-size: 17px; line-height: 1.75; color: var(--body); margin-bottom: 10px; }
+    li strong { color: var(--text); }
+
+    .toc { background: var(--card-deep); border: 1px solid var(--line); border-radius: 18px; padding: 24px 28px; margin-top: 40px; }
+    .toc-title { font-size: 13px; font-weight: 800; letter-spacing: 0.7px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+    .toc ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; }
+    .toc a { color: #d6d9db; text-decoration: none; font-size: 15px; font-weight: 500; display:flex; gap:9px; }
+    .toc a:hover { color: var(--x-blue); }
+    .toc a .n { color: var(--x-blue); font-weight: 800; }
+
+    .pull {
+      border-inline-start: 3px solid var(--x-blue);
+      padding: 4px 0 4px 20px; margin: 28px 0;
+      font-size: 21px; line-height: 1.5; font-weight: 700; color: var(--text);
+    }
+    .pull span { color: var(--x-blue); }
+
+    .prompt {
+      position: relative; background: var(--card); border: 1px solid var(--line);
+      border-radius: 14px; padding: 18px 20px; margin: 8px 0 24px;
+      font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14.5px; line-height: 1.7;
+      color: #cfe8fb; white-space: pre-wrap;
+    }
+    .prompt .lbl {
+      position:absolute; top:-10px; inset-inline-start:16px; background: var(--x-blue); color:#fff;
+      font-family:'Heebo',sans-serif; font-size:10.5px; font-weight:800; letter-spacing:0.6px; text-transform:uppercase;
+      padding:2px 10px; border-radius:999px;
+    }
+    .prompt .copy {
+      position:absolute; top:12px; inset-inline-end:12px; background:#000; border:1px solid var(--line); color:var(--muted);
+      font-family:'Heebo',sans-serif; font-size:11px; font-weight:700; padding:4px 10px; border-radius:8px; cursor:pointer; transition: all .15s;
+    }
+    .prompt .copy:hover { color:var(--text); border-color:#3d4044; }
+    .prompt .copy.done { color: var(--green); border-color: var(--green); }
+    .prompt .hi { color: var(--amber); }
+    .prompt .dim { color: var(--muted); }
+
+    .dd { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+    .dd-col { border-radius: 16px; padding: 20px 22px; border: 1px solid var(--line); }
+    .dd-do { background: var(--green-bg); border-color: rgba(46,204,113,0.35); }
+    .dd-dont { background: var(--red-bg); border-color: rgba(244,52,78,0.32); }
+    .dd-head { font-size: 14px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 14px; display:flex; align-items:center; gap:8px; }
+    .dd-do .dd-head { color: var(--green); }
+    .dd-dont .dd-head { color: var(--red); }
+    .dd-col ul { margin: 0; padding: 0; list-style: none; }
+    .dd-col li { font-size: 15px; line-height: 1.6; margin-bottom: 12px; padding-inline-start: 22px; position: relative; color: var(--body); }
+    .dd-col li:last-child { margin-bottom: 0; }
+    .dd-do li::before { content: '✓'; position:absolute; inset-inline-start:0; color: var(--green); font-weight: 800; }
+    .dd-dont li::before { content: '✕'; position:absolute; inset-inline-start:0; color: var(--red); font-weight: 800; }
+
+    .principle { background: var(--card-deep); border: 1px solid var(--line); border-radius: 18px; padding: 26px 28px; margin: 20px 0; }
+    .principle-num { font-size: 13px; font-weight: 900; color: var(--x-blue); letter-spacing: 1px; margin-bottom: 6px; }
+    .principle h3 { margin: 0 0 10px; font-size: 21px; }
+    .principle p { font-size: 16.5px; margin-bottom: 14px; }
+    .principle p:last-child { margin-bottom: 0; }
+    .badpair { display:grid; grid-template-columns: 1fr; gap:10px; margin-top:6px; }
+    .line-bad, .line-good { font-size:14.5px; line-height:1.5; padding:11px 14px; border-radius:10px; font-family:'JetBrains Mono',monospace; }
+    .line-bad { background: var(--red-bg); border:1px solid rgba(244,52,78,0.25); color:#f3b8c0; }
+    .line-good { background: var(--green-bg); border:1px solid rgba(46,204,113,0.28); color:#b6ecc9; }
+    .line-bad b, .line-good b { font-family:'Heebo',sans-serif; font-weight:800; text-transform:uppercase; font-size:10.5px; letter-spacing:0.5px; display:block; margin-bottom:5px; opacity:0.8; }
+
+    .anatomy { background: var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden; margin:22px 0; }
+    .anatomy-row { display:grid; grid-template-columns: 130px 1fr; border-top:1px solid var(--line); }
+    .anatomy-row:first-child { border-top:none; }
+    .anatomy-tag { padding:16px 18px; background: var(--card-deep); font-weight:800; font-size:13px; letter-spacing:0.4px; text-transform:uppercase; color: var(--x-blue); display:flex; align-items:center; }
+    .anatomy-txt { padding:16px 18px; font-size:15px; line-height:1.6; color: var(--body); font-family:'JetBrains Mono',monospace; }
+    .anatomy-txt small { display:block; margin-top:6px; color:var(--muted); font-family:'Heebo',sans-serif; font-size:13px; }
+
+    .usecase { background: var(--card-deep); border:1px solid var(--line); border-radius:16px; padding:22px 24px; margin:16px 0; }
+    .usecase .uc-role { font-size:12px; font-weight:800; letter-spacing:0.6px; text-transform:uppercase; color:var(--amber); margin-bottom:6px; }
+    .usecase h3 { margin:0 0 6px; font-size:18.5px; }
+    .usecase .uc-when { color:var(--muted); font-size:14px; margin-bottom:14px; }
+
+    .callout { background: radial-gradient(ellipse 480px 200px at 50% -40px, rgba(29,155,240,0.12), transparent 70%), var(--card-deep); border:1px solid var(--line); border-radius:18px; padding:26px 28px; margin:28px 0; }
+    .callout .co-head { font-size:14px; font-weight:800; letter-spacing:0.6px; text-transform:uppercase; color:var(--x-blue); margin-bottom:10px; }
+    .callout p:last-child { margin-bottom:0; }
+
+    .cheat { width:100%; border-collapse:collapse; margin:20px 0; font-size:15px; border:1px solid var(--line); border-radius:14px; overflow:hidden; display:table; }
+    .cheat th, .cheat td { text-align:start; padding:13px 16px; border-top:1px solid var(--line); vertical-align:top; }
+    .cheat th { background: var(--card-deep); font-weight:800; font-size:12.5px; letter-spacing:0.5px; text-transform:uppercase; color:var(--muted); }
+    .cheat td { color: var(--body); line-height:1.5; }
+    .cheat td:first-child { font-weight:700; color:var(--text); white-space:nowrap; }
+    .cheat-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+
+    .steps { counter-reset: step; list-style:none; padding:0; margin:22px 0; }
+    .steps li { position:relative; padding-inline-start:52px; margin-bottom:20px; min-height:36px; }
+    .steps li::before {
+      counter-increment: step; content: counter(step);
+      position:absolute; inset-inline-start:0; top:-2px; width:34px; height:34px; border-radius:50%;
+      background: rgba(29,155,240,0.12); border:1px solid var(--x-blue); color:var(--x-blue);
+      font-weight:800; font-size:15px; display:grid; place-items:center;
+    }
+    .steps li strong { color:var(--text); }
+
+    .divider { border:none; border-top:1px solid var(--line); margin: 56px 0; }
+
+    .follow { margin-top: 60px; background: radial-gradient(ellipse 480px 260px at 50% -60px, rgba(29,155,240,0.14), transparent 70%), var(--card-deep); border: 1px solid var(--line); border-radius: 20px; padding: 36px 28px 32px; text-align: center; }
+    .follow-title { font-size: 23px; font-weight: 800; margin-bottom: 8px; }
+    .follow-sub { color: var(--muted); font-size: 15px; margin-bottom: 24px; line-height: 1.55; }
+    .follow-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .follow-link { display: flex; align-items: center; gap: 10px; padding: 11px 22px; background: var(--card); color: var(--text); border: 1px solid var(--line); border-radius: 999px; text-decoration: none; font-size: 14.5px; font-weight: 700; transition: transform .2s, background .2s, border-color .2s; }
+    .follow-link:hover { transform: translateY(-2px); background: #1d1f23; border-color: #3d4044; }
+    .author { margin-top: 40px; padding-top: 26px; border-top: 1px solid var(--line); display:flex; align-items:center; gap:14px; }
+    .author img { width: 50px; height:50px; border-radius:50%; object-fit:cover; background: var(--card); }
+    .author .a-name { font-weight:800; font-size:15.5px; }
+    .author .a-sub { color: var(--muted); font-size:13.5px; }
+    .sources { margin-top:32px; color:var(--muted); font-size:13.5px; line-height:1.7; }
+    .sources a { color: var(--muted); text-decoration:underline; }
+    .sources a:hover { color: var(--x-blue); }
+
+    @media (max-width: 560px) {
+      h1 { font-size: 33px; }
+      .lede { font-size: 17.5px; }
+      h2 { font-size: 25px; }
+      .dd, .toc ol { grid-template-columns: 1fr; }
+      .anatomy-row { grid-template-columns: 1fr; }
+      .anatomy-tag { border-bottom:1px solid var(--line); }
+      .follow-links { flex-direction:column; align-items:stretch; }
+      .follow-link { justify-content:center; }
+    }
+  </style>
+</head>
+<body>
+<main class="wrap">
+
+  <nav class="top-nav">
+    <a href="/">← Home</a>
+    <span class="brand">PROMPT PLAYBOOK</span>
+  </nav>
+
+  <span class="kicker">A Practical Guide for Your Team</span>
+  <h1>How to Write Prompts<br>That Actually <span class="accent">Work</span></h1>
+  <p class="lede">Most people talk to AI like it's a search engine. Type a few words, hope for magic, get mush, blame the tool.</p>
+  <p class="lede"><strong>Here is the shift:</strong> a prompt is not a magic spell. It's a brief. You're handing work to the smartest, fastest teammate you've ever had — one who will do exactly what you ask, and nothing you forgot to mention.</p>
+  <p class="lede">This playbook is the exact way I write prompts when I build AI systems for companies. No jargon. No theory you can't use tomorrow morning. Just the patterns that separate a prompt that ships from a prompt that wastes your afternoon.</p>
+  <div class="byline">
+    <span>By Yuval Keshtcher</span><span class="dot"></span>
+    <span>AI Consultant &amp; Implementer</span><span class="dot"></span>
+    <span>Read time: ~12 min</span>
+  </div>
+
+  <nav class="toc">
+    <div class="toc-title">What's Inside</div>
+    <ol>
+      <li><a href="#mindset"><span class="n">01</span> The One Mental Shift</a></li>
+      <li><a href="#formula"><span class="n">02</span> The 3-Sentence Formula</a></li>
+      <li><a href="#anatomy"><span class="n">03</span> Anatomy of a Great Prompt</a></li>
+      <li><a href="#principles"><span class="n">04</span> The 7 Principles</a></li>
+      <li><a href="#dodont"><span class="n">05</span> Do's &amp; Don'ts</a></li>
+      <li><a href="#recipes"><span class="n">06</span> Copy-Paste Recipes</a></li>
+      <li><a href="#debug"><span class="n">07</span> When It Goes Wrong</a></li>
+      <li><a href="#trust"><span class="n">08</span> Trust, But Verify</a></li>
+      <li><a href="#cheat"><span class="n">09</span> The Cheat Sheet</a></li>
+    </ol>
+  </nav>
+
+  <section id="mindset">
+    <div class="sec-num">01 — MINDSET</div>
+    <h2>The One Mental Shift</h2>
+    <p>Before any technique, internalize this. It's worth more than every tip below combined.</p>
+    <div class="pull"><span>Claude is not a search engine.</span> It's a teammate you brief. The better the brief, the better the result.</div>
+    <p>A search engine takes keywords and hands back links. A teammate takes <strong>context</strong> and produces <strong>work</strong>. When you type three vague words, you're forcing the AI to guess everything you didn't say — who you are, what you're doing, what "good" looks like. It will guess. Sometimes wrong.</p>
+    <p>The whole game is simple: <strong>reduce the guessing.</strong> Every sentence of context you add is one less thing the AI has to invent. You already know how to do this — it's the same skill as briefing a new hire on their first day. You'd never say "write the thing" and walk away. You'd tell them who it's for, what it needs to do, and what done looks like.</p>
+    <p>And here's the freeing part: <strong>you don't need to be technical.</strong> The most valuable prompting skills — clarity, context, knowing what "good" looks like — are writing and thinking skills, not coding skills. If you can brief a colleague, you can prompt.</p>
+  </section>
+
+  <section id="formula">
+    <div class="sec-num">02 — THE FORMULA</div>
+    <h2>The 3-Sentence Formula</h2>
+    <p>When you're moving fast, you don't need a template. You need a reflex. This is it — the pattern that works 80% of the time:</p>
+    <div class="callout">
+      <div class="co-head">The Formula</div>
+      <p style="font-size:19px; color:var(--text); font-weight:600; margin-bottom:0; line-height:1.6;">1. Describe <span style="color:var(--x-blue)">who you are.</span><br>2. Describe <span style="color:var(--x-blue)">what you want.</span><br>3. Describe <span style="color:var(--x-blue)">how you want it formatted.</span></p>
+    </div>
+    <p>Three sentences, max. That's the difference between a reply you throw away and one you actually use. Watch what it does to a real request:</p>
+
+    <div class="prompt"><span class="lbl">Weak</span><button class="copy">Copy</button>write me a product update email</div>
+
+    <div class="prompt"><span class="lbl">Strong</span><button class="copy">Copy</button><span class="dim"># who you are</span>
+I'm a product manager at a B2B software company writing to non-technical customers.
+<span class="dim"># what you want</span>
+Write a short email announcing that our reports now export to Excel. Warm, plain language, no hype.
+<span class="dim"># how you want it</span>
+Under 120 words. One clear subject line. End with a single sentence telling them where to click.</div>
+
+    <p>Same task. The second one gets used as-is. The first one gets rewritten by you, which means the AI saved you nothing.</p>
+  </section>
+
+  <section id="anatomy">
+    <div class="sec-num">03 — STRUCTURE</div>
+    <h2>Anatomy of a Great Prompt</h2>
+    <p>When the task is bigger, the 3-sentence reflex expands into five building blocks. You won't always use all five — but knowing they exist means you'll never wonder "why is this output so off?" It's almost always a missing block.</p>
+
+    <div class="anatomy">
+      <div class="anatomy-row">
+        <div class="anatomy-tag">Role</div>
+        <div class="anatomy-txt">"You are a senior financial analyst reviewing a quarterly report."<small>Assigning a role is one of the strongest levers you have. It sets tone, depth, and vocabulary in a single line.</small></div>
+      </div>
+      <div class="anatomy-row">
+        <div class="anatomy-tag">Context</div>
+        <div class="anatomy-txt">"This is for our board. They're smart but not in the weeds on our metrics."<small>Who's it for? What's the situation? What background does the AI need that lives only in your head?</small></div>
+      </div>
+      <div class="anatomy-row">
+        <div class="anatomy-tag">Task</div>
+        <div class="anatomy-txt">"Summarize the three most important trends and flag one risk."<small>The actual ask. One clear verb. If you have several asks, number them.</small></div>
+      </div>
+      <div class="anatomy-row">
+        <div class="anatomy-tag">Format</div>
+        <div class="anatomy-txt">"Bullet points. Each under two lines. Lead with the number."<small>How should the answer look? Length, structure, tone. This is where most "close but not quite" outputs get fixed.</small></div>
+      </div>
+      <div class="anatomy-row">
+        <div class="anatomy-tag">Constraints</div>
+        <div class="anatomy-txt">"Only use figures from the attached data. If something's unclear, say so — don't guess."<small>The guardrails. What to avoid, what not to invent, the hard rules.</small></div>
+      </div>
+    </div>
+
+    <p>Read them top to bottom and you have a complete brief. Notice the order isn't random — <strong>role and context go first</strong>, because they frame everything that follows. Put the most important instructions at the very top, and re-state any critical rule at the very end. The AI pays the most attention to the beginning and the end of what you give it.</p>
+  </section>
+
+  <section id="principles">
+    <div class="sec-num">04 — THE CRAFT</div>
+    <h2>The 7 Principles</h2>
+    <p>These are the moves I come back to on every single build. Each one is a small habit with an outsized payoff.</p>
+
+    <div class="principle">
+      <div class="principle-num">PRINCIPLE 1</div>
+      <h3>Give it a role</h3>
+      <p>Telling the AI <em>who to be</em> is the cheapest way to level up an answer. "You are an experienced onboarding specialist" instantly sets the tone, the depth, and the vocabulary. One sentence does the work of a paragraph of instructions.</p>
+      <div class="badpair">
+        <div class="line-bad"><b>Instead of</b>explain our refund policy</div>
+        <div class="line-good"><b>Try</b>You are a patient customer-support lead. Explain our refund policy to a frustrated first-time customer.</div>
+      </div>
+    </div>
+
+    <div class="principle">
+      <div class="principle-num">PRINCIPLE 2</div>
+      <h3>Be specific — vague in, vague out</h3>
+      <p>The AI can't read your mind, so it fills gaps with averages. "Make it better" means nothing. "Make it shorter, warmer, and cut the jargon" means everything. Specificity isn't extra work — it's the work.</p>
+      <div class="badpair">
+        <div class="line-bad"><b>Vague</b>write some social posts about our launch</div>
+        <div class="line-good"><b>Specific</b>Write 3 LinkedIn posts about our launch. Each under 60 words, one concrete benefit per post, no emojis, ending in a question.</div>
+      </div>
+    </div>
+
+    <div class="principle">
+      <div class="principle-num">PRINCIPLE 3</div>
+      <h3>Show an example, don't just describe</h3>
+      <p>One good example beats three paragraphs of instructions. If you want a specific format or tone, paste a sample of it. The AI is brilliant at pattern-matching — give it a pattern to match.</p>
+      <div class="prompt"><span class="lbl">Show, don't tell</span><button class="copy">Copy</button>Categorize each support ticket. Match this exact format:
+
+Ticket: "App keeps crashing on login"
+→ Category: Bug | Priority: High | Team: Engineering
+
+Now do the same for the 20 tickets below.</div>
+    </div>
+
+    <div class="principle">
+      <div class="principle-num">PRINCIPLE 4</div>
+      <h3>Ask it to think step by step</h3>
+      <p>For anything with reasoning — analysis, decisions, math, comparisons — tell it to work through the steps out loud <em>before</em> giving the answer. Accuracy jumps. "Think step by step" is a genuine cheat code for complex tasks.</p>
+      <div class="badpair">
+        <div class="line-good"><b>Try</b>Analyze this deal step by step: 1) list the stakeholders, 2) their goals, 3) where they conflict, 4) then recommend a path. Show your reasoning for each.</div>
+      </div>
+    </div>
+
+    <div class="principle">
+      <div class="principle-num">PRINCIPLE 5</div>
+      <h3>Speak plain human</h3>
+      <p>Write the prompt the way you'd actually talk to a sharp colleague. You do <em>not</em> need robotic keywords, ALL CAPS commands, or fake "act as an expert" incantations stacked ten deep. Natural, clear language works best. If it reads like a normal request, you're doing it right.</p>
+      <div class="badpair">
+        <div class="line-bad"><b>Over-engineered</b>ACT AS a world-class 10x elite copywriting GENIUS and CREATE viral-optimized MAXIMUM-impact copy...</div>
+        <div class="line-good"><b>Human</b>You're a good copywriter. Write a homepage headline for a tool that turns meetings into to-do lists. Make it clear before clever.</div>
+      </div>
+    </div>
+
+    <div class="principle">
+      <div class="principle-num">PRINCIPLE 6</div>
+      <h3>Give permission to say "I don't know"</h3>
+      <p>The biggest fear people have — "what if it makes something up?" — has a one-line fix. Explicitly tell it that being unsure is allowed. This alone kills a huge share of confident-but-wrong answers.</p>
+      <div class="badpair">
+        <div class="line-good"><b>Add this line</b>If the data doesn't support a clear answer, say so instead of guessing. Never invent figures or sources.</div>
+      </div>
+    </div>
+
+    <div class="principle">
+      <div class="principle-num">PRINCIPLE 7</div>
+      <h3>One job per prompt</h3>
+      <p>When you cram five unrelated tasks into one message, quality drops on all five. The AI, like a person, does its best work when it's focused. If you catch yourself writing "and also… and while you're at it…", split it into separate prompts. Tight scope = sharper output, less drift, fewer mistakes.</p>
+    </div>
+  </section>
+
+  <section id="dodont">
+    <div class="sec-num">05 — QUICK REFERENCE</div>
+    <h2>Do's &amp; Don'ts</h2>
+    <p>Pin this to the wall. It's the whole playbook compressed into two columns.</p>
+    <div class="dd">
+      <div class="dd-col dd-do">
+        <div class="dd-head">✓ Do</div>
+        <ul>
+          <li>Brief it like a teammate: who / what / how</li>
+          <li>Give it a clear role or persona</li>
+          <li>Say what "good" looks like — length, tone, format</li>
+          <li>Paste an example of what you want</li>
+          <li>Add context: the audience, the goal, the situation</li>
+          <li>Ask it to think step by step on hard tasks</li>
+          <li>Give permission to be unsure</li>
+          <li>Keep one job per prompt</li>
+          <li>Iterate — treat the first reply as a draft, then refine</li>
+        </ul>
+      </div>
+      <div class="dd-col dd-dont">
+        <div class="dd-head">✕ Don't</div>
+        <ul>
+          <li>Type three vague words and expect magic</li>
+          <li>Say "make it better" (better how?)</li>
+          <li>Stack fake "elite genius expert" keywords</li>
+          <li>Cram five tasks into one message</li>
+          <li>Assume it knows context that's only in your head</li>
+          <li>Blindly trust it — always check the output</li>
+          <li>Add more and more rules when it drifts (split instead)</li>
+          <li>Give up after one bad reply</li>
+          <li>Paste confidential data you wouldn't email externally</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="recipes">
+    <div class="sec-num">06 — STEAL THESE</div>
+    <h2>Copy-Paste Recipes</h2>
+    <p>Real prompts for real work. Swap the bracketed bits for your details and go. Each one already bakes in the principles above.</p>
+
+    <div class="usecase">
+      <div class="uc-role">Sales &amp; Outreach</div>
+      <h3>Turn a messy call into a follow-up</h3>
+      <div class="uc-when">When: you just got off a discovery call and need to send something today.</div>
+      <div class="prompt"><span class="lbl">Prompt</span><button class="copy">Copy</button>You're my sales assistant. Below are my rough notes from a call with a prospect. Write a short follow-up email: warm, specific to what they said, one clear next step. Under 130 words. If a detail is missing, leave a [bracket] for me to fill — don't invent it.
+
+Notes:
+<span class="hi">[paste your messy notes]</span></div>
+    </div>
+
+    <div class="usecase">
+      <div class="uc-role">Marketing</div>
+      <h3>One idea, five channels</h3>
+      <div class="uc-when">When: you have one announcement and need it everywhere.</div>
+      <div class="prompt"><span class="lbl">Prompt</span><button class="copy">Copy</button>You're a content strategist. Take the announcement below and adapt it into: (1) a LinkedIn post, (2) a short tweet, (3) a one-line email subject. Keep my voice — direct, no hype. Match the length norms of each platform.
+
+Announcement:
+<span class="hi">[paste the news]</span></div>
+    </div>
+
+    <div class="usecase">
+      <div class="uc-role">Operations</div>
+      <h3>Summarize a long thread into decisions</h3>
+      <div class="uc-when">When: a 40-message email chain landed on you and you need the "so what."</div>
+      <div class="prompt"><span class="lbl">Prompt</span><button class="copy">Copy</button>Read the thread below. Give me: (1) the decisions that were made, (2) the open questions still unanswered, (3) who owns what. Bullet points, no fluff. If something is ambiguous, flag it rather than guessing.
+
+Thread:
+<span class="hi">[paste the thread]</span></div>
+    </div>
+
+    <div class="usecase">
+      <div class="uc-role">Analysis</div>
+      <h3>Pressure-test your own thinking</h3>
+      <div class="uc-when">When: you've made a decision and want to catch the blind spot before someone else does.</div>
+      <div class="prompt"><span class="lbl">Prompt</span><button class="copy">Copy</button>You're a sharp, skeptical advisor. Here's a decision I'm about to make: <span class="hi">[describe it]</span>. Think step by step. Give me the three strongest arguments against it, the one thing I'm probably underestimating, and what you'd need to see to change your mind. Be direct, not diplomatic.</div>
+    </div>
+
+    <div class="usecase">
+      <div class="uc-role">Anyone</div>
+      <h3>Explain it like I don't have the background</h3>
+      <div class="uc-when">When: someone sent you something technical and you need to actually understand it.</div>
+      <div class="prompt"><span class="lbl">Prompt</span><button class="copy">Copy</button>Explain the concept below to me like I'm a smart person who has never worked in this field. Use one everyday analogy. Then tell me the one thing I'd need to know to talk about it confidently in a meeting.
+
+<span class="hi">[paste the thing]</span></div>
+    </div>
+  </section>
+
+  <section id="debug">
+    <div class="sec-num">07 — TROUBLESHOOTING</div>
+    <h2>When It Goes Wrong</h2>
+    <p>It will, sometimes. The output misses, or the AI can't find what you meant. Here's the reflex that fixes 90% of it — and it's almost never "write a cleverer prompt."</p>
+
+    <div class="pull">When the answer is off, the fix is usually <span>add context</span> — not add cleverness.</div>
+
+    <ol class="steps">
+      <li><strong>Add the missing context.</strong> Tell it what it couldn't have known — "this is for a non-technical audience," "look at the second attachment," "we're a healthcare company, so tone matters." Nine times out of ten, the gap was information, not phrasing.</li>
+      <li><strong>Say "explain it like I'm slow."</strong> If <em>you're</em> the one who's lost, ask it to re-explain the last step in plain language. No shame, no wasted time — it's the fastest way to unstick yourself.</li>
+      <li><strong>Show it broken vs. working.</strong> Stuck on something visual or structural? Paste an example of what it should look like and say "here's the target, here's what I got — help me close the gap." A comparison beats a description every time.</li>
+      <li><strong>One change at a time.</strong> Don't rewrite the whole prompt in frustration. Change one thing, run it, see what moved. Batch-changing means you never learn what actually worked.</li>
+      <li><strong>Split it if it's drifting.</strong> If the AI keeps wandering off-task, the answer is rarely "add more rules." It's usually "you asked for too much in one go." Break it into two focused prompts.</li>
+    </ol>
+  </section>
+
+  <section id="trust">
+    <div class="sec-num">08 — QUALITY CONTROL</div>
+    <h2>Trust, But Verify</h2>
+    <p>This is the one habit that separates people who use AI safely from people who get burned by it.</p>
+    <p><strong>Judge the output against reality — not against the AI's claim that it worked.</strong> The AI will always sound confident. Confidence is not correctness. Before you send, ship, or act on an answer, do the ten-second check: are the facts right? Do the numbers match the source? Would I stake my name on this?</p>
+    <div class="callout">
+      <div class="co-head">The reflex to build</div>
+      <p style="margin-bottom:0;">For anything that matters, ask yourself two questions before trusting it: <strong style="color:var(--text)">"What does a correct answer look like?"</strong> and <strong style="color:var(--text)">"Have I actually checked this one against that?"</strong> If you can't define what "correct" looks like, you can't tell whether the AI got there.</p>
+    </div>
+    <p>This isn't fear — it's fluency. Use AI for the first draft, the heavy lifting, the blank-page problem. Keep your judgment for the final call. That combination — the AI's speed plus your accountability — is exactly where the value lives.</p>
+  </section>
+
+  <hr class="divider" />
+
+  <section id="cheat">
+    <div class="sec-num">09 — TL;DR</div>
+    <h2>The Cheat Sheet</h2>
+    <p>If you remember nothing else from this page, remember this table.</p>
+    <div class="cheat-scroll">
+      <table class="cheat">
+        <thead><tr><th>The move</th><th>What to actually do</th></tr></thead>
+        <tbody>
+          <tr><td>Reframe</td><td>Brief it like a teammate, not a search engine</td></tr>
+          <tr><td>The formula</td><td>Who you are · what you want · how you want it</td></tr>
+          <tr><td>Role</td><td>Start with "You are a…" — it sets everything</td></tr>
+          <tr><td>Specific</td><td>Vague in, vague out. Name the length, tone, format</td></tr>
+          <tr><td>Example</td><td>Show a sample instead of describing it</td></tr>
+          <tr><td>Reasoning</td><td>Say "think step by step" for hard tasks</td></tr>
+          <tr><td>Honesty</td><td>"If unsure, say so — don't invent"</td></tr>
+          <tr><td>Focus</td><td>One job per prompt. Split when it drifts</td></tr>
+          <tr><td>When stuck</td><td>Add context, not cleverness</td></tr>
+          <tr><td>Always</td><td>Verify the output against reality before trusting it</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>None of this requires code. It requires clarity. You already have that skill — now you know how to point it at the most capable teammate you'll ever brief.</p>
+    <div class="pull" style="font-size:23px;">The goal was never a clever prompt.<br>It's <span>a result you can measure.</span></div>
+  </section>
+
+  <section class="follow">
+    <div class="follow-title">Want to go deeper?</div>
+    <p class="follow-sub">I build AI agent systems for companies — from mapping to full implementation. Thousands of builders are already in the community.</p>
+    <div class="follow-links">
+      <a class="follow-link" href="/">Home</a>
+      <a class="follow-link" href="/blog">Read the blog</a>
+    </div>
+  </section>
+
+  <div class="author">
+    <img src="/avatar.jpg" alt="Yuval Keshtcher" />
+    <div>
+      <div class="a-name">Yuval Keshtcher</div>
+      <div class="a-sub">Building AI agents. Teaching people to build.</div>
+    </div>
+  </div>
+
+  <p class="sources">
+    Grounded in patterns from real client builds, plus published prompting guidance from
+    <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview" target="_blank" rel="noopener">Anthropic's Claude documentation</a> and
+    <a href="https://claude.com/blog/best-practices-for-prompt-engineering" target="_blank" rel="noopener">prompt engineering best practices</a>.
+  </p>
+
+</main>
+
+<script is:inline>
+  document.querySelectorAll('.prompt .copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var block = btn.closest('.prompt');
+      var clone = block.cloneNode(true);
+      clone.querySelectorAll('.lbl, .copy').forEach(function (el) { el.remove(); });
+      var text = clone.innerText.trim();
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied ✓';
+        btn.classList.add('done');
+        setTimeout(function () { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1600);
+      });
+    });
+  });
+</script>
+</body>
+</html>
