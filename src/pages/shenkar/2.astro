@@ -1,0 +1,518 @@
+---
+const site = Astro.site!.href.replace(/\/$/, '');
+const pageUrl = `${site}/shenkar/2/`;
+---
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>מפגש 2 · קלוד קוד | סיכום, מדריך ושיעורי בית | yuvkesh</title>
+  <meta name="description" content="סיכום המפגש השני, מדריך צעד אחר צעד ושיעורי בית. טרמינלים במקביל, Plan Mode, גיבוי המוח ב-GitHub, ובניית סקילים." />
+  <link rel="canonical" href={pageUrl} />
+  <meta name="robots" content="noindex, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="מפגש 2 · קלוד קוד — סיכום, מדריך ושיעורי בית" />
+  <meta property="og:description" content="כל מה שעברנו במפגש, מסודר לצעדים שאפשר לחזור עליהם, עם שיעורי בית." />
+  <meta property="og:url" content={pageUrl} />
+  <meta property="og:image" content={`${site}/avatar.jpg`} />
+  <meta property="og:locale" content="he_IL" />
+  <meta name="theme-color" content="#000000" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --x-blue: #1d9bf0;
+      --line: #2f3336;
+      --muted: #71767b;
+      --bg: #000;
+      --text: #e7e9ea;
+      --body: #d6d9db;
+      --card: #16181c;
+      --card-deep: #0a0c0e;
+      --green: #2ecc71;
+      --green-bg: rgba(46,204,113,0.08);
+      --red: #f4344e;
+      --red-bg: rgba(244,52,78,0.07);
+      --amber: #f5b73d;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Heebo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 44px 18px 80px;
+      display: flex;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { width: 100%; max-width: 720px; }
+
+    .top-nav { margin-bottom: 34px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .top-nav a { color: var(--x-blue); text-decoration: none; font-weight: 600; font-size: 15px; }
+    .top-nav a:hover { text-decoration: underline; }
+    .top-nav .brand { color: var(--muted); font-weight: 800; letter-spacing: 0.3px; }
+
+    .kicker {
+      display: inline-block; font-size: 13px; font-weight: 800; letter-spacing: 0.4px;
+      color: var(--x-blue);
+      border: 1px solid var(--line); border-radius: 999px; padding: 5px 14px; margin-bottom: 20px;
+      background: rgba(29,155,240,0.06);
+    }
+    h1 { font-size: 40px; font-weight: 900; line-height: 1.18; margin-bottom: 16px; letter-spacing: -0.3px; }
+    h1 .accent { color: var(--x-blue); }
+    .lede { font-size: 19px; line-height: 1.7; color: var(--body); margin-bottom: 14px; }
+    .lede strong { color: var(--text); font-weight: 700; }
+    .byline { color: var(--muted); font-size: 14.5px; margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--line); display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+    .byline .dot { width:4px; height:4px; border-radius:50%; background: var(--muted); }
+
+    section { margin-top: 60px; }
+    .sec-num { font-size: 13px; font-weight: 800; color: var(--x-blue); letter-spacing: 0.4px; margin-bottom: 8px; }
+    h2 { font-size: 29px; font-weight: 800; line-height: 1.3; margin-bottom: 16px; letter-spacing: -0.2px; }
+    h3 { font-size: 20px; font-weight: 800; margin: 32px 0 12px; }
+    p { font-size: 17.5px; line-height: 1.85; color: var(--body); margin-bottom: 20px; }
+    p strong { color: var(--text); font-weight: 700; }
+    a.inline { color: var(--x-blue); text-decoration: none; }
+    a.inline:hover { text-decoration: underline; }
+    ul, ol { margin: 0 0 22px; padding-inline-start: 22px; }
+    li { font-size: 17px; line-height: 1.8; color: var(--body); margin-bottom: 10px; }
+    li strong { color: var(--text); }
+
+    .toc { background: var(--card-deep); border: 1px solid var(--line); border-radius: 18px; padding: 24px 28px; margin-top: 40px; }
+    .toc-title { font-size: 13px; font-weight: 800; letter-spacing: 0.3px; color: var(--muted); margin-bottom: 14px; }
+    .toc ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; }
+    .toc a { color: #d6d9db; text-decoration: none; font-size: 15px; font-weight: 500; display:flex; gap:9px; }
+    .toc a:hover { color: var(--x-blue); }
+    .toc a .n { color: var(--x-blue); font-weight: 800; }
+
+    .pull {
+      border-inline-start: 3px solid var(--x-blue);
+      padding-inline-start: 20px; padding-top: 4px; padding-bottom: 4px; margin: 28px 0;
+      font-size: 21px; line-height: 1.6; font-weight: 700; color: var(--text);
+    }
+    .pull span { color: var(--x-blue); }
+
+    /* prompt / command block — stays LTR */
+    .prompt {
+      position: relative; background: var(--card); border: 1px solid var(--line);
+      border-radius: 14px; padding: 18px 20px; margin: 8px 0 24px;
+      font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14.5px; line-height: 1.7;
+      color: #cfe8fb; white-space: pre-wrap; direction: ltr; text-align: left;
+    }
+    .prompt .lbl {
+      position:absolute; top:-10px; inset-inline-start:16px; background: var(--x-blue); color:#fff;
+      font-family:'Heebo',sans-serif; font-size:10.5px; font-weight:800; letter-spacing:0.4px;
+      padding:2px 10px; border-radius:999px; direction: rtl;
+    }
+    .prompt .copy {
+      position:absolute; top:12px; inset-inline-end:12px; background:#000; border:1px solid var(--line); color:var(--muted);
+      font-family:'Heebo',sans-serif; font-size:11px; font-weight:700; padding:4px 10px; border-radius:8px; cursor:pointer; transition: all .15s;
+    }
+    .prompt .copy:hover { color:var(--text); border-color:#3d4044; }
+    .prompt .copy.done { color: var(--green); border-color: var(--green); }
+    .prompt .hi { color: var(--amber); }
+    .prompt .dim { color: var(--muted); }
+
+    /* recap cards */
+    .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 24px 0; }
+    .rcard { background: var(--card-deep); border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px; }
+    .rcard .ic { font-size: 22px; margin-bottom: 10px; display:block; }
+    .rcard h3 { margin: 0 0 6px; font-size: 17px; }
+    .rcard p { font-size: 14.5px; line-height: 1.6; color: var(--body); margin: 0; }
+
+    /* tutorial step */
+    .part { background: var(--card-deep); border: 1px solid var(--line); border-radius: 18px; padding: 26px 28px; margin: 18px 0; }
+    .part-tag { font-size: 12.5px; font-weight: 900; color: var(--x-blue); letter-spacing: 0.4px; margin-bottom: 6px; }
+    .part h3 { margin: 0 0 10px; font-size: 21px; }
+    .part p { font-size: 16.5px; margin-bottom: 14px; }
+    .part p:last-child { margin-bottom: 0; }
+    .part ol { margin: 6px 0 14px; padding-inline-start: 20px; }
+    .part li { font-size: 16px; margin-bottom: 8px; }
+
+    /* callout */
+    .callout { background: radial-gradient(ellipse 480px 200px at 50% -40px, rgba(29,155,240,0.12), transparent 70%), var(--card-deep); border:1px solid var(--line); border-radius:18px; padding:26px 28px; margin:28px 0; }
+    .callout.warn { background: radial-gradient(ellipse 480px 200px at 50% -40px, rgba(244,52,78,0.12), transparent 70%), var(--card-deep); border-color: rgba(244,52,78,0.3); }
+    .callout .co-head { font-size:14px; font-weight:800; letter-spacing:0.3px; color:var(--x-blue); margin-bottom:10px; }
+    .callout.warn .co-head { color: var(--red); }
+    .callout p:last-child { margin-bottom:0; }
+
+    /* homework checklist */
+    .hw { list-style: none; margin: 22px 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+    .hw li { margin: 0; }
+    .hw label {
+      display: flex; gap: 14px; align-items: flex-start; cursor: pointer;
+      background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px;
+      transition: border-color .2s, background .2s;
+    }
+    .hw label:hover { border-color: #3d4044; }
+    .hw input { appearance: none; -webkit-appearance: none; flex: none; width: 24px; height: 24px; margin-top: 1px;
+      border: 2px solid var(--muted); border-radius: 7px; cursor: pointer; position: relative; transition: all .15s; background:#000; }
+    .hw input:checked { background: var(--green); border-color: var(--green); }
+    .hw input:checked::after { content: '✓'; position: absolute; inset: 0; display: grid; place-items: center; color: #000; font-weight: 900; font-size: 15px; }
+    .hw .hw-body { flex: 1; }
+    .hw .hw-title { font-weight: 800; font-size: 16.5px; color: var(--text); margin-bottom: 4px; }
+    .hw .hw-title .est { font-weight: 600; font-size: 12.5px; color: var(--amber); margin-inline-start: 8px; }
+    .hw .hw-desc { font-size: 14.5px; line-height: 1.6; color: var(--body); }
+    .hw input:checked ~ .hw-body .hw-title { color: var(--muted); text-decoration: line-through; }
+    .hw-note { color: var(--muted); font-size: 13.5px; margin-top: 4px; }
+
+    /* glossary table */
+    .cheat { width:100%; border-collapse:collapse; margin:20px 0; font-size:15px; border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+    .cheat th, .cheat td { text-align:start; padding:13px 16px; border-top:1px solid var(--line); vertical-align:top; }
+    .cheat th { background: var(--card-deep); font-weight:800; font-size:12.5px; letter-spacing:0.3px; color:var(--muted); }
+    .cheat td { color: var(--body); line-height:1.55; }
+    .cheat td:first-child { font-weight:800; color:var(--text); white-space:nowrap; }
+    .cheat-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+
+    .divider { border:none; border-top:1px solid var(--line); margin: 56px 0; }
+
+    .follow { margin-top: 60px; background: radial-gradient(ellipse 480px 260px at 50% -60px, rgba(29,155,240,0.14), transparent 70%), var(--card-deep); border: 1px solid var(--line); border-radius: 20px; padding: 36px 28px 32px; text-align: center; }
+    .follow-title { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+    .follow-sub { color: var(--muted); font-size: 15px; margin-bottom: 24px; line-height: 1.6; }
+    .follow-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .follow-link { display: flex; align-items: center; gap: 10px; padding: 11px 22px; background: var(--card); color: var(--text); border: 1px solid var(--line); border-radius: 999px; text-decoration: none; font-size: 14.5px; font-weight: 700; transition: transform .2s, background .2s, border-color .2s; }
+    .follow-link:hover { transform: translateY(-2px); background: #1d1f23; border-color: #3d4044; }
+    .author { margin-top: 40px; padding-top: 26px; border-top: 1px solid var(--line); display:flex; align-items:center; gap:14px; }
+    .author img { width: 50px; height:50px; border-radius:50%; object-fit:cover; background: var(--card); }
+    .author .a-name { font-weight:800; font-size:15.5px; }
+    .author .a-sub { color: var(--muted); font-size:13.5px; }
+
+    @media (max-width: 560px) {
+      h1 { font-size: 31px; }
+      .lede { font-size: 17.5px; }
+      h2 { font-size: 25px; }
+      .cards, .toc ol { grid-template-columns: 1fr; }
+      .follow-links { flex-direction:column; align-items:stretch; }
+      .follow-link { justify-content:center; }
+    }
+  </style>
+</head>
+<body>
+<main class="wrap">
+
+  <nav class="top-nav">
+    <a href="/">← לעמוד הראשי</a>
+    <span class="brand">מפגש 2</span>
+  </nav>
+
+  <span class="kicker">סיכום מפגש · מדריך · שיעורי בית</span>
+  <h1>מפגש 2: מטרמינל בודד<br>ל<span class="accent">מוח חכם שעובד</span></h1>
+  <p class="lede">מפגש מדהים. לפני שבוע לא ידעת כלום, והיום כבר יש מוח חכם שבנה בעצמו תיקיות לשמונים סטודנטים, טפסים מוכנים, וקטלוג בוגרים שנראה מושלם.</p>
+  <p class="lede">הדף הזה הוא כל מה שעברנו, מסודר לצעדים שאפשר לחזור עליהם לבד. קודם <strong>מה עשינו</strong>, אחר כך <strong>מדריך צעד אחר צעד</strong>, ובסוף <strong>שיעורי הבית</strong> עם צ'קליסט שאפשר לסמן.</p>
+  <div class="byline">
+    <span>יובל קשטכר</span><span class="dot"></span>
+    <span>קלוד קוד למתקדמים</span><span class="dot"></span>
+    <span>זמן קריאה: ~10 דק'</span>
+  </div>
+
+  <nav class="toc">
+    <div class="toc-title">מה יש בדף</div>
+    <ol>
+      <li><a href="#recap"><span class="n">01</span> מה עשינו היום</a></li>
+      <li><a href="#safety"><span class="n">02</span> אבטחה ושכל ישר</a></li>
+      <li><a href="#tutorial"><span class="n">03</span> המדריך: צעד אחר צעד</a></li>
+      <li><a href="#homework"><span class="n">04</span> שיעורי בית</a></li>
+      <li><a href="#glossary"><span class="n">05</span> מילון מושגים</a></li>
+      <li><a href="#next"><span class="n">06</span> מה הלאה</a></li>
+    </ol>
+  </nav>
+
+  <!-- 01 RECAP -->
+  <section id="recap">
+    <div class="sec-num">01 — סיכום</div>
+    <h2>מה עשינו היום</h2>
+    <p>עברנו הרבה. אלה עשרת הדברים הכי חשובים שנגענו בהם. אם משהו פה מרגיש מעורפל, זה נורמלי. חוזרים על זה בקצב שלך.</p>
+
+    <div class="cards">
+      <div class="rcard">
+        <span class="ic">🗂️</span>
+        <h3>כמה טרמינלים במקביל</h3>
+        <p>הכפתור פלוס פותח עוד טאב, שזה עוד טרמינל. אני עובד עם שמונה במקביל: אחד למחקר, אחד לפייסבוק, אחד ללינקדאין. כל אחד עובד לבד.</p>
+      </div>
+      <div class="rcard">
+        <span class="ic">🧠</span>
+        <h3>המוח החכם</h3>
+        <p>זה לא תוכנה. זה ערימה של קבצי MD מחוברים אחד לשני. כל הידע, כל תסריטי השיחה, כל התוכן. מקור אמת אחד.</p>
+      </div>
+      <div class="rcard">
+        <span class="ic">⚡</span>
+        <h3>Plan Mode</h3>
+        <p>כותבים plan mode והוא מתחיל לשאול שאלות ולתכנן לפני שהוא בונה. חושב לפני שהוא רץ. פחות הפתעות.</p>
+      </div>
+      <div class="rcard">
+        <span class="ic">⌨️</span>
+        <h3>פקודות סלאש</h3>
+        <p>סלאש ואז מילה. skills מראה את הסקילים שלך. usage את השימוש. model מחליף מודל. Fable זמין לך עד ה12 ליולי.</p>
+      </div>
+      <div class="rcard">
+        <span class="ic">☁️</span>
+        <h3>איך זה עובד באמת</h3>
+        <p>קלוד קוד הוא צינור בין המחשב שלך לשכבת AI חכמה שרצה בענן של אנתרופיק. הטוקנים דורשים המון כוח חישוב, ולכן צריך את הדאטה סנטרים.</p>
+      </div>
+      <div class="rcard">
+        <span class="ic">🐙</span>
+        <h3>GitHub</h3>
+        <p>כמו גוגל דרייב של הקוד. גיבוי בענן של המוח שלך. חינם. Fork זה לקחת עותק, Merge זה להחזיר שיפור.</p>
+      </div>
+      <div class="rcard">
+        <span class="ic">💬</span>
+        <h3>שכבת אינטליגנציה שיחתית</h3>
+        <p>אנחנו מדברים, ה AI קולט את השיחה והופך אותה למוח שלם. השיחה שלנו הפכה לתסריט, והתסריט הפך למוצר. זה ה Framework שאני מפתח.</p>
+      </div>
+      <div class="rcard">
+        <span class="ic">🎯</span>
+        <h3>לצמצם הזיות עם סקילים</h3>
+        <p>סקיל עם משימה אחת ממוקדת פחות ממציא. ראית את סקיל הפייסבוק שלי: תשעה שלבים, כולל Editor שבודק כל נתון אם הוא באמת קרה בעולם.</p>
+      </div>
+    </div>
+
+    <div class="pull">גם כשלא מבינים בדיוק <span>מה הוא עושה</span>, מה שחשוב זו התוצאה. את בונה אמון עם הכלי צעד צעד.</div>
+
+    <h3>שני רעיונות ששווה לזכור</h3>
+    <p><strong>המוח לומד, הוא לא סתם תיקייה.</strong> כל חודש אני מייצא את הביצועים של הפוסטים, מוצא תבניות שעבדו טוב מהממוצע, ומכניס את זה כחוקיות לתוך הסקיל. ככה הוא משתפר עם הזמן במקום להישאר קפוא.</p>
+    <p><strong>Let's skill it.</strong> אחרי סשן שאהבת את התוצאה שלו, אומרים לקלוד "בוא נהפוך את זה לסקיל". זו הדרך הכי פרודוקטיבית לבנות סקיל. לא כותבים אותו מאפס, מזקקים אותו מתוך משהו שכבר עבד.</p>
+  </section>
+
+  <!-- 02 SAFETY -->
+  <section id="safety">
+    <div class="sec-num">02 — זהירות</div>
+    <h2>אבטחה ושכל ישר</h2>
+    <p>לימדתי אותך היום את המצב המהיר, ה Bypass Permissions. הוא חוסך המון זמן, אבל הוא גם כלי חד. שווה להבין מתי מותר ומתי נזהרים.</p>
+    <div class="callout warn">
+      <div class="co-head">חוק ברזל</div>
+      <p>במצב הזה קלוד לא מבקש אישור על כל פעולה. בשבילנו זה בסדר כי אנחנו עובדות על <strong>תוכן שהוא לא סודי ולא שייך לאף אחד</strong>. אף אחד לא ייסחט אם קטלוג הבוגרים ידלוף.</p>
+      <p style="margin-top:12px;">אבל לא כותבים לו פקודות הרסניות. לא "תמחק את הדאטה בייס". אם עולה על המסך משהו מפחיד, עוצרות ושואלות. יש לקוחות שאם המידע שלהם דולף מישהו נכנס לכלא. שם עובדים אחרת לגמרי.</p>
+    </div>
+    <p>אנתרופיק היא חברה מסודרת ששווה טריליונים, עם דיסקליימרים והגנות. קלוד קוד הוא כלי עבודה. זה שונה מכלים בקוד פתוח שאין להם "אבא ואמא" ואין עליהם שליטה. עבדנו היום עם הכלי הבטוח.</p>
+  </section>
+
+  <!-- 03 TUTORIAL -->
+  <section id="tutorial">
+    <div class="sec-num">03 — מדריך</div>
+    <h2>המדריך: צעד אחר צעד</h2>
+    <p>עכשיו נעבור על מה שעשינו, בסדר, כדי שתוכלי לחזור על זה לבד. פקודות באנגלית נשארות באנגלית. יש כפתור העתקה על כל אחת.</p>
+
+    <div class="part">
+      <div class="part-tag">שלב א</div>
+      <h3>לפתוח כמה טרמינלים</h3>
+      <p>כל טאב הוא טרמינל נפרד. פותחים אותו עם הכפתור פלוס. ככה אפשר להריץ כמה משימות במקביל בלי שאחת תחכה לשנייה.</p>
+      <p>כדי להפעיל את קלוד בטרמינל חדש, פשוט כותבים:</p>
+      <div class="prompt"><span class="lbl">פקודה</span><button class="copy">העתק</button>claude</div>
+      <p>אם הוא שואל, בוחרים <span dir="ltr">Yes, I trust this folder</span>.</p>
+    </div>
+
+    <div class="part">
+      <div class="part-tag">שלב ב</div>
+      <h3>לחבר את קלוד למוח החכם</h3>
+      <p>מוצאים את התיקייה של המוח על המחשב, לוחצים עליה קליק ימני ובוחרים <span dir="ltr">Copy address</span>. פותחים טרמינל חדש, מדביקים את הנתיב, רווח, ואז מסבירים לו מה זה:</p>
+      <div class="prompt"><span class="lbl">פרומפט</span><button class="copy">העתק</button><span class="hi">[paste the path to your brain folder]</span> This is my brain product. I want to log into it. Every feature, operation and knowledge base, so it will be my one source of truth.</div>
+      <p>מעכשיו הוא יודע איפה יושב הידע שלך והוא בונה עליו.</p>
+    </div>
+
+    <div class="part">
+      <div class="part-tag">שלב ג</div>
+      <h3>Plan Mode: לתכנן לפני שבונים</h3>
+      <p>לא משנה איפה בטרמינל, כותבים <span dir="ltr">plan mode</span> והוא נכנס למצב תכנון. מוסיפים מה רוצים, ולוחצים Enter:</p>
+      <div class="prompt"><span class="lbl">פרומפט</span><button class="copy">העתק</button>plan mode. Help me design the brain in the best possible way.</div>
+      <ol>
+        <li>הוא קורא את הקבצים הקיימים ומזהה את הסקילים שכבר יש.</li>
+        <li>הוא שואל אותך שאלות: מה להוסיף, כמה לשנות, על מה לעבוד קודם.</li>
+        <li>בסוף הוא מציג <strong>Plan</strong> מסודר. את קוראת, מאשרת, ואז הוא יוצא לדרך.</li>
+      </ol>
+      <p>טיפ: כשהוא נותן אופציות כמו Additive מול Full Redesign, שווה להפעיל מחשבה ביקורתית ולהסתכל על הארכיטקטורה שהוא מציע מימין. תמיד אפשר לשנות אחר כך.</p>
+    </div>
+
+    <div class="part">
+      <div class="part-tag">שלב ד</div>
+      <h3>פקודות סלאש שכדאי להכיר</h3>
+      <p>לוחצים סלאש ואז כותבים. אלה הכי שימושיות:</p>
+      <div class="prompt"><span class="lbl">פקודות</span><button class="copy">העתק</button>/skills   <span class="dim"># מראה את רשימת הסקילים שלך</span>
+/usage    <span class="dim"># כמה מהמכסה ניצלת</span>
+/model    <span class="dim"># מחליף מודל. אפשר לבחור Fable עד 12 ליולי</span></div>
+      <p>אפשר להשלים אוטומטית עם Tab כשהוא מציע. שימי לב: החלפת מודל עובדת קדימה בלבד, לא רטרואקטיבית על מה שכבר רץ. את Fable נסי על משימות קטנות, כי על משימה ענקית הוא טוחן את כל המכסה.</p>
+    </div>
+
+    <div class="part">
+      <div class="part-tag">שלב ה</div>
+      <h3>המצב המהיר: Bypass Permissions</h3>
+      <p>זה הטריק שחוסך זמן. במקום ללחוץ Enter על כל אישור, מפעילים את קלוד עם הדגל הזה (קראי שוב את פרק האבטחה למעלה לפני שמשתמשים):</p>
+      <div class="prompt"><span class="lbl">פקודה</span><button class="copy">העתק</button>claude --dangerously-skip-permissions</div>
+      <p>בוחרים <span dir="ltr">Yes, I accept</span>. זה רק לסשן הזה. עובדים בזהירות, בלי פקודות הרסניות, ואם משהו נראה מפחיד, עוצרים.</p>
+    </div>
+
+    <div class="part">
+      <div class="part-tag">שלב ו</div>
+      <h3>לגבות את המוח ב-GitHub</h3>
+      <p>אם המחשב הולך לאיבוד, המוח נעלם. הפתרון הוא גיבוי אוטומטי בענן. ככה:</p>
+      <ol>
+        <li>פותחים חשבון ב-GitHub. חינם.</li>
+        <li>מחברים אותו דרך Composio, בדיוק כמו שחיברת את הגוגל דרייב. ככה קלוד קוד יכול לדבר עם GitHub.</li>
+        <li>בטרמינל חדש, מדביקים את הנתיב של המוח ואומרים לו לגבות:</li>
+      </ol>
+      <div class="prompt"><span class="lbl">פרומפט</span><button class="copy">העתק</button><span class="hi">[paste the path to your brain]</span> Back this up to my GitHub in a new project.</div>
+      <p>מהרגע שהוא מחובר, נגדיר לו שכל פעולה על המוח תעדכן אוטומטית את GitHub. גיבוי חי, בלי למשוך ולדחוף ידנית.</p>
+    </div>
+
+    <div class="part">
+      <div class="part-tag">שלב ז</div>
+      <h3>להפוך את מה שעבד לסקיל</h3>
+      <p>אהבת איך שהוא מייצר את הטמפלטים בקטלוג? נהפוך את זה לסקיל קבוע. ב-Plan Mode:</p>
+      <div class="prompt"><span class="lbl">פרומפט</span><button class="copy">העתק</button>plan mode. I want to create a skill based on the way you create templates.</div>
+      <p>ואפשר גם סקיל קטן ומועיל שמחבר אותך למוח אוטומטית בכל פעם, ומפעילים אותו עם סלאש brain:</p>
+      <div class="prompt"><span class="lbl">פרומפט</span><button class="copy">העתק</button>Create a skill that automatically logs into the brain. Call it /brain.</div>
+    </div>
+
+    <div class="callout">
+      <div class="co-head">בונוס: הפרומפט שיצרנו לייב</div>
+      <p>תוך כדי המפגש ביקשתי מהמוח שלי לבנות מדריך על סגנון כתיבת הפרומפטים שלי, והוא בנה עמוד שלם ופרסם אותו באתר. את יכולה לקרוא אותו כאן: <a class="inline" href="/prompts">מדריך כתיבת פרומפטים ←</a></p>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 04 HOMEWORK -->
+  <section id="homework">
+    <div class="sec-num">04 — לעשות לבד</div>
+    <h2>שיעורי בית</h2>
+    <p>אלה המשימות שסיכמנו. סמני כל אחת כשסיימת, הסימון נשמר בדפדפן שלך. אם נתקעת, כותבת לי בוואטסאפ תוך כדי תנועה.</p>
+
+    <ul class="hw">
+      <li>
+        <label>
+          <input type="checkbox" data-hw="github" />
+          <span class="hw-body">
+            <span class="hw-title">1. לפתוח GitHub ולחבר אותו<span class="est">~15 דק'</span></span>
+            <span class="hw-desc">פותחים חשבון ב-GitHub (חינם), מחברים דרך Composio, ומגבים את המוח הנוכחי שעובד לך אחלה. יש להם כמה שלבי אימות כי זה מאובטח, אז זה לוקח טיפה זמן. זה הבסיס לכל השאר.</span>
+          </span>
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" data-hw="skill" />
+          <span class="hw-body">
+            <span class="hw-title">2. לבנות סקיל של יצירת טמפלטים<span class="est">~20 דק'</span></span>
+            <span class="hw-desc">ב-Plan Mode, לבקש ממנו לבנות סקיל על בסיס האופן שבו הוא מייצר את הטמפלטים במוח. ככה הדיוק נשמר לכל פעם הבאה, במקום להסביר מחדש בכל סשן.</span>
+          </span>
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" data-hw="duplicate" />
+          <span class="hw-body">
+            <span class="hw-title">3. Duplicate ולפתח מוח מורחב<span class="est">אחרי הגיבוי</span></span>
+            <span class="hw-desc">רק אחרי שגיבית את המוח המקורי ב-GitHub: עושים Duplicate לפרויקט, ומפתחים על העותק את המוח המורחב לפי ה-Plan שהתחלנו. אומרים לו במפורש: "Don't work on the source brain, duplicate it and work on that". ככה מה שעובד לא נהרס.</span>
+          </span>
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" data-hw="images" />
+          <span class="hw-body">
+            <span class="hw-title">4. מיון התמונות: לא לוותר<span class="est">דדליין קרוב</span></span>
+            <span class="hw-desc">לפתוח טרמינל ולרוץ שוב על המיון בין רקע לבן של סטודיו לרקע קיר של backstage, על בסיס דחיסות הפיקסלים. במקביל, לשלוח אותו למחקר: "Find open source libraries that can do image sorting in the best possible way". שואלת אותי תוך כדי.</span>
+          </span>
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" data-hw="bonus" />
+          <span class="hw-body">
+            <span class="hw-title">5. בונוס למתקדמים<span class="est">כשיש זמן</span></span>
+            <span class="hw-desc">להתקין את Obsidian ולראות ויזואלית את המוח שלך עם כל הקישורים בין קבצי ה-MD. ואפשר לחבר את Gmail דרך Composio לסקיל שמסנן מיילים לפי דחיפות, כי קלוד יותר חכם מארגון שבו הכול דחוף.</span>
+          </span>
+        </label>
+      </li>
+    </ul>
+    <p class="hw-note">כל שיעורי הבית ביחד זה בערך רבע שעה עבודה שלך. קפיצת מדרגה מטורפת משבוע שעבר.</p>
+  </section>
+
+  <!-- 05 GLOSSARY -->
+  <section id="glossary">
+    <div class="sec-num">05 — מילון</div>
+    <h2>מילון מושגים</h2>
+    <p>כל מילה חדשה שעברנו עליה היום, במשפט אחד.</p>
+    <div class="cheat-scroll">
+      <table class="cheat">
+        <thead><tr><th>מושג</th><th>מה זה במשפט</th></tr></thead>
+        <tbody>
+          <tr><td>מוח חכם</td><td>ערימת קבצי MD מחוברים שמשמשת מקור אמת אחד לקלוד</td></tr>
+          <tr><td>טרמינל / טאב</td><td>חלון עבודה של קלוד. אפשר כמה במקביל דרך כפתור הפלוס</td></tr>
+          <tr><td>Plan Mode</td><td>מצב שבו קלוד שואל ומתכנן לפני שהוא בונה</td></tr>
+          <tr><td>Skill</td><td>סדרת שלבים קבועה שקלוד יודע להריץ בפקודת סלאש</td></tr>
+          <tr><td>פקודת סלאש</td><td>סלאש ואז מילה. מפעיל סקיל או פקודה מובנית</td></tr>
+          <tr><td>Bypass Permissions</td><td>מצב מהיר שמדלג על אישורים. חוסך זמן, דורש זהירות</td></tr>
+          <tr><td>GitHub</td><td>ענן לגיבוי ושיתוף של קוד. כמו גוגל דרייב לקבצי המוח</td></tr>
+          <tr><td>Fork</td><td>לקחת עותק של פרויקט כדי לעבוד עליו בנפרד</td></tr>
+          <tr><td>Merge</td><td>להחזיר שיפור מהעותק אל הפרויקט המקורי</td></tr>
+          <tr><td>Open Source</td><td>קוד פתוח שכולם יכולים להשתמש בו ולבנות עליו</td></tr>
+          <tr><td>Composio</td><td>גשר שמחבר את קלוד לכלים חיצוניים: דרייב, GitHub, Gmail</td></tr>
+          <tr><td>Fable</td><td>מודל חזק, זמין לך עד ה12 ליולי. טוב למשימות קטנות</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 06 NEXT -->
+  <section id="next">
+    <div class="sec-num">06 — קדימה</div>
+    <h2>מה הלאה</h2>
+    <p>הסדר הנכון: קודם גיבוי ב-GitHub, כי בלי גיבוי אנחנו מסתכנות באובדן של מה ששווה לך. אחרי שיש גיבוי, מרחיבים את המוח בביטחון על העותק.</p>
+    <p>בימים הקרובים נסגור באסינכרוני בוואטסאפ את החיבור שיעדכן את GitHub אוטומטית בכל פעולה. ואת מיון התמונות תריצי כבר עכשיו, כי הדדליין קרוב. אני פה לשאלות תוך כדי.</p>
+    <div class="pull">אם לפני שבוע לא ידעת כלום, והיום זה כבר רץ לך, <span>זה בדיוק הקצב הנכון.</span></div>
+  </section>
+
+  <section class="follow">
+    <div class="follow-title">שאלה תוך כדי?</div>
+    <p class="follow-sub">כותבת לי בוואטסאפ ואני עונה. עדיף שאלה קטנה עכשיו מאשר להיתקע חצי שעה.</p>
+    <div class="follow-links">
+      <a class="follow-link" href="https://wa.me/972526414555?text=%D7%94%D7%99%D7%99%20%D7%99%D7%95%D7%91%D7%9C%2C%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%9E%D7%94%D7%9E%D7%A4%D7%92%D7%A9" target="_blank" rel="noopener">וואטסאפ</a>
+      <a class="follow-link" href="/prompts">מדריך הפרומפטים</a>
+    </div>
+  </section>
+
+  <div class="author">
+    <img src="/avatar.jpg" alt="יובל קשטכר" />
+    <div>
+      <div class="a-name">יובל קשטכר</div>
+      <div class="a-sub">בונה סוכני AI. מלמד אנשים לבנות.</div>
+    </div>
+  </div>
+
+</main>
+
+<script is:inline>
+  // copy buttons
+  document.querySelectorAll('.prompt .copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var block = btn.closest('.prompt');
+      var clone = block.cloneNode(true);
+      clone.querySelectorAll('.lbl, .copy').forEach(function (el) { el.remove(); });
+      var text = clone.innerText.trim();
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'הועתק ✓';
+        btn.classList.add('done');
+        setTimeout(function () { btn.textContent = 'העתק'; btn.classList.remove('done'); }, 1600);
+      });
+    });
+  });
+
+  // persistent homework checkboxes
+  var KEY = 'shenkar2-hw';
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+  document.querySelectorAll('.hw input[data-hw]').forEach(function (box) {
+    var id = box.getAttribute('data-hw');
+    if (saved[id]) box.checked = true;
+    box.addEventListener('change', function () {
+      saved[id] = box.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+    });
+  });
+</script>
+</body>
+</html>
