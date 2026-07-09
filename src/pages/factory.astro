@@ -251,6 +251,9 @@ const jsonLd = {
   <title>AI Systems for Factories — Yuval Keshtcher</title>
   <meta name="description" content="AI for low-tech manufacturers: quoting & tender automation, project dashboards over your Excel, WhatsApp field-service intelligence, design-room AI, and an organizational brain. From a one-day mapping to full implementation." />
   <link rel="canonical" href={`${site}/factory/`} />
+  <link rel="alternate" hreflang="en" href={`${site}/factory/`} />
+  <link rel="alternate" hreflang="he" href={`${site}/factory-he/`} />
+  <link rel="alternate" hreflang="x-default" href={`${site}/factory/`} />
 
   <!-- Open Graph -->
   <meta property="og:title" content="AI Systems for Factories — Yuval Keshtcher" />
@@ -322,6 +325,21 @@ const jsonLd = {
       animation: fadeUp 0.62s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+    /* --- lang toggle --- */
+    .lang {
+      align-self: flex-end;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 14px;
+      margin-bottom: 22px;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .lang:hover { color: #e7e9ea; border-color: #3d4044; }
 
     /* --- hero --- */
     .kicker {
@@ -624,6 +642,7 @@ const jsonLd = {
 </head>
 <body>
   <main class="container">
+    <a class="lang fade" style="animation-delay:0.02s" href="/factory-he/">עברית</a>
 
     <!-- HERO -->
     <div class="kicker fade" style="animation-delay:0.02s">AI for Manufacturing</div>
