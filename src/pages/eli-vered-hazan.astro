@@ -1,0 +1,788 @@
+---
+const videos = [
+  {
+    id: 'Q6LybYS9FbY',
+    title: 'למה סינגפור כל כך מצליחה?',
+    note: 'הסיפור הגדול: איך אי קטן בלי משאבי טבע הפך למודל שרבים בעולם מנסים להבין.',
+  },
+  {
+    id: 'CXVg1Gb61ak',
+    title: 'שדה התעופה שחזה את העתיד לפני 50 שנה',
+    note: 'שדה תעופה כראי לתכנון ארוך טווח, שירות ציבורי ומחשבה על חוויית אדם.',
+  },
+  {
+    id: 'C0XqdZbCK8o',
+    title: 'חוק השפה הגאוני שבנה את סינגפור',
+    note: 'שפה, זהות וחינוך כארכיטקטורה לאומית, לא כקישוט תרבותי.',
+  },
+  {
+    id: 'Rt0SNpaDqBE',
+    title: 'המערב התרגל לכאוס. סינגפור תכננה את ההפך',
+    note: 'הקו הכי חד: במקום להתרגל לכאוס, לבנות מערכת שמייצרת סדר.',
+  },
+];
+
+const lessons = [
+  'מדינה קטנה לא חייבת לחשוב קטן.',
+  'סדר ציבורי הוא לא עניין אסתטי. הוא מערכת הפעלה.',
+  'שפה, חינוך, כלכלה וביטחון הם חלק מאותו סיפור.',
+  'העתיד לא מגיע במקרה. מישהו צריך לתכנן אותו, למדוד אותו, ולהגן עליו.',
+];
+
+const sources = [
+  {
+    label: 'ערוץ היוטיוב',
+    href: 'https://www.youtube.com/@EliVeredHazan',
+  },
+  {
+    label: 'פרופיל רשמי',
+    href: 'https://embassies.gov.il/singapore/en/the-embassy/the-ambassador',
+  },
+  {
+    label: 'עמוד הספר',
+    href: 'https://us.amazon.com/Singapore-natural-resources-successful-nations-ebook/dp/B0H7LYRNGH',
+  },
+];
+---
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>סינגפור: המודל שעובד | אלי ורד חזן</title>
+  <meta name="description" content="רשימת המתנה לספר של אלי ורד חזן על סינגפור: המדינה שבנתה מערכת הפעלה לאומית של סדר, תכנון, חינוך, תשתיות וחשיבה לטווח ארוך." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#07140f" />
+  <meta property="og:title" content="סינגפור: המודל שעובד" />
+  <meta property="og:description" content="עמוד המתנה לספר של אלי ורד חזן על סינגפור, מתוך השפה והרעיונות של סדרת הסרטונים שלו." />
+  <meta property="og:image" content="https://i.ytimg.com/vi/Q6LybYS9FbY/maxresdefault.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style is:inline>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #07140f;
+      --paper: #f7f4ec;
+      --paper-2: #eee8da;
+      --line: rgba(7, 20, 15, 0.16);
+      --red: #d71920;
+      --jade: #0b7c61;
+      --gold: #c79232;
+      --text: #14221d;
+      --muted: #59635f;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      font-family: Heebo, Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--paper);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; }
+    button, input, textarea { font: inherit; }
+    img, iframe { max-width: 100%; }
+
+    .hero {
+      min-height: min(920px, 100svh);
+      display: grid;
+      align-items: end;
+      position: relative;
+      isolation: isolate;
+      background:
+        linear-gradient(180deg, rgba(7, 20, 15, 0.1) 0%, rgba(7, 20, 15, 0.55) 52%, rgba(7, 20, 15, 0.94) 100%),
+        url('https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=2400&q=82') center / cover no-repeat;
+      color: #fff;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 34vh;
+      background: linear-gradient(180deg, transparent, var(--paper));
+      z-index: -1;
+      opacity: 0.95;
+    }
+
+    .nav {
+      position: absolute;
+      inset: 0 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px clamp(18px, 4vw, 56px);
+      z-index: 2;
+    }
+
+    .brand {
+      font-weight: 900;
+      letter-spacing: 0;
+      line-height: 1.05;
+      font-size: clamp(18px, 2vw, 25px);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a,
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 10px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 999px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 14px;
+      background: rgba(7, 20, 15, 0.26);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-inner {
+      width: min(1160px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 132px 0 clamp(58px, 10vh, 112px);
+      display: grid;
+      gap: 36px;
+      grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.72fr);
+      align-items: end;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      gap: 10px;
+      background: rgba(215, 25, 32, 0.92);
+      color: #fff;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      max-width: 780px;
+      font-size: clamp(44px, 8vw, 104px);
+      line-height: 0.96;
+      letter-spacing: 0;
+      font-weight: 900;
+      text-wrap: balance;
+    }
+
+    .hero-copy {
+      margin-top: 24px;
+      max-width: 720px;
+      font-size: clamp(18px, 2.2vw, 25px);
+      line-height: 1.45;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 600;
+    }
+
+    .waitlist {
+      width: min(100%, 430px);
+      justify-self: end;
+      background: rgba(247, 244, 236, 0.95);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 24px 90px rgba(0, 0, 0, 0.28);
+    }
+
+    .waitlist h2 {
+      font-size: 23px;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .waitlist p {
+      color: var(--muted);
+      line-height: 1.55;
+      margin-bottom: 18px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+      margin-bottom: 12px;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 800;
+      color: #23322d;
+    }
+
+    input, textarea {
+      width: 100%;
+      border: 1px solid rgba(7, 20, 15, 0.18);
+      background: #fffdf8;
+      color: var(--text);
+      border-radius: 8px;
+      min-height: 48px;
+      padding: 12px 13px;
+      outline: none;
+      direction: rtl;
+    }
+
+    textarea {
+      min-height: 86px;
+      resize: vertical;
+    }
+
+    input[type="email"] {
+      direction: ltr;
+      text-align: left;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--jade);
+      box-shadow: 0 0 0 3px rgba(11, 124, 97, 0.16);
+    }
+
+    .submit {
+      width: 100%;
+      min-height: 52px;
+      border: 0;
+      border-radius: 8px;
+      background: var(--red);
+      color: #fff;
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform 0.18s ease, filter 0.18s ease;
+    }
+
+    .submit:hover { transform: translateY(-1px); filter: brightness(1.03); }
+    .submit:disabled { opacity: 0.65; cursor: wait; transform: none; }
+
+    .form-status {
+      min-height: 22px;
+      margin-top: 12px;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--jade);
+    }
+
+    main {
+      background: var(--paper);
+      position: relative;
+      z-index: 1;
+    }
+
+    .section {
+      padding: clamp(58px, 8vw, 104px) clamp(18px, 4vw, 56px);
+    }
+
+    .section.alt { background: var(--ink); color: #fff; }
+    .section.soft { background: var(--paper-2); }
+
+    .inner {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+    }
+
+    .kicker {
+      color: var(--red);
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      margin-bottom: 12px;
+    }
+
+    .section.alt .kicker { color: #ff6b70; }
+
+    h2.section-heading {
+      font-size: clamp(31px, 4.6vw, 58px);
+      line-height: 1.03;
+      letter-spacing: 0;
+      max-width: 860px;
+      font-weight: 900;
+      text-wrap: balance;
+    }
+
+    .lead {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 19px;
+      line-height: 1.62;
+      margin-top: 18px;
+      font-weight: 500;
+    }
+
+    .section.alt .lead { color: rgba(255, 255, 255, 0.74); }
+
+    .lesson-grid {
+      margin-top: 36px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+      border-inline-start: 1px solid var(--line);
+    }
+
+    .lesson {
+      min-height: 190px;
+      padding: 24px;
+      border-inline-end: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+      background: rgba(255, 255, 255, 0.36);
+    }
+
+    .lesson span {
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .lesson strong {
+      font-size: 21px;
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .book-band {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+      gap: 44px;
+      align-items: center;
+    }
+
+    .book-cover {
+      aspect-ratio: 4 / 5;
+      border-radius: 8px;
+      background:
+        linear-gradient(145deg, rgba(215, 25, 32, 0.76), rgba(11, 124, 97, 0.9)),
+        url('https://i.ytimg.com/vi/CXVg1Gb61ak/maxresdefault.jpg') center / cover no-repeat;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.26);
+      padding: 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #fff;
+    }
+
+    .book-cover .small {
+      font-size: 14px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .book-cover .title {
+      font-size: clamp(34px, 5vw, 62px);
+      line-height: 0.96;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .video-grid {
+      margin-top: 38px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .video-card {
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .video-frame {
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      display: block;
+      border: 0;
+      background: #000;
+    }
+
+    .video-body {
+      padding: 18px;
+    }
+
+    .video-body h3 {
+      font-size: 19px;
+      line-height: 1.24;
+      margin-bottom: 8px;
+      letter-spacing: 0;
+    }
+
+    .video-body p {
+      color: rgba(255, 255, 255, 0.68);
+      line-height: 1.5;
+    }
+
+    .bio {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 42px;
+      align-items: start;
+    }
+
+    .portrait {
+      min-height: 460px;
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(7, 20, 15, 0.02), rgba(7, 20, 15, 0.68)),
+        url('https://i.ytimg.com/vi/K-9EdryWEnc/maxresdefault.jpg') center / cover no-repeat;
+    }
+
+    .facts {
+      margin-top: 28px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .fact {
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+      display: grid;
+      grid-template-columns: 110px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .fact b {
+      color: var(--jade);
+      font-size: 14px;
+    }
+
+    .fact span {
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .final-cta {
+      text-align: center;
+    }
+
+    .final-cta h2 {
+      margin: 0 auto;
+      max-width: 850px;
+    }
+
+    .source-row {
+      margin-top: 26px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      max-width: 100%;
+    }
+
+    .source-row .source-link {
+      background: rgba(7, 20, 15, 0.72);
+    }
+
+    .footer {
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      padding: 22px clamp(18px, 4vw, 56px);
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      background: var(--paper);
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        min-height: auto;
+        background-position: center top;
+      }
+      .hero::after { height: 18vh; }
+      .nav {
+        position: relative;
+        background: rgba(7, 20, 15, 0.86);
+        padding: 18px clamp(16px, 5vw, 28px);
+      }
+      .hero-inner {
+        grid-template-columns: 1fr;
+        width: min(100% - 32px, 620px);
+        padding: 34px 0 54px;
+        gap: 26px;
+        align-items: start;
+      }
+      .waitlist {
+        justify-self: stretch;
+        width: 100%;
+      }
+      h1 { font-size: clamp(40px, 13vw, 70px); }
+      .hero-copy { font-size: 18px; }
+      .lesson-grid,
+      .video-grid,
+      .book-band,
+      .bio {
+        grid-template-columns: 1fr;
+      }
+      .lesson { min-height: 142px; }
+      .portrait { min-height: 320px; }
+    }
+
+    @media (max-width: 560px) {
+      .nav {
+        align-items: flex-start;
+        gap: 14px;
+        flex-direction: column;
+      }
+      .nav-links {
+        justify-content: flex-start;
+        width: 100%;
+      }
+      .nav-links a,
+      .source-link {
+        min-height: 38px;
+        padding: 8px 11px;
+        font-size: 13px;
+      }
+      .brand { font-size: 18px; }
+      .waitlist { padding: 16px; }
+      .section { padding: 48px 16px; }
+      h2.section-heading { font-size: 30px; line-height: 1.08; }
+      .lead { font-size: 17px; }
+      .lesson { min-height: 128px; padding: 18px; }
+      .lesson strong { font-size: 19px; }
+      .fact { grid-template-columns: 1fr; gap: 4px; }
+      .book-cover {
+        min-height: 340px;
+        padding: 24px;
+      }
+      .book-cover .title { font-size: 34px; }
+      .video-body { padding: 15px; }
+      .footer { padding: 18px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <nav class="nav" aria-label="Primary">
+      <div class="brand">אלי ורד חזן<br />סינגפור: המודל שעובד</div>
+      <div class="nav-links">
+        <a href="#waitlist">הצטרפות</a>
+        <a href="https://www.youtube.com/@EliVeredHazan" target="_blank" rel="noreferrer">יוטיוב</a>
+        <a href="#videos">סרטונים</a>
+      </div>
+    </nav>
+
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">רשימת המתנה לספר</div>
+        <h1>סינגפור: המודל שעובד</h1>
+        <p class="hero-copy">
+          המדינה שסירבה לקבל כאוס כגזירת גורל. מוסדות, שפה,
+          תשתיות, משמעת אזרחית וחשיבה לטווח ארוך: הסיפור של
+          סינגפור כמערכת הפעלה לאומית.
+        </p>
+      </div>
+
+      <form id="waitlist" class="waitlist">
+        <h2>להיכנס לרשימת ההמתנה</h2>
+        <p>לקבל עדכון כשהספר זמין, יחד עם נקודות נבחרות מסדרת הסרטונים על סינגפור.</p>
+
+        <div class="field">
+          <label for="name">שם</label>
+          <input id="name" name="name" autocomplete="name" placeholder="השם שלך" />
+        </div>
+
+        <div class="field">
+          <label for="email">אימייל</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" dir="ltr" required />
+        </div>
+
+        <div class="field">
+          <label for="interest">מה מעניין אותך בסינגפור?</label>
+          <textarea id="interest" name="interest" placeholder="כלכלה, חינוך, מנהיגות, סדר עירוני, חוסן לאומי..."></textarea>
+        </div>
+
+        <button class="submit" type="submit">שמרו לי מקום</button>
+        <div class="form-status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="inner">
+        <div class="kicker">הטענה</div>
+        <h2 class="section-heading">סינגפור לא מובנת עד שמפסיקים לחפש טריק אחד.</h2>
+        <p class="lead">
+          הסיפור הוא לא “מסים נמוכים”, “רחובות נקיים” או “חוקים קשוחים”.
+          זו מערכת: מדינה קטנה שחיברה סדר ציבורי, חינוך, כלכלה, שפה,
+          תשתיות ומנהיגות ארוכת טווח להיגיון פעולה אחד.
+        </p>
+
+        <div class="lesson-grid">
+          {lessons.map((lesson, index) => (
+            <div class="lesson">
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <strong>{lesson}</strong>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section soft">
+      <div class="inner book-band">
+        <div class="book-cover" aria-label="סינגפור: המודל שעובד">
+          <div class="small">אלי ורד חזן</div>
+          <div class="title">המדינה שבנתה את ההפך מכאוס</div>
+          <div class="small">רשימות סינגפור</div>
+        </div>
+
+        <div>
+          <div class="kicker">הספר</div>
+          <h2 class="section-heading">מבט דיפלומטי על המכניקה של הצלחה לאומית.</h2>
+          <p class="lead">
+            אלי ורד חזן כיהן כשגריר ישראל בסינגפור וכשגריר לא תושב בטימור-לסטה.
+            סדרת סינגפור שלו חוזרת שוב ושוב לשאלה אחת מזוויות שונות:
+            מה נדרש ממדינה כדי לבנות אמון, ביצועים והמשכיות בכוונה תחילה?
+          </p>
+          <div class="source-row" style="justify-content: flex-start">
+            <a class="source-link" href="https://us.amazon.com/Singapore-natural-resources-successful-nations-ebook/dp/B0H7LYRNGH" target="_blank" rel="noreferrer">עמוד הספר</a>
+            <a class="source-link" href="#waitlist">להצטרפות</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="videos" class="section alt">
+      <div class="inner">
+        <div class="kicker">מתוך סדרת הסרטונים</div>
+        <h2 class="section-heading">ארבע כניסות אל המודל הסינגפורי.</h2>
+        <p class="lead">
+          התמות חוזרות שוב ושוב: תשתיות מתוכננות, משמעת אזרחית,
+          רב-לשוניות מעשית וסירוב להתרגל לחוסר תפקוד.
+        </p>
+
+        <div class="video-grid">
+          {videos.map((video) => (
+            <article class="video-card">
+              <iframe
+                class="video-frame"
+                src={`https://www.youtube.com/embed/${video.id}`}
+                title={video.title}
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+              <div class="video-body">
+                <h3>{video.title}</h3>
+                <p>{video.note}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="inner bio">
+        <div class="portrait" aria-label="פריים מסרטון של אלי ורד חזן"></div>
+        <div>
+          <div class="kicker">על אלי ורד חזן</div>
+          <h2 class="section-heading">היסטוריה, דיפלומטיה, ממשל ועתיד בתוך פריים אחד.</h2>
+          <p class="lead">
+            בפרופיל הרשמי של השגריר הוא מתואר כהיסטוריון יליד ירושלים,
+            עם ניסיון בעיתונות, חינוך, ממשל, יחסים בינלאומיים ודיפלומטיה.
+            העבודה שלו מחברת בין פוליטיקה, כלכלה, היסטוריה, תרבות,
+            מחקר והתפתחויות עתידיות.
+          </p>
+
+          <div class="facts">
+            <div class="fact">
+              <b>תפקיד</b>
+              <span>שגריר ישראל בסינגפור ושגריר לא תושב בטימור-לסטה.</span>
+            </div>
+            <div class="fact">
+              <b>רקע</b>
+              <span>בוגר תואר ראשון ושני בהיסטוריה מהאוניברסיטה העברית; למד גרמנית באוניברסיטת וינה.</span>
+            </div>
+            <div class="fact">
+              <b>עדשה</b>
+              <span>סינגפור כמקרה מבחן חי לממשל, תכנון ארוך טווח, כלכלה, תשתיות ותרבות אזרחית.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt final-cta">
+      <div class="inner">
+        <div class="kicker">להישאר קרוב להשקה</div>
+        <h2 class="section-heading">אם סינגפור היא מודל, השאלה היא מה בדיוק אפשר ללמוד ממנו.</h2>
+        <p class="lead" style="margin-inline: auto">
+          הצטרפו לרשימת ההמתנה לעדכוני הספר ולרשימות נבחרות מתוך סדרת סינגפור.
+        </p>
+        <div class="source-row">
+          <a class="source-link" href="#waitlist">להצטרפות</a>
+          {sources.map((source) => (
+            <a class="source-link" href={source.href} target="_blank" rel="noreferrer">{source.label}</a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>טיוטת עמוד נחיתה לרשימת ההמתנה לספר של אלי ורד חזן.</span>
+    <span>מקורות: פרופיל רשמי, ערוץ יוטיוב, עמוד הספר.</span>
+  </footer>
+
+  <script is:inline>
+    const form = document.querySelector('#waitlist');
+    const status = form.querySelector('.form-status');
+    const button = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      status.textContent = '';
+      button.disabled = true;
+
+      const data = Object.fromEntries(new FormData(form).entries());
+      data.source = 'eli-vered-hazan-landing';
+
+      try {
+        const response = await fetch('/api/eli-waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || !result.ok) throw new Error(result.error || 'Submission failed');
+
+        form.reset();
+        status.style.color = '#0b7c61';
+        status.textContent = 'נשמר. נכנסת לרשימת ההמתנה.';
+      } catch (error) {
+        status.style.color = '#d71920';
+        status.textContent = 'לא הצלחנו לשמור כרגע. נסו שוב בעוד רגע.';
+      } finally {
+        button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
