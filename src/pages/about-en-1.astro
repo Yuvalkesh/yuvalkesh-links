@@ -2,6 +2,7 @@
 const site = Astro.site!.href.replace(/\/$/, '');
 
 const bookLink = 'https://calendar.app.google/Y98DRH6TpULmfevM9';
+const loopYouTube = 'https://www.youtube.com/@theLOOP-tube';
 
 const hats = [
   {
@@ -12,7 +13,7 @@ const hats = [
   {
     icon: '📣',
     title: 'Marketing',
-    desc: 'Content engines, organic and paid systems, the breakthroughs that bring traffic. My strongest field.',
+    desc: 'Content engines, organic and paid systems, the breakthroughs that bring traffic. Our strongest field.',
   },
   {
     icon: '🎯',
@@ -30,7 +31,7 @@ const cases = [
   {
     name: 'JVP',
     tag: 'Venture Capital',
-    built: 'I built the fund’s IR team an agent that automatically produces a full briefing document on an investor (LP). It pulls from the CRM, the web and LinkedIn, cross-references everything, attaches quotes and sources, and outputs a ready document in the fund’s own format.',
+    built: 'We built the fund’s IR team an agent that automatically produces a full briefing document on an investor (LP). It pulls from the CRM, the web and LinkedIn, cross-references everything, attaches quotes and sources, and outputs a ready document in the fund’s own format.',
     outcome: 'A report that took hours of manual work is now built in about five minutes, with factual accuracy of 95% and above. It was presented to the fund’s partners, including chairman Erel Margalit, and got the green light to expand.',
     quote: 'this to me feels like you’ve figured it out. It looks great.',
     who: 'Lauren Kiel, Investor Relations, JVP',
@@ -38,7 +39,7 @@ const cases = [
   {
     name: 'Ginger Insurance',
     tag: 'Insurtech',
-    built: 'I built an AI agent for end customers that doesn’t just answer questions but takes real actions. It sends an MRI approval request by email to both the customer and the company, and books a live call with a case manager. We also built an eval mechanism and an isolated embed inside Ginger’s system.',
+    built: 'We built an AI agent for end customers that doesn’t just answer questions but takes real actions. It sends an MRI approval request by email to both the customer and the company, and books a live call with a case manager. We also built an eval mechanism and an isolated embed inside Ginger’s system.',
     outcome: 'The agent went live and performs real actions in production, including opening requests and booking meetings with the customer.',
     quote: 'Wow. This is amazing. This is amazing.',
     who: 'Oshrat Ben Moshe, CEO and Founder, Ginger',
@@ -46,7 +47,7 @@ const cases = [
   {
     name: 'iPracticom',
     tag: 'Telecom',
-    built: 'I built a “marketing brain” based on four skills (creative → content → scheduling → monitoring) on a wiki architecture, designed to replace an external marketing agency. The system produces live posts and graphics.',
+    built: 'We built a “marketing brain” based on four skills (creative → content → scheduling → monitoring) on a wiki architecture, designed to replace an external marketing agency. The system produces live posts and graphics.',
     outcome: 'The system works and produces posts in practice, and the CEO asked to expand it into a company-wide organizational brain that would also serve the support team.',
     quote: null,
     who: null,
@@ -68,22 +69,23 @@ const factories = [
 
 const team = [
   {
-    icon: '🧭',
+    hue: '#1d9bf0',
     role: 'Founder & Lead Consultant',
     desc: 'Owns the method, the mapping (אפיון), and the client relationship. Every engagement starts and ends with the bottom line.',
   },
   {
-    icon: '🛠️',
+    hue: '#22c55e',
     role: 'CTO — Head of Engineering',
-    desc: 'Leads delivery on every build. Under him: a team of 7 AI developer agents running on Claude Code, plus 2 human engineers who review, harden, and ship.',
+    desc: 'Leads delivery on every build, commanding the agent fleet below plus two human engineers who review, harden, and ship.',
+    fleet: true,
   },
   {
-    icon: '📋',
+    hue: '#f59e0b',
     role: 'Business Process Architect',
-    desc: 'Decades of operational management in major Israeli retail, energy, and construction groups. Owns the business-process mapping — turning how a company really works into flow diagrams a system can be built on.',
+    desc: 'Decades of operational management in major Israeli retail, energy, and construction groups. Turns how a company really works into flow diagrams a system can be built on.',
   },
   {
-    icon: '📞',
+    hue: '#a78bfa',
     role: 'Sales Development',
     desc: 'Keeps the pipeline moving — outreach, qualification, and first conversations, so the builders can stay building.',
   },
@@ -91,12 +93,12 @@ const team = [
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'ProfilePage',
-  '@id': `${site}/about-en-1/#profilepage`,
+  '@type': 'Organization',
+  '@id': `${site}/about-en-1/#org`,
   url: `${site}/about-en-1/`,
-  name: 'Yuval Keshtcher — AI Consultant & Implementer',
-  inLanguage: 'en',
-  mainEntity: {
+  name: 'FutureProof Agents',
+  description: 'AI agent systems embedded into real businesses. From mapping to full implementation, measured by the bottom line.',
+  founder: {
     '@type': 'Person',
     '@id': `${site}/#person`,
     name: 'Yuval Keshtcher',
@@ -104,7 +106,6 @@ const jsonLd = {
     url: `${site}/`,
     image: `${site}/avatar.jpg`,
     jobTitle: 'AI Consultant & Implementer',
-    description: 'Builds and implements AI systems for businesses and organizations. From mapping to full implementation.',
     knowsAbout: ['Artificial Intelligence', 'AI Agents', 'Automation', 'Product', 'UX'],
     sameAs: [
       'https://x.com/Parzival_1991',
@@ -119,16 +120,16 @@ const jsonLd = {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FutureProof Agents — Yuval Keshtcher, AI Consultant & Implementer</title>
-  <meta name="description" content="FutureProof Agents — the operation behind AI systems for businesses, factories, and organizations. From mapping to full implementation. JVP, Ginger, iPracticom, factories in Israel and Romania." />
+  <title>FutureProof Agents — AI Agent Systems for Real Businesses</title>
+  <meta name="description" content="FutureProof Agents builds and embeds AI agent systems into real businesses — from mapping to full implementation. JVP, Ginger, iPracticom, factories in Israel and Romania." />
   <link rel="canonical" href={`${site}/about-en-1/`} />
   <link rel="alternate" hreflang="en" href={`${site}/about-en-1/`} />
   <link rel="alternate" hreflang="he" href={`${site}/about/`} />
   <link rel="alternate" hreflang="x-default" href={`${site}/about-en-1/`} />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="FutureProof Agents — Yuval Keshtcher, AI Consultant & Implementer" />
-  <meta property="og:description" content="The operation behind AI systems for businesses, factories, and organizations. From mapping to full implementation." />
+  <meta property="og:title" content="FutureProof Agents — AI Agent Systems for Real Businesses" />
+  <meta property="og:description" content="AI agent systems embedded into real businesses. From mapping to full implementation, measured by the bottom line." />
   <meta property="og:image" content={`${site}/avatar.jpg`} />
   <meta property="og:type" content="website" />
   <meta property="og:url" content={`${site}/about-en-1/`} />
@@ -137,7 +138,7 @@ const jsonLd = {
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
   <style is:inline>
     * {
@@ -217,26 +218,37 @@ const jsonLd = {
     }
     .lang:hover { color: #e7e9ea; border-color: #3d4044; }
 
-    /* --- hero --- */
-    .avatar {
-      width: 104px;
-      height: 104px;
-      border-radius: 50%;
-      object-fit: cover;
+    /* --- brand hero --- */
+    .brandmark {
+      width: 84px;
+      height: 84px;
+      border-radius: 22px;
       background: #16181c;
       border: 1px solid var(--line);
       box-shadow: 0 0 0 4px rgba(29,155,240,0.10), 0 10px 40px rgba(0,0,0,0.6);
-      display: block;
-      margin-bottom: 18px;
-    }
-    .name {
-      font-size: 24px;
-      font-weight: 800;
       display: flex;
       align-items: center;
-      gap: 6px;
+      justify-content: center;
+      margin-bottom: 20px;
     }
-    .name .verified { width: 21px; height: 21px; fill: var(--x-blue); }
+    .brandmark svg { width: 46px; height: 46px; }
+    .brand-name {
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: #fff;
+      text-align: center;
+      line-height: 1.15;
+    }
+    .brand-name span { color: var(--x-blue); }
+    .brand-sub {
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: 2.6px;
+      color: var(--muted);
+      margin-top: 10px;
+      text-align: center;
+    }
     .role {
       font-size: 16px;
       color: var(--x-blue);
@@ -247,10 +259,11 @@ const jsonLd = {
       font-size: 16px;
       color: #cfd2d4;
       text-align: center;
-      max-width: 480px;
+      max-width: 500px;
       line-height: 1.6;
-      margin: 14px 0 26px;
+      margin: 16px 0 26px;
     }
+    .lead b { color: #fff; font-weight: 700; }
 
     /* --- buttons --- */
     .cta {
@@ -275,6 +288,13 @@ const jsonLd = {
     .cta svg { width: 22px; height: 22px; fill: none; stroke: #04210f; stroke-width: 2; }
     .cta:hover { transform: translateY(-2px); filter: brightness(1.05); box-shadow: 0 12px 32px rgba(37,211,102,0.3); }
     .cta:active { transform: translateY(0) scale(0.99); }
+    .cta.yt {
+      background: #ff0033;
+      color: #fff;
+      box-shadow: 0 8px 26px rgba(255,0,51,0.22);
+    }
+    .cta.yt svg { stroke: #fff; }
+    .cta.yt:hover { box-shadow: 0 12px 32px rgba(255,0,51,0.3); }
 
     /* --- sections --- */
     section { width: 100%; }
@@ -435,15 +455,94 @@ const jsonLd = {
     .more-link:hover { text-decoration: underline; }
 
     /* --- team --- */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      width: 100%;
+    }
+    .member {
+      background: #16181c;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      text-align: center;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .member:hover { border-color: #3d4044; transform: translateY(-2px); }
+    .member.wide { grid-column: 1 / -1; }
+    .p-avatar {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto 14px;
+    }
+    .member h3 { font-size: 17px; font-weight: 800; color: #fff; margin-bottom: 7px; }
+    .member p { font-size: 14px; line-height: 1.55; color: #b8bcbf; max-width: 420px; margin: 0 auto; }
+    .fleet {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .fleet .bot {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(29,155,240,0.08);
+      border: 1px solid rgba(29,155,240,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .fleet .bot svg { width: 26px; height: 26px; }
+    .fleet .bot.human {
+      border-radius: 50%;
+      background: rgba(34,197,94,0.08);
+      border-color: rgba(34,197,94,0.3);
+    }
+    .fleet-caption {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.4px;
+      margin-top: 12px;
+    }
     .team-note {
       font-size: 14.5px;
       line-height: 1.65;
       color: #cfd2d4;
       text-align: center;
       max-width: 480px;
-      margin: 20px auto 0;
+      margin: 24px auto 0;
     }
     .team-note b { color: #fff; font-weight: 700; }
+
+    /* --- founder --- */
+    .founder { text-align: center; }
+    .founder .avatar {
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #16181c;
+      border: 1px solid var(--line);
+      box-shadow: 0 0 0 4px rgba(29,155,240,0.10), 0 10px 40px rgba(0,0,0,0.6);
+      display: block;
+      margin: 0 auto 18px;
+    }
+    .founder .name {
+      font-size: 24px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .founder .name .verified { width: 21px; height: 21px; fill: var(--x-blue); }
+    .founder .lead { margin-inline: auto; }
 
     /* --- theLOOP --- */
     .loop { text-align: center; }
@@ -470,13 +569,6 @@ const jsonLd = {
       margin: 0 auto 22px;
     }
     .loop p b { color: #fff; font-weight: 700; }
-    .cta.yt {
-      background: #ff0033;
-      color: #fff;
-      box-shadow: 0 8px 26px rgba(255,0,51,0.22);
-    }
-    .cta.yt svg { stroke: #fff; }
-    .cta.yt:hover { box-shadow: 0 12px 32px rgba(255,0,51,0.3); }
 
     /* --- closing --- */
     .closing { text-align: center; }
@@ -491,10 +583,11 @@ const jsonLd = {
     .footer .sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
     .footer a { color: var(--muted); text-decoration: none; }
     .footer a:hover { color: var(--x-blue); }
+    .footer .brand a { color: #e7e9ea; }
 
     @media (max-width: 560px) {
-      .hats { grid-template-columns: 1fr; }
-      .name { font-size: 22px; }
+      .hats, .team-grid { grid-template-columns: 1fr; }
+      .brand-name { font-size: 28px; }
       .case { padding: 20px; }
       .case-name { font-size: 19px; }
     }
@@ -510,23 +603,28 @@ const jsonLd = {
   <main class="container">
     <a class="lang fade" style="animation-delay:0.02s" href="/about/">עברית</a>
 
-    <!-- HERO -->
-    <img class="avatar fade" style="animation-delay:0.05s" src="/avatar.jpg" alt="Yuval Keshtcher" />
-    <div class="name fade" style="animation-delay:0.12s">
-      Yuval Keshtcher
-      <svg class="verified" viewBox="0 0 24 24" aria-hidden="true"><path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .494.083.964.237 1.4-1.272.65-2.147 2.018-2.147 3.6 0 1.495.782 2.798 1.942 3.486-.02.17-.032.34-.032.514 0 2.21 1.708 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.334 1.926 2.25 3.437 2.25 1.512 0 2.818-.916 3.437-2.25.415.163.865.248 1.336.248 2.11 0 3.818-1.79 3.818-4 0-.174-.012-.344-.033-.513 1.158-.687 1.943-1.99 1.943-3.484zm-6.616-3.334l-4.334 6.5c-.145.217-.382.334-.625.334-.143 0-.288-.04-.416-.126l-.115-.094-2.415-2.415c-.293-.293-.293-.768 0-1.06s.768-.294 1.06 0l1.77 1.767 3.825-5.74c.23-.345.696-.436 1.04-.207.346.23.44.696.21 1.04z"/></svg>
+    <!-- 1. BRAND HERO -->
+    <div class="brandmark fade" style="animation-delay:0.05s" aria-hidden="true">
+      <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <circle cx="24" cy="10" r="5" fill="#1d9bf0"/>
+        <circle cx="10" cy="34" r="5" fill="#1d9bf0" opacity="0.75"/>
+        <circle cx="38" cy="34" r="5" fill="#1d9bf0" opacity="0.75"/>
+        <path d="M24 15v8m0 0-11 8m11-8 11 8" stroke="#1d9bf0" stroke-width="2.4" stroke-linecap="round"/>
+        <circle cx="24" cy="23" r="3" fill="#fff"/>
+      </svg>
     </div>
-    <div class="role fade" style="animation-delay:0.18s">AI Consultant & Implementer · Running FutureProof Agents</div>
-    <p class="lead fade" style="animation-delay:0.24s">A decade ago I founded UX Writing Hub, the international UX writing school, with 1,000+ graduates at the world’s biggest companies, all run on automations. When Claude Code arrived, I started building those same systems for other businesses. Today I find where AI actually moves your bottom line, and build it with you until it works, and stays with you.</p>
+    <h1 class="brand-name fade" style="animation-delay:0.12s">FutureProof <span>Agents</span></h1>
+    <div class="brand-sub fade" style="animation-delay:0.16s">AI AGENT SYSTEMS · EMBEDDED IN REAL BUSINESSES</div>
+    <p class="lead fade" style="animation-delay:0.24s">We find where AI actually moves your bottom line, and build it with you until it works — and stays with you. From mapping (אפיון) to full implementation. <b>Humans where judgment matters, agents where speed matters.</b> Every solution is measured by the bottom line, not by tokens.</p>
     <a class="cta fade" style="animation-delay:0.3s" href={bookLink} target="_blank" rel="noopener noreferrer">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2.5" x2="8" y2="6.5"/><line x1="16" y1="2.5" x2="16" y2="6.5"/></svg>
       Book a meeting
     </a>
 
-    <!-- LOGOS -->
+    <!-- 2. TRUST: LOGOS -->
     <hr class="divider fade" style="animation-delay:0.4s" />
     <section class="fade" style="animation-delay:0.42s">
-      <div class="section-title">COMPANIES I'VE WORKED AND WORK WITH</div>
+      <div class="section-title">COMPANIES WE'VE WORKED AND WORK WITH</div>
       <div class="logo-strip">
         <img src="/logos/ginger.svg" alt="Ginger" class="tall" />
         <img src="/logos/jvp.png" alt="JVP" />
@@ -538,13 +636,14 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- METHOD: FOUR HATS (cards) -->
+    <!-- 3. METHOD: FOUR HATS -->
     <hr class="divider fade" style="animation-delay:0.44s" />
     <section class="fade" style="animation-delay:0.45s">
       <div class="method-head">
+        <div class="section-title">HOW WE WORK</div>
         <h2>Four Hats</h2>
         <div class="sub">Four places where AI moves the bottom line</div>
-        <p class="tag">Every company runs on four hats. Map the pain to the right one, score a first win, expand to full transformation.</p>
+        <p class="tag">Every company runs on four hats. We map the pain to the right one, score a first win, then expand to full transformation.</p>
       </div>
       <div class="hats">
         {hats.map((h) => (
@@ -555,10 +654,10 @@ const jsonLd = {
           </article>
         ))}
       </div>
-      <p class="method-foot">Start with mapping, score a <b>first win you feel right away</b>, and expand gradually to full transformation. Every solution is measured by the bottom line, not by tokens.</p>
+      <p class="method-foot">Start with mapping, score a <b>first win you feel right away</b>, and expand gradually to full transformation.</p>
     </section>
 
-    <!-- CASES -->
+    <!-- 4. PROOF: SELECTED PROJECTS -->
     <hr class="divider fade" style="animation-delay:0.46s" />
     <section class="fade" style="animation-delay:0.48s">
       <div class="section-title">SELECTED PROJECTS</div>
@@ -570,7 +669,7 @@ const jsonLd = {
               <span class="case-tag">{c.tag}</span>
             </div>
             <div class="case-row">
-              <div class="k">WHAT I BUILT</div>
+              <div class="k">WHAT WE BUILT</div>
               <div class="v">{c.built}</div>
             </div>
             <div class="case-row">
@@ -588,7 +687,7 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- FACTORIES -->
+    <!-- 5. FOCUS: FACTORIES -->
     <hr class="divider fade" style="animation-delay:0.49s" />
     <section class="fade" style="animation-delay:0.5s">
       <div class="section-title">FOCUS: FACTORIES & MANUFACTURING</div>
@@ -609,42 +708,91 @@ const jsonLd = {
       <a class="more-link" href="/factory/">See the full factory offering →</a>
     </section>
 
-    <!-- TEAM: FUTUREPROOF AGENTS -->
+    <!-- 6. THE TEAM -->
     <hr class="divider fade" style="animation-delay:0.51s" />
     <section class="fade" style="animation-delay:0.52s">
       <div class="method-head">
-        <div class="section-title">THE OPERATION</div>
-        <h2>FutureProof Agents</h2>
-        <div class="sub">The team behind every build</div>
-        <p class="tag">This is not a one-man show. It’s an operation: humans where judgment matters, AI agents where speed matters.</p>
+        <div class="section-title">THE TEAM</div>
+        <h2>Humans and agents, one delivery team</h2>
+        <p class="tag">This is not a one-man show. It’s an operation: four humans, and a fleet of AI developer agents they command.</p>
       </div>
-      <div class="hats">
+      <div class="team-grid">
         {team.map((t) => (
-          <article class="hat">
-            <div class="icon">{t.icon}</div>
+          <article class={t.fleet ? 'member wide' : 'member'}>
+            <svg class="p-avatar" viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id={`g-${t.hue.slice(1)}`} x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color={t.hue} stop-opacity="0.9"/>
+                  <stop offset="100%" stop-color={t.hue} stop-opacity="0.35"/>
+                </linearGradient>
+              </defs>
+              <circle cx="38" cy="38" r="36" fill="#101418" stroke={t.hue} stroke-opacity="0.5" stroke-width="2"/>
+              <circle cx="38" cy="30" r="11" fill={`url(#g-${t.hue.slice(1)})`}/>
+              <path d="M16 62c3.5-12 12-17 22-17s18.5 5 22 17" fill={`url(#g-${t.hue.slice(1)})`}/>
+            </svg>
             <h3>{t.role}</h3>
             <p>{t.desc}</p>
+            {t.fleet && (
+              <>
+                <div class="fleet">
+                  {Array.from({ length: 7 }).map(() => (
+                    <span class="bot" title="AI developer agent">
+                      <svg viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#1d9bf0" stroke-width="1.8">
+                        <rect x="5" y="8" width="16" height="12" rx="3.5"/>
+                        <line x1="13" y1="4" x2="13" y2="8"/>
+                        <circle cx="13" cy="3.5" r="1.4" fill="#1d9bf0" stroke="none"/>
+                        <circle cx="10" cy="14" r="1.5" fill="#1d9bf0" stroke="none"/>
+                        <circle cx="16" cy="14" r="1.5" fill="#1d9bf0" stroke="none"/>
+                      </svg>
+                    </span>
+                  ))}
+                  {Array.from({ length: 2 }).map(() => (
+                    <span class="bot human" title="Human engineer">
+                      <svg viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg" fill="none">
+                        <circle cx="13" cy="10" r="4" fill="#22c55e"/>
+                        <path d="M5.5 21c1.4-4.5 4.3-6.5 7.5-6.5s6.1 2 7.5 6.5" fill="#22c55e"/>
+                      </svg>
+                    </span>
+                  ))}
+                </div>
+                <div class="fleet-caption">7 AI DEVELOPER AGENTS · 2 HUMAN ENGINEERS</div>
+              </>
+            )}
           </article>
         ))}
       </div>
-      <p class="team-note">In total: <b>4 humans and a fleet of AI developer agents</b> working as one delivery team — which is exactly how we build inside your company too.</p>
+      <p class="team-note">Humans where judgment matters, agents where speed matters — <b>which is exactly how we build inside your company too.</b></p>
     </section>
 
-    <!-- THELOOP -->
+    <!-- 7. FOUNDER -->
     <hr class="divider fade" style="animation-delay:0.53s" />
-    <section class="loop fade" style="animation-delay:0.54s">
+    <section class="founder fade" style="animation-delay:0.54s">
+      <div class="section-title">WHO'S BEHIND THE OPERATION</div>
+      <img class="avatar" src="/avatar.jpg" alt="Yuval Keshtcher" />
+      <div class="name">
+        Yuval Keshtcher
+        <svg class="verified" viewBox="0 0 24 24" aria-hidden="true"><path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .494.083.964.237 1.4-1.272.65-2.147 2.018-2.147 3.6 0 1.495.782 2.798 1.942 3.486-.02.17-.032.34-.032.514 0 2.21 1.708 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.334 1.926 2.25 3.437 2.25 1.512 0 2.818-.916 3.437-2.25.415.163.865.248 1.336.248 2.11 0 3.818-1.79 3.818-4 0-.174-.012-.344-.033-.513 1.158-.687 1.943-1.99 1.943-3.484zm-6.616-3.334l-4.334 6.5c-.145.217-.382.334-.625.334-.143 0-.288-.04-.416-.126l-.115-.094-2.415-2.415c-.293-.293-.293-.768 0-1.06s.768-.294 1.06 0l1.77 1.767 3.825-5.74c.23-.345.696-.436 1.04-.207.346.23.44.696.21 1.04z"/></svg>
+      </div>
+      <div class="role">AI Consultant & Implementer · Running FutureProof Agents</div>
+      <p class="lead">A decade ago I founded UX Writing Hub, the international UX writing school, with 1,000+ graduates at the world’s biggest companies, all run on automations. When Claude Code arrived, I started building those same systems for other businesses. Today I find where AI actually moves your bottom line, and build it with you until it works, and stays with you.</p>
+    </section>
+
+    <!-- 8. COMMUNITY: THELOOP -->
+    <hr class="divider fade" style="animation-delay:0.55s" />
+    <section class="loop fade" style="animation-delay:0.56s">
+      <div class="section-title">OUR COMMUNITY ENGINE</div>
       <div class="loop-brand">the<span>LOOP</span></div>
       <div class="loop-tag">HUMANS · AGENTS · TEN MINUTES EACH</div>
-      <p>Beyond client work, we built a community. theLOOP is the Tel Aviv meetup for people who actually build with AI agents: <b>six builders, ten minutes each, zero theory</b> — real use cases straight from the keyboard. The first event sold out in 7 minutes, with builders from Wix, WSC Sports, Personetics, and more in the room. All past talks are recorded and free on YouTube.</p>
-      <a class="cta yt" href="https://www.youtube.com/@theLOOP-ai" target="_blank" rel="noopener noreferrer">
+      <p>Beyond client work, we built the community around AI agents in Tel Aviv. theLOOP is the meetup we run for people who actually build: <b>six builders, ten minutes each, zero theory</b> — real use cases straight from the keyboard. The first event sold out in 7 minutes, with builders from Wix, WSC Sports, Personetics, and more in the room. It’s where our clients, partners, and next hires meet. All past talks are recorded and free on YouTube.</p>
+      <a class="cta yt" href={loopYouTube} target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polygon points="10 8 16 12 10 16 10 8"/><rect x="2.5" y="5" width="19" height="14" rx="4"/></svg>
         Watch the talks on YouTube
       </a>
     </section>
 
-    <!-- CLOSING -->
-    <hr class="divider fade" style="animation-delay:0.55s" />
-    <section class="closing fade" style="animation-delay:0.54s">
+    <!-- 9. CLOSING -->
+    <hr class="divider fade" style="animation-delay:0.57s" />
+    <section class="closing fade" style="animation-delay:0.58s">
       <h2>You have a business. We have the operation.</h2>
       <p>Let’s figure out together where AI will actually move the needle for you. A short call, no commitment.</p>
       <a class="cta" href={bookLink} target="_blank" rel="noopener noreferrer">
@@ -653,9 +801,9 @@ const jsonLd = {
       </a>
     </section>
 
-    <footer class="footer fade" style="animation-delay:0.58s">
-      <div class="brand"><a href="/">yuvkesh</a></div>
-      <div class="sub">Business AI with Yuval Keshtcher</div>
+    <footer class="footer fade" style="animation-delay:0.6s">
+      <div class="brand"><a href="/">FutureProof Agents</a></div>
+      <div class="sub">Business AI with Yuval Keshtcher · yuvkesh</div>
     </footer>
   </main>
 </body>
