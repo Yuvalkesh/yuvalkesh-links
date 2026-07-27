@@ -66,7 +66,7 @@ const articleLd = {
       'https://github.com/Yuvalkesh',
     ],
   },
-  publisher: { '@type': 'Person', name: 'Yuval Keshtcher', url: site },
+  publisher: { '@type': 'Organization', name: 'FutureProof Agents', url: site },
 };
 
 const faqLd = faq.length
@@ -85,7 +85,7 @@ const breadcrumbLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'yuvkesh', item: `${site}/` },
+    { '@type': 'ListItem', position: 1, name: 'FutureProof Agents', item: `${site}/` },
     { '@type': 'ListItem', position: 2, name: 'Blog', item: `${site}/blog/` },
     { '@type': 'ListItem', position: 3, name: title, item: pageUrl },
   ],
@@ -117,10 +117,10 @@ const socials = [
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{title} | yuvkesh</title>
+  <title>{title} | FutureProof Agents</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalUrl} />
-  <link rel="alternate" type="application/rss+xml" title="yuvkesh" href={`${site}/rss.xml`} />
+  <link rel="alternate" type="application/rss+xml" title="FutureProof Agents" href={`${site}/rss.xml`} />
   {translationOf && (
     <>
       <link rel="alternate" hreflang={lang} href={pageUrl} />

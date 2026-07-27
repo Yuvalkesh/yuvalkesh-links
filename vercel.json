@@ -13,6 +13,14 @@
       ],
       "destination": "/eli-vered-hazan/",
       "permanent": false
-    }
+    },
+    { "source": "/about-en-1", "destination": "/", "permanent": true },
+    { "source": "/about-en-1/", "destination": "/", "permanent": true },
+    { "source": "/about-1", "destination": "/he/", "permanent": true },
+    { "source": "/about-1/", "destination": "/he/", "permanent": true },
+    { "source": "/about-en", "destination": "/", "permanent": true },
+    { "source": "/about-en/", "destination": "/", "permanent": true },
+    { "source": "/about", "destination": "/he/", "permanent": true },
+    { "source": "/about/", "destination": "/he/", "permanent": true }
   ]
 }

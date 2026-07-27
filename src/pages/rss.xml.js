@@ -6,7 +6,7 @@ export async function GET(context) {
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
   return rss({
-    title: 'yuvkesh',
+    title: 'FutureProof Agents',
     description: 'מאמרים על בינה מלאכותית עסקית, סוכני AI ובנייה עם כלים חדשים. מאת יובל קשטכר.',
     site: context.site,
     items: posts.map((post) => ({
