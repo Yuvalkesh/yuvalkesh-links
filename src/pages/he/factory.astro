@@ -1,4 +1,5 @@
 ---
+import SiteFooter from '../../components/SiteFooter.astro';
 const site = Astro.site!.href.replace(/\/$/, '');
 
 const waMsg = encodeURIComponent('היי יובל, ראיתי את עמוד הפתרונות למפעלים ואשמח לדבר על AI למפעל שלי');
@@ -818,6 +819,7 @@ const jsonLd = {
       </a>
     </section>
 
+    <SiteFooter lang="he" />
     <footer class="footer fade" style="animation-delay:0.68s">
       <div class="brand"><a href="/">yuvkesh</a></div>
       <div class="sub">בינה מלאכותית עסקית עם יובל קשטכר · <a href="/he/">אודות</a></div>

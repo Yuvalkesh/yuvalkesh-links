@@ -1,4 +1,5 @@
 ---
+import SiteFooter from '../components/SiteFooter.astro';
 const site = Astro.site!.href.replace(/\/$/, '');
 const pageUrl = `${site}/prompts/`;
 ---
@@ -560,5 +561,6 @@ Thread:
     });
   });
 </script>
+<SiteFooter lang="en" />
 </body>
 </html>

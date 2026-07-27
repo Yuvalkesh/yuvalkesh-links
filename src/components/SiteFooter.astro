@@ -1,0 +1,88 @@
+---
+interface Props {
+  lang?: 'he' | 'en';
+}
+const { lang = 'en' } = Astro.props;
+const he = lang === 'he';
+
+const nav = he
+  ? [
+      { href: '/he/', label: 'ראשי' },
+      { href: '/he/blog/', label: 'מאמרים' },
+      { href: '/he/factory/', label: 'AI למפעלים' },
+      { href: '/he/links/', label: 'כל הלינקים' },
+      { href: '/', label: 'English' },
+    ]
+  : [
+      { href: '/', label: 'Home' },
+      { href: '/blog/', label: 'Articles' },
+      { href: '/factory/', label: 'AI for Factories' },
+      { href: '/prompts/', label: 'Prompt Playbook' },
+      { href: '/he/', label: 'עברית' },
+    ];
+
+const social = he
+  ? [
+      { href: 'https://chat.whatsapp.com/Eav9Kgs0nSs70YWBvHgU4r', label: 'קבוצת הוואטסאפ' },
+      { href: 'https://www.facebook.com/groups/agentil', label: 'קהילת הפייסבוק' },
+      { href: 'https://x.com/Parzival_1991', label: 'טוויטר / X' },
+      { href: 'https://www.youtube.com/@theLOOP-tube', label: 'theLOOP ביוטיוב' },
+    ]
+  : [
+      { href: 'https://chat.whatsapp.com/Eav9Kgs0nSs70YWBvHgU4r', label: 'WhatsApp community' },
+      { href: 'https://www.facebook.com/groups/agentil', label: 'Facebook community' },
+      { href: 'https://x.com/Parzival_1991', label: 'X / Twitter' },
+      { href: 'https://www.youtube.com/@theLOOP-tube', label: 'theLOOP on YouTube' },
+    ];
+---
+<footer class="site-footer" dir={he ? 'rtl' : 'ltr'} lang={lang}>
+  <nav class="row" aria-label={he ? 'ניווט באתר' : 'Site navigation'}>
+    {nav.map((l, i) => (
+      <>
+        {i > 0 && <span class="sep" aria-hidden="true">·</span>}
+        <a href={l.href}>{l.label}</a>
+      </>
+    ))}
+  </nav>
+  <nav class="row" aria-label={he ? 'קהילות' : 'Communities'}>
+    {social.map((l, i) => (
+      <>
+        {i > 0 && <span class="sep" aria-hidden="true">·</span>}
+        <a href={l.href} target="_blank" rel="noopener noreferrer">{l.label}</a>
+      </>
+    ))}
+  </nav>
+</footer>
+
+<style>
+  .site-footer {
+    max-width: 680px;
+    margin: 56px auto 0;
+    padding: 22px 18px 34px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    text-align: center;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 4px 8px;
+    margin: 0 0 8px;
+  }
+  .row:last-child { margin-bottom: 0; }
+  .site-footer a {
+    color: #6a6f73;
+    text-decoration: none;
+    font-size: 12.5px;
+    font-weight: 500;
+    line-height: 1.8;
+    transition: color 0.15s ease;
+  }
+  .site-footer a:hover { color: #e7e9ea; }
+  .sep {
+    color: #3a3d40;
+    font-size: 12px;
+    user-select: none;
+  }
+</style>

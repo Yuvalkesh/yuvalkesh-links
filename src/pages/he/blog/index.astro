@@ -1,4 +1,5 @@
 ---
+import SiteFooter from '../../../components/SiteFooter.astro';
 import { getCollection } from 'astro:content';
 
 const site = Astro.site!.href.replace(/\/$/, '');
@@ -99,6 +100,7 @@ const jsonLd = {
         </a>
       ))}
     </div>
+    <SiteFooter lang="he" />
   </main>
 </body>
 </html>
