@@ -14,13 +14,105 @@
       "destination": "/eli-vered-hazan/",
       "permanent": false
     },
-    { "source": "/about-en-1", "destination": "/", "permanent": true },
-    { "source": "/about-en-1/", "destination": "/", "permanent": true },
-    { "source": "/about-1", "destination": "/he/", "permanent": true },
-    { "source": "/about-1/", "destination": "/he/", "permanent": true },
-    { "source": "/about-en", "destination": "/", "permanent": true },
-    { "source": "/about-en/", "destination": "/", "permanent": true },
-    { "source": "/about", "destination": "/he/", "permanent": true },
-    { "source": "/about/", "destination": "/he/", "permanent": true }
+    {
+      "source": "/about-en-1",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/about-en-1/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/about-1",
+      "destination": "/he/",
+      "permanent": true
+    },
+    {
+      "source": "/about-1/",
+      "destination": "/he/",
+      "permanent": true
+    },
+    {
+      "source": "/about-en",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/about-en/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/about",
+      "destination": "/he/",
+      "permanent": true
+    },
+    {
+      "source": "/about/",
+      "destination": "/he/",
+      "permanent": true
+    },
+    {
+      "source": "/links",
+      "destination": "/he/links/",
+      "permanent": true
+    },
+    {
+      "source": "/links/",
+      "destination": "/he/links/",
+      "permanent": true
+    },
+    {
+      "source": "/factory-he",
+      "destination": "/he/factory/",
+      "permanent": true
+    },
+    {
+      "source": "/factory-he/",
+      "destination": "/he/factory/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ai-agents-vs-skills-he",
+      "destination": "/he/blog/ai-agents-vs-skills-he/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ai-agents-vs-skills-he/",
+      "destination": "/he/blog/ai-agents-vs-skills-he/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/kids-song-video-ai-he",
+      "destination": "/he/blog/kids-song-video-ai-he/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/kids-song-video-ai-he/",
+      "destination": "/he/blog/kids-song-video-ai-he/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/run-ai-agents-in-the-cloud-24-7-he",
+      "destination": "/he/blog/run-ai-agents-in-the-cloud-24-7-he/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/run-ai-agents-in-the-cloud-24-7-he/",
+      "destination": "/he/blog/run-ai-agents-in-the-cloud-24-7-he/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/timlul-pgishot-maagar-yeda",
+      "destination": "/he/blog/timlul-pgishot-maagar-yeda/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/timlul-pgishot-maagar-yeda/",
+      "destination": "/he/blog/timlul-pgishot-maagar-yeda/",
+      "permanent": true
+    }
   ]
 }

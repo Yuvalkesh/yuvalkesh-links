@@ -2,39 +2,39 @@
 import { getCollection } from 'astro:content';
 
 const site = Astro.site!.href.replace(/\/$/, '');
-const posts = (await getCollection('blog', ({ data }) => !data.draft && data.lang === 'en'))
+const posts = (await getCollection('blog', ({ data }) => !data.draft && data.lang === 'he'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const fmt = (d: Date) =>
-  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  d.toLocaleDateString('he-IL', { year: 'numeric', month: 'long', day: 'numeric' });
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Blog',
   name: 'FutureProof Agents',
-  url: `${site}/blog/`,
-  inLanguage: 'en',
-  description: 'Articles on business AI, AI agents, and building with new tools. By Yuval Keshtcher.',
+  url: `${site}/he/blog/`,
+  inLanguage: 'he',
+  description: 'מאמרים על בינה מלאכותית עסקית, סוכני AI ובנייה עם כלים חדשים. מאת יובל קשטכר.',
   author: { '@type': 'Person', name: 'Yuval Keshtcher', url: site },
 };
 ---
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <script is:inline>(function(){var h=location.hostname;if(h==='futureproofagents.com'||h==='localhost'||h==='127.0.0.1')return;var p=location.pathname;if(p==='/'||p==='/index.html')p='/he/links/';location.replace('https://futureproofagents.com'+p+location.search+location.hash);})();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Articles | FutureProof Agents</title>
-  <meta name="description" content="Articles on business AI, AI agents, and building with new tools. By Yuval Keshtcher." />
-  <link rel="canonical" href={`${site}/blog/`} />
-  <link rel="alternate" hreflang="en" href={`${site}/blog/`} />
+  <title>מאמרים | FutureProof Agents</title>
+  <meta name="description" content="מאמרים על בינה מלאכותית עסקית, סוכני AI ובנייה עם כלים חדשים. מאת יובל קשטכר." />
+  <link rel="canonical" href={`${site}/he/blog/`} />
   <link rel="alternate" hreflang="he" href={`${site}/he/blog/`} />
+  <link rel="alternate" hreflang="en" href={`${site}/blog/`} />
   <link rel="alternate" hreflang="x-default" href={`${site}/blog/`} />
   <link rel="alternate" type="application/rss+xml" title="FutureProof Agents" href={`${site}/rss.xml`} />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Articles | FutureProof Agents" />
-  <meta property="og:description" content="Articles on business AI, AI agents, and building with new tools. By Yuval Keshtcher." />
-  <meta property="og:url" content={`${site}/blog/`} />
+  <meta property="og:title" content="מאמרים | FutureProof Agents" />
+  <meta property="og:description" content="מאמרים על בינה מלאכותית עסקית, סוכני AI ובנייה עם כלים חדשים. מאת יובל קשטכר." />
+  <meta property="og:url" content={`${site}/he/blog/`} />
   <meta property="og:image" content={`${site}/avatar.jpg`} />
   <meta name="theme-color" content="#000000" />
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
@@ -82,15 +82,15 @@ const jsonLd = {
 <body>
   <main class="wrap">
     <nav class="top-nav">
-      <a href="/">← Back to home</a>
-      <a href="/he/blog/" lang="he" dir="rtl">מאמרים בעברית ←</a>
+      <a href="/he/">→ חזרה לעמוד הראשי</a>
+      <a href="/blog/" lang="en" dir="ltr">Articles in English →</a>
     </nav>
-    <h1>Articles</h1>
-    <p class="sub">Business AI, AI agents, and building with new tools.</p>
+    <h1>מאמרים</h1>
+    <p class="sub">בינה מלאכותית עסקית, סוכני AI ובנייה עם כלים חדשים.</p>
     <div class="posts">
-      {posts.length === 0 && <p class="empty">No articles yet. Soon.</p>}
+      {posts.length === 0 && <p class="empty">עוד אין מאמרים. בקרוב.</p>}
       {posts.map((post) => (
-        <a class="post" href={`/blog/${post.id}/`}>
+        <a class="post" href={`/he/blog/${post.id}/`}>
           <h2>{post.data.title}</h2>
           <p>{post.data.description}</p>
           <div class="row">

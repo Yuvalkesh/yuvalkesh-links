@@ -6,10 +6,10 @@ const jsonLd = {
   '@graph': [
     {
       '@type': 'Person',
-      '@id': `${site}/links/#person`,
+      '@id': `${site}/he/links/#person`,
       name: 'Yuval Keshtcher',
       alternateName: ['yuvkesh', 'יובל קשטכר', 'Yuval Kesh'],
-      url: `${site}/links/`,
+      url: `${site}/he/links/`,
       image: `${site}/avatar.jpg`,
       jobTitle: 'AI Agent Developer & Educator',
       description: 'בונה סוכני בינה מלאכותית. מלמד אנשים לבנות.',
@@ -21,11 +21,11 @@ const jsonLd = {
     },
     {
       '@type': 'WebSite',
-      '@id': `${site}/links/#website`,
+      '@id': `${site}/he/links/#website`,
       name: 'yuvkesh',
-      url: `${site}/links/`,
+      url: `${site}/he/links/`,
       inLanguage: ['he', 'en'],
-      publisher: { '@id': `${site}/links/#person` },
+      publisher: { '@id': `${site}/he/links/#person` },
     },
   ],
 };
@@ -34,11 +34,11 @@ const jsonLd = {
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <script is:inline>(function(){var h=location.hostname;if(h==='futureproofagents.com'||h==='localhost'||h==='127.0.0.1')return;var p=location.pathname;if(p==='/'||p==='/index.html')p='/links/';location.replace('https://futureproofagents.com'+p+location.search+location.hash);})();</script>
+  <script is:inline>(function(){var h=location.hostname;if(h==='futureproofagents.com'||h==='localhost'||h==='127.0.0.1')return;var p=location.pathname;if(p==='/'||p==='/index.html')p='/he/links/';location.replace('https://futureproofagents.com'+p+location.search+location.hash);})();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>yuvkesh</title>
   <meta name="description" content="להצטרפות לקבוצה בינה מלאכותית עסקית של יובל קשטכר" />
-  <link rel="canonical" href={`${site}/links/`} />
+  <link rel="canonical" href={`${site}/he/links/`} />
   <link rel="alternate" type="application/rss+xml" title="yuvkesh" href={`${site}/rss.xml`} />
 
   <!-- Open Graph -->
@@ -46,7 +46,7 @@ const jsonLd = {
   <meta property="og:description" content="להצטרפות לקבוצה בינה מלאכותית עסקית של יובל קשטכר" />
   <meta property="og:image" content={`${site}/avatar.jpg`} />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content={`${site}/links/`} />
+  <meta property="og:url" content={`${site}/he/links/`} />
   <meta name="theme-color" content="#000000" />
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
@@ -279,7 +279,7 @@ const jsonLd = {
         <span class="label">FutureProof Agents · ייעוץ והטמעת AI לעסקים</span>
       </a>
 
-      <a class="link fade" style="animation-delay:0.35s" href="/blog/">
+      <a class="link fade" style="animation-delay:0.35s" href="/he/blog/">
         <span class="ico ico-articles" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>

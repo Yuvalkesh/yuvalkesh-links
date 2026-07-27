@@ -26,7 +26,9 @@ const { title, description, pubDate, updatedDate, lang, tags, ogImage, coverImag
 
 const dir = lang === 'he' ? 'rtl' : 'ltr';
 const site = Astro.site!.href.replace(/\/$/, '');
-const pageUrl = `${site}/blog/${slug}/`;
+const blogBase = lang === 'he' ? '/he/blog' : '/blog';
+const otherBlogBase = lang === 'he' ? '/blog' : '/he/blog';
+const pageUrl = `${site}${blogBase}/${slug}/`;
 const canonicalUrl = canonical ?? pageUrl;
 const ogImageUrl = ogImage
   ? new URL(ogImage, Astro.site).href
@@ -86,7 +88,7 @@ const breadcrumbLd = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'FutureProof Agents', item: `${site}/` },
-    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${site}/blog/` },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${site}${blogBase}/` },
     { '@type': 'ListItem', position: 3, name: title, item: pageUrl },
   ],
 };
@@ -116,7 +118,7 @@ const socials = [
 <html lang={lang} dir={dir}>
 <head>
   <meta charset="UTF-8" />
-  <script is:inline>(function(){var h=location.hostname;if(h==='futureproofagents.com'||h==='localhost'||h==='127.0.0.1')return;var p=location.pathname;if(p==='/'||p==='/index.html')p='/links/';location.replace('https://futureproofagents.com'+p+location.search+location.hash);})();</script>
+  <script is:inline>(function(){var h=location.hostname;if(h==='futureproofagents.com'||h==='localhost'||h==='127.0.0.1')return;var p=location.pathname;if(p==='/'||p==='/index.html')p='/he/links/';location.replace('https://futureproofagents.com'+p+location.search+location.hash);})();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title} | FutureProof Agents</title>
   <meta name="description" content={description} />
@@ -125,8 +127,8 @@ const socials = [
   {translationOf && (
     <>
       <link rel="alternate" hreflang={lang} href={pageUrl} />
-      <link rel="alternate" hreflang={otherLang} href={`${site}/blog/${translationOf}/`} />
-      <link rel="alternate" hreflang="x-default" href={lang === 'en' ? pageUrl : `${site}/blog/${translationOf}/`} />
+      <link rel="alternate" hreflang={otherLang} href={`${site}${otherBlogBase}/${translationOf}/`} />
+      <link rel="alternate" hreflang="x-default" href={lang === 'en' ? pageUrl : `${site}${otherBlogBase}/${translationOf}/`} />
     </>
   )}
 
@@ -392,18 +394,18 @@ const socials = [
 <body>
   <article class="wrap">
     <nav class="top-nav">
-      <a href="/blog/">{backLabel}</a>
+      <a href={`${blogBase}/`}>{backLabel}</a>
       {translationOf && (
         <div class="lang-switch" dir="ltr" role="navigation" aria-label={lang === 'he' ? 'שפה' : 'Language'}>
           {lang === 'en' ? (
             <span class="lang-opt active" aria-current="true">EN</span>
           ) : (
-            <a class="lang-opt" href={`/blog/${translationOf}/`} lang="en" title="Read in English">EN</a>
+            <a class="lang-opt" href={`${otherBlogBase}/${translationOf}/`} lang="en" title="Read in English">EN</a>
           )}
           {lang === 'he' ? (
             <span class="lang-opt active" aria-current="true">עב</span>
           ) : (
-            <a class="lang-opt" href={`/blog/${translationOf}/`} lang="he" title="קראו בעברית">עב</a>
+            <a class="lang-opt" href={`${otherBlogBase}/${translationOf}/`} lang="he" title="קראו בעברית">עב</a>
           )}
         </div>
       )}
@@ -454,7 +456,7 @@ const socials = [
         <div class="more-title">{moreLabel}</div>
         <div class="more-list">
           {morePosts.map((p) => (
-            <a class="more-card" href={`/blog/${p.slug}/`} dir={p.lang === 'he' ? 'rtl' : 'ltr'} lang={p.lang}>
+            <a class="more-card" href={`${p.lang === 'he' ? '/he/blog' : '/blog'}/${p.slug}/`} dir={p.lang === 'he' ? 'rtl' : 'ltr'} lang={p.lang}>
               <h3>{p.title}</h3>
               <p>{p.description}</p>
               <div class="row">
