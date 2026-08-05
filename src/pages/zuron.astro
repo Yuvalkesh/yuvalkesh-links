@@ -2,190 +2,251 @@
 import SiteFooter from '../components/SiteFooter.astro';
 const site = Astro.site!.href.replace(/\/$/, '');
 
-const waMsg = encodeURIComponent('היי יובל, קראתי את הדוח בעמוד צורון ואשמח לתאם שיחה');
+const waMsg = encodeURIComponent('היי יובל, קראתי את מסמך העבודה בעמוד צורון ואשמח לתאם שיחת אפיון');
 const waLink = `https://wa.me/972526414555?text=${waMsg}`;
 const sheetLink = 'https://docs.google.com/spreadsheets/d/1LiwDGgcsOOdPaa-spXuFDRWaEzIc-euseeG8Oeef7pg/edit';
 
-const techs = [
+const toc = [
+  { part: 'חלק א', title: 'הדרישה, הבעיה והאילוצים', items: [
+    { n: '1', t: 'הדרישה', href: '#s1' },
+    { n: '2', t: 'תיאור הבעיה: שלושה קווי ייצור, שלוש שפות פלט', href: '#s2' },
+    { n: '3', t: 'המאגר ההיסטורי כמקור נתונים', href: '#s3' },
+    { n: '4', t: 'אילוצים ונעלמות פתוחות', href: '#s4' },
+  ]},
+  { part: 'חלק ב', title: 'סקירת פתרונות קיימים בשוק', items: [
+    { n: '5', t: 'הערכת CAM Assist מבית CloudNC', href: '#s5' },
+    { n: '6', t: 'קריטריונים להערכת פתרון', href: '#s6' },
+  ]},
+  { part: 'חלק ג', title: 'הפתרון המוצע ודרך הפעולה', items: [
+    { n: '7', t: 'גישות טכניות שנבחנו', href: '#s7' },
+    { n: '8', t: 'הפתרון המוצע: היברידי מדורג', href: '#s8' },
+    { n: '9', t: 'בקרות חובה: שכבת אימות ומצב צל', href: '#s9' },
+    { n: '10', t: 'חלוקת אחריות ותפקידים', href: '#s10' },
+    { n: '11', t: 'נתונים וחומרים נדרשים', href: '#s11' },
+    { n: '12', t: 'הצעד הבא', href: '#s12' },
+  ]},
+];
+
+const summary = [
+  'הדרישה כפי שהוצגה מתייחסת לבעיה אחת. בפועל מדובר בשלוש בעיות הנדסיות נפרדות, שלכל אחת מהן פורמט פלט שונה. אי ההפרדה ביניהן היא סיכון הכשל המרכזי של הפרויקט.',
+  'המאגר ההיסטורי המזווג הוא הנכס המרכזי שעליו נשען הפתרון, בכפוף לאימות שהקבצים השמורים בו משקפים את מה שרץ בפועל במכונה.',
+  'CAM Assist נבחן לעומק. הוא רלוונטי לקו העיבוד השבבי בלבד, מבוסס על מודל תלת ממדי ולא על שרטוט דו ממדי, ואינו לומד מהמאגר של הלקוח.',
+  'הגישה המומלצת היא היברידית ומדורגת, על משפחת חלקים אחת בלבד בשלב הראשון, עם שכבת אימות ומצב צל לאורך כל הדרך.',
+  'לא ניתן לקבוע היקף עבודה ולוח זמנים מחייבים לפני ניתוח מדגם מייצג מהמאגר. שלב זה מוגדר כאן כצעד הבא.',
+];
+
+const lines = [
   {
-    tag: 'טכנולוגיה 1',
+    n: '2.1',
     title: 'צריבה פוטוכימית',
     out: 'artwork מפוצה לפוטופלוטר, בפורמט Gerber',
-    body: 'כאן הפלט אינו G-code בכלל. מה שיוצא מהתהליך הוא שרטוט מפוצה שהולך לפוטופלוטר. הפיצוי נגזר מעובי החומר, בערך רבע מהעובי לכל צד, ומעליו יושבים step and repeat, רגיסטרציה בין היריעות וניצול שטח. מי שמתייחס לזה כאל "המרה לשפת מכונה" בונה את הדבר הלא נכון.',
+    body: 'הפלט אינו קוד מכונה. התוצר הוא שרטוט מפוצה המועבר לפוטופלוטר. הפיצוי נגזר מעובי החומר, בסדר גודל של רבע מהעובי לכל צד, ומעליו נדרשים step and repeat, רגיסטרציה בין היריעות וניצול שטח. התייחסות לקו זה כאל "המרה לשפת מכונה" מובילה לאפיון שגוי.',
   },
   {
-    tag: 'טכנולוגיה 2',
+    n: '2.2',
     title: 'מיקרו חיתוך בלייזר',
     out: 'תוכנית חלק בסביבת ה CAD/CAM של יצרן המכונה',
-    body: 'לייזר בהולכת סילון מים הוא עולם בפני עצמו. תוכנית החלק נוצרת בסביבה של יצרן המכונה או דרך פוסט פרוססור ייעודי, והידע היקר כאן הוא לא הגאומטריה אלא הפרמטרים: הספק, מספר מעברים, מהירות ופיצוי קרף לפי חומר ועובי.',
+    body: 'חיתוך לייזר בהולכת סילון מים מחייב תוכנית חלק הנוצרת בסביבת התוכנה של יצרן המכונה או דרך פוסט פרוססור ייעודי. הידע הקריטי בקו זה אינו הגאומטריה אלא פרמטרי התהליך: הספק, מספר מעברים, מהירות ופיצוי קרף לפי חומר ועובי.',
   },
   {
-    tag: 'טכנולוגיה 3',
+    n: '2.3',
     title: 'עיבוד שבבי HSC וריתוך לייזר CNC',
-    out: 'G-code בדיאלקט של הבקר',
-    body: 'רק כאן מדובר בתוכנית מכונה במובן המקובל, וגם כאן לכל בקר דיאלקט משלו. זו הטכנולוגיה היחידה מבין השלוש שיש עליה כלים מדף, וזו גם הסיבה שכדאי לדבר עליה בנפרד מהשתיים האחרות.',
+    out: 'G-code בדיאלקט הבקר',
+    body: 'זהו הקו היחיד מבין השלושה שבו הפלט הוא תוכנית מכונה במובן המקובל, ולכל בקר דיאלקט משלו. זהו גם הקו היחיד שקיימים עבורו כלים מסחריים מדף, ולכן יש לבחון אותו בנפרד משני הקווים האחרים.',
   },
 ];
 
 const unknowns = [
   {
-    n: '01',
-    q: 'איזה אחוז מהעבודות הן חוזרות?',
-    why: 'זו השאלה שמשנה את היקף הפרויקט פי כמה. אחוז חזרתיות גבוה מאפשר גישה של אחזור והתאמה מהמאגר, שהיא בטוחה ומהירה בהרבה מייצור מאפס. אחוז נמוך מחייב מנוע כללים ומודל חיזוי, וזה פרויקט אחר לגמרי. צריך מספר מתוך ה ERP, לא הערכה.',
+    n: '4.1',
+    q: 'שיעור העבודות החוזרות',
+    why: 'משתנה זה משנה את היקף הפרויקט באופן מהותי. שיעור חזרתיות גבוה מאפשר גישת אחזור והתאמה מהמאגר, שהיא בטוחה ומהירה בהרבה מייצור מאפס. שיעור נמוך מחייב מנוע כללים ומודל חיזוי, כלומר פרויקט בעל אופי שונה. נדרש נתון מתוך ה ERP ולא הערכה.',
   },
   {
-    n: '02',
-    q: 'האם לתוכנה שמייצרת היום את הקבצים יש ממשק תכנותי?',
-    why: 'אם יש API או מצב batch, הדרך הקצרה ביותר היא להפעיל אוטומטית את התוכנה שכבר מייצרת אצלכם קבצים מאושרים, במקום לבנות מחליף. אם אין, הגישה הזו נופלת לגמרי וכל התכנון משתנה.',
+    n: '4.2',
+    q: 'קיומו של ממשק תכנותי בתוכנה הקיימת',
+    why: 'קיום API או מצב batch מאפשר הפעלה אוטומטית של התוכנה שכבר מייצרת קבצים מאושרים, במקום פיתוח מחליף. היעדרו מבטל את הגישה הקצרה ביותר מבחינת מאמץ ומשנה את כל התכנון.',
   },
   {
-    n: '03',
-    q: 'האם העריכות שהמפעיל עושה במכונה חוזרות למאגר?',
-    why: 'אם המאגר שומר את הקובץ שיצא מהמתכנת ולא את הקובץ שבאמת רץ, אתם יושבים על דאטה שאינה אמת ייחוס. הפער בין שתי הגרסאות האלה הוא בדיוק הידע שאנחנו רוצים ללמוד, ובלעדיו לומדים את הדבר הלא נכון.',
+    n: '4.3',
+    q: 'החזרת עריכות המפעיל למאגר',
+    why: 'אם המאגר שומר את הקובץ שיצא מהמתכנת בלבד, ולא את הקובץ שרץ בפועל לאחר התאמות במכונה, אין מדובר באמת ייחוס. הפער בין שתי הגרסאות הוא הידע שיש לחלץ, ובהיעדרו ילמד המודל את הדבר הלא נכון.',
   },
   {
-    n: '04',
-    q: 'מה מותר להוציא מהמפעל?',
-    why: 'אתם ספק מורשה של משרד הביטחון ועובדים לפי AS9100. מדיניות אבטחת המידע היא לא הערת שוליים בסוף הפרויקט, היא האילוץ הראשון שקובע ארכיטקטורה, מורכבות ולוח זמנים. יש הבדל עצום בין מערכת שרצה בענן לבין מערכת שרצה כולה בתוך המפעל.',
+    n: '4.4',
+    q: 'מדיניות אבטחת מידע וסיווג',
+    why: 'צורון היא ספק מורשה של משרד הביטחון ופועלת לפי AS9100. מדיניות אבטחת המידע אינה נספח בסוף הפרויקט אלא האילוץ הראשון שקובע ארכיטקטורה, מורכבות ולוח זמנים. קיים הבדל מהותי בין מערכת מבוססת ענן לבין מערכת הרצה במלואה בתוך המפעל.',
   },
   {
-    n: '05',
-    q: 'מה הנוהל שלכם להכנסת כלי תוכנה חדש לתהליך ייצור?',
-    why: 'בסביבת AS9100 ההסמכה של כלי חדש יכולה להיות חצי מלוח הזמנים. זה דבר שחייבים לדעת בהתחלה, כי גילוי שלו באמצע הפרויקט הוא מה שהופך פיילוט מוצלח לפיילוט שלא עולה לייצור.',
+    n: '4.5',
+    q: 'נוהל הכנסת כלי תוכנה לתהליך ייצור',
+    why: 'בסביבת AS9100 הסמכת כלי חדש עשויה לצרוך חלק ניכר מלוח הזמנים. יש לברר זאת בשלב האפיון. גילוי הנוהל בשלב מאוחר הוא הגורם השכיח להיתקעות פיילוט מוצלח לפני עלייה לייצור.',
   },
 ];
 
 const compare = [
   {
-    k: 'מה זה בעצם',
-    cam: 'תוסף AI לתוכנת CAM קיימת. מייצר אסטרטגיות ומסלולי כלי בתוך התוכנה שאתם כבר עובדים איתה.',
-    us: 'מערכת ייעודית שנבנית סביב שלושת התהליכים שלכם ומעל המאגר ההיסטורי שלכם.',
+    k: 'הגדרת המוצר',
+    cam: 'תוסף מבוסס AI לתוכנת CAM קיימת. מייצר אסטרטגיות עיבוד ומסלולי כלי בתוך התוכנה.',
+    us: 'מערכת ייעודית הנבנית סביב שלושת קווי הייצור ומעל המאגר ההיסטורי.',
     tone: 'neutral',
   },
   {
-    k: 'הקלט שהוא מצפה לו',
-    cam: 'מודל תלת ממדי מלא, עם זיהוי פיצ׳רים אוטומטי. זו כל הפרמיסה של המוצר.',
-    us: 'שרטוטי AutoCAD דו ממדיים, בדיוק כפי שהם יוצאים היום מהתכנון אצלכם.',
+    k: 'פורמט הקלט',
+    cam: 'מודל תלת ממדי מלא, עם זיהוי פיצ׳רים אוטומטי. זוהי הפרמיסה הבסיסית של המוצר.',
+    us: 'שרטוטי AutoCAD דו ממדיים, בפורמט שבו הם יוצאים היום ממחלקת התכנון.',
     tone: 'no',
   },
   {
     k: 'צריבה פוטוכימית',
-    cam: 'לא נתמך. artwork מפוצה לפוטופלוטר הוא לא מסלול כלי, וזה לא העולם שהמוצר חי בו.',
-    us: 'זו נקודת המוצא. פיצוי לפי עובי, step and repeat, רגיסטרציה וניצול יריעה.',
+    cam: 'אינו נתמך. artwork מפוצה לפוטופלוטר אינו מסלול כלי ואינו בתחום המוצר.',
+    us: 'נקודת המוצא של האפיון. פיצוי לפי עובי, step and repeat, רגיסטרציה וניצול יריעה.',
     tone: 'no',
   },
   {
     k: 'מיקרו חיתוך בלייזר',
-    cam: 'לא נתמך. המוצר תומך בכרסום בלבד, ולא בחריטה, מילטרן או מכונות לייזר.',
+    cam: 'אינו נתמך. המוצר תומך בכרסום בלבד, ולא בחריטה, מילטרן או מכונות לייזר.',
     us: 'נתמך דרך הדיאלקט של המכונה או פוסט פרוססור ייעודי.',
     tone: 'no',
   },
   {
     k: 'עיבוד שבבי',
-    cam: 'נתמך היטב. שלושה צירים ו⁦3+2⁩, חלקים פריזמטיים. זה בדיוק החוזק שלו.',
-    us: 'נתמך, ובמחלקה הזו CAM Assist הוא כנראה הכלי המהיר והפשוט יותר להתחיל איתו.',
+    cam: 'נתמך היטב. שלושה צירים ו⁦3+2⁩, חלקים פריזמטיים. זהו תחום החוזק של המוצר.',
+    us: 'נתמך. בקו זה CAM Assist הוא ככל הנראה הכלי המהיר והפשוט יותר להתחלה.',
     tone: 'yes',
   },
   {
     k: 'חריטה, מילטרן, חמישה צירים רציף, משטחים חופשיים',
-    cam: 'מחוץ לתחום. מוצהר כפיתוח עתידי.',
-    us: 'לפי הצורך שיעלה באפיון.',
+    cam: 'מחוץ לתחום המוצר. מוצהר כפיתוח עתידי.',
+    us: 'לפי הצורך שיוגדר באפיון.',
     tone: 'no',
   },
   {
-    k: 'לומד מהמאגר שלכם',
-    cam: 'לא. הוא עובד לפי פרמטרים שאתם מגדירים לו מראש, לא לפי עשרות שנות ההיסטוריה שלכם.',
-    us: 'זה כל הרעיון. המאגר המזווג הוא מקור האמת שממנו מחלצים כללים.',
+    k: 'למידה מהמאגר ההיסטורי',
+    cam: 'אינו לומד. פועל לפי פרמטרים המוגדרים מראש על ידי המשתמש, ולא לפי היסטוריית העבודות של המפעל.',
+    us: 'הליבה של הפתרון. המאגר המזווג הוא מקור האמת שממנו מחלצים את הכללים.',
     tone: 'no',
   },
   {
-    k: 'הידע של המתכנת הוותיק',
-    cam: 'נשאר בראש שלו. המוצר לא מנסה לחלץ אותו וזו לא המטרה שלו.',
-    us: 'מחולץ למסמך כללים מפורש שנשאר אצלכם, גם אם בסוף לא בונים מערכת.',
+    k: 'שימור הידע של המתכנת הוותיק',
+    cam: 'אינו מטופל. המוצר אינו מיועד לחילוץ ידע סמוי.',
+    us: 'מחולץ למסמך כללים מפורש שנשאר בבעלות צורון, גם אם לא תיבנה מערכת.',
     tone: 'no',
   },
   {
-    k: 'איפה רץ העיבוד',
-    cam: 'בענן. חיבור אינטרנט יציב הוא דרישת מערכת. יש SOC 2 Type II ואופציית GovCloud בארה״ב, בכפוף לרגולציה אמריקאית.',
-    us: 'נקבע לפי מדיניות אבטחת המידע שלכם, כולל אפשרות של ריצה מלאה בתוך המפעל.',
+    k: 'מיקום העיבוד',
+    cam: 'בענן. חיבור אינטרנט יציב הוא דרישת מערכת. קיים SOC 2 Type II ואופציית GovCloud בארה״ב, הכפופה לרגולציה אמריקאית.',
+    us: 'נקבע לפי מדיניות אבטחת המידע של צורון, כולל אפשרות של ריצה מלאה בתוך המפעל.',
     tone: 'no',
   },
   {
-    k: 'מה נשאר אצלכם בסוף',
-    cam: 'מנוי שוטף שנצמד לרישיון ה CAM הקיים. היכולת נעצרת ביום שהמנוי נעצר.',
-    us: 'פרויקט. הכללים, הקוד והתיעוד נשארים שלכם.',
+    k: 'הנכס שנותר בסוף',
+    cam: 'מנוי שוטף הנצמד לרישיון ה CAM הקיים. היכולת נעצרת עם עצירת המנוי.',
+    us: 'הכללים, הקוד והתיעוד נשארים בבעלות צורון.',
     tone: 'no',
   },
   {
-    k: 'הבשלות שלו היום',
-    cam: 'מוצר בוגר, מותקן ביותר מאלף מפעלים. היצרן מדבר על עד 80 אחוז מהתכנות. בפורומים מקצועיים יש גם דיווחים של 20 עד 40 אחוז בחלקים אמיתיים, כי הגימור עדיין דורש אדם.',
-    us: 'מערכת שנבנית לכם מאפס, ולכן חייבת פיילוט על משפחת חלקים אחת לפני שנוגעים בייצור.',
+    k: 'בשלות טכנולוגית',
+    cam: 'מוצר בוגר, מותקן ביותר מאלף מפעלים. היצרן מדבר על עד 80 אחוז מהתכנות. בפורומים מקצועיים קיימים גם דיווחים של 20 עד 40 אחוז בחלקים אמיתיים, מאחר שהגימור עדיין מצריך התערבות אנושית.',
+    us: 'מערכת בפיתוח ייעודי, ולכן מחייבת פיילוט על משפחת חלקים אחת לפני מגע בייצור.',
     tone: 'yes',
   },
 ];
 
-const approach = [
+const approaches = [
+  { n: '1', name: 'אוטומציה של ה CAM הקיים', fit: 'כשלתוכנה הקיימת יש ממשק תכנותי והיא כבר מייצרת קבצים מאושרים', risk: 'בהיעדר API הגישה נופלת לחלוטין', effort: 'נמוך' },
+  { n: '2', name: 'פרסור דטרמיניסטי ומנוע כללים', fit: 'כשהגאומטריה נקייה, השכבות עקביות, וחלק ניכר מהקובץ הוא תבנית קבועה', risk: 'שרטוטים לא עקביים שוברים את הצינור', effort: 'בינוני' },
+  { n: '3', name: 'אחזור והתאמה מהמאגר', fit: 'כששיעור החזרתיות גבוה. הגישה הבטוחה והמהירה ביותר', risk: 'אינה נותנת מענה לחלקים חדשים לגמרי', effort: 'בינוני' },
+  { n: '4', name: 'חילוץ כללים מהמאגר', fit: 'כמעט תמיד. השלב שהופך ידע סמוי לנכס מתועד', risk: 'נתונים מזוהמים מייצרים כללים שגויים', effort: 'בינוני' },
+  { n: '5', name: 'מודל למידה לחיזוי פרמטרי תהליך', fit: 'כשפרמטרי התהליך הם הידע היקר, ובהינתן מאות עד אלפי דוגמאות תקינות', risk: 'חיזוי שגוי עלול לפגוע בחומר או במכונה. מחייב שער אימות', effort: 'בינוני עד גבוה' },
+  { n: '6', name: 'מודל שפה ליצירת טיוטת תוכנית', fit: 'כשהפורמט מורכב ומשתנה בין מכונות, עם מקרי קצה שקשה לקודד', risk: 'ייצור תחביר שנראה תקין אך אינו תקין. מחייב אימות דטרמיניסטי', effort: 'גבוה' },
+];
+
+const stages = [
   {
-    n: '01',
+    n: '8.1',
     title: 'חילוץ כללים מהמאגר',
-    body: 'מנתחים אלפי זוגות של שרטוט וקובץ ומזהים את הדפוסים החוזרים בהחלטות: סדר חיתוך, נקודות כניסה, פיצויים, בחירת פרמטרים. הופכים אותם לכללים מפורשים וכתובים.',
-    out: 'התוצר הזה הוא נכס בפני עצמו, גם אם תחליטו בסוף לא לבנות שום מערכת.',
+    body: 'ניתוח זוגות של שרטוט וקובץ מכונה, זיהוי הדפוסים החוזרים בהחלטות התכנות: סדר חיתוך, נקודות כניסה, פיצויים ובחירת פרמטרים, והמרתם לכללים מפורשים ומתועדים.',
+    out: 'תוצר בעל ערך עצמאי, גם אם יוחלט שלא לפתח מערכת.',
   },
   {
-    n: '02',
+    n: '8.2',
     title: 'פרסור דטרמיניסטי על משפחת חלקים אחת',
-    body: 'קריאת ה DXF, ניקוי ונרמול הגאומטריה, זיהוי קווי חיתוך, ואז יצירת הקובץ לפי הכללים והתבניות הקבועות. משפחה אחת, לא כל המפעל.',
-    out: 'הניצחון הראשון שאפשר להראות למתכנת ולשאול אותו אם זה נראה נכון.',
+    body: 'קריאת ה DXF, ניקוי ונרמול הגאומטריה, זיהוי קווי חיתוך, ויצירת קובץ המכונה לפי הכללים והתבניות שחולצו. משפחת חלקים אחת בלבד, לא כלל המפעל.',
+    out: 'הפלט הראשון שניתן להציג למתכנת הבכיר לאימות מקצועי.',
   },
   {
-    n: '03',
+    n: '8.3',
     title: 'אחזור והתאמה לחלקים חוזרים',
-    body: 'מחפשים במאגר את העבודה הדומה ביותר גאומטרית, לוקחים את הקובץ שלה ומתאימים אותו פרמטרית לחלק החדש. זו הגישה הבטוחה והמהירה ביותר.',
-    out: 'הדרך המהירה ביותר לכסות נפח גדול של עבודות בסיכון נמוך.',
+    body: 'איתור העבודה הדומה ביותר גאומטרית במאגר, ושימוש בקובץ שלה כבסיס להתאמה פרמטרית לחלק החדש.',
+    out: 'כיסוי נפח עבודות משמעותי ברמת סיכון נמוכה.',
   },
   {
-    n: '04',
+    n: '8.4',
     title: 'חיזוי פרמטרי תהליך',
-    body: 'מודל שמקבל חומר, עובי, גאומטריה ומכונה, ומנבא הספק, מהירות, מספר מעברים ופיצוי, לפי מה שנעשה בפועל בהיסטוריה. נכנס רק אחרי שהשלבים הקודמים עומדים.',
-    out: 'השלב שמכניס את הידע היקר באמת, ולכן גם השלב שהכי צריך שער אימות.',
+    body: 'מודל המקבל חומר, עובי, גאומטריה וסוג מכונה, ומנבא הספק, מהירות, מספר מעברים ופיצוי, על בסיס הביצוע ההיסטורי בפועל. נכנס רק לאחר שהשלבים הקודמים יציבים.',
+    out: 'השלב המכניס את הידע המהותי, ולכן גם השלב המחייב את שער האימות ההדוק ביותר.',
   },
 ];
 
-const asks = [
-  '10 עד 20 זוגות מלאים מכל סוג מכונה: השרטוט המקורי, השרטוט אחרי ההכנה, וקובץ המכונה הסופי',
-  'אותו חלק בשתי גרסאות: הקובץ שיצא מהמתכנת והקובץ שבאמת רץ במכונה. הפער ביניהם הוא הידע שצריך ללמוד',
-  'תיעוד הדיאלקט או מדריך התכנות של כל בקר ומכונה, ורשימת המכונות עם דגם, בקר ושנה',
-  'טבלאות הפרמטרים לפי חומר ועובי, כולל פיצוי צריבה ופיצוי קרף. זה הנכס הכי שווה שכבר קיים אצלכם',
-  'נתוני נפח: כמה עבודות בחודש, כמה מהן חוזרות, וכמה זמן לוקחת כל אחת',
-  'מדיניות אבטחת המידע והנוהל הפנימי להכנסת כלי תוכנה חדש לתהליך ייצור לפי AS9100',
-  'שם המתכנת הבכיר שילווה את הפרויקט ומחויבות שעות שבועית. זה תנאי סף, לא בקשה',
-];
-
-const deliverables = [
-  'משפחת חלקים אחת שנבחרה לפיילוט, עם הנימוק המלא למה דווקא היא',
-  'הארכיטקטורה המומלצת, מתוך תשע הגישות שכבר מיפינו לכם בגיליון',
-  'קריטריון קבלה מספרי: איזה אחוז מהקבצים חייב לעבור בלי נגיעה אנושית כדי שזה ייחשב הצלחה',
-  'לוח זמנים והיקף עבודה לפיילוט, מבוסס על מה שראינו במאגר ולא על תחושה',
-  'ואם המסקנה היא שלא כדאי לבנות את זה, תקבלו גם את זה בכתב, עם הנימוק',
-];
-
-const proof = [
+const roles = [
   {
-    tag: 'עולם המכונות',
-    body: 'אנחנו בעיצומה של עבודה עם ספק מכונות ה CNC הגדול ברומניה, על קטלוג פתרונות AI למפעלים שהוא משרת: שיבוץ טכנאים למשימות, טיפול בתקלות מהדיווח הראשון ועד הסגירה, והעברת מידע אוטומטית בין ה ERP, עדכוני השטח בוואטסאפ ומערכות השירות.',
+    who: 'צורון',
+    items: [
+      'המתכנת הבכיר משמש מומחה התוכן וסמכות ההכרעה המקצועית. הוא מגדיר את קריטריון הקבלה ומאשר כל פלט של המערכת.',
+      'העמדת מדגם מייצג מהמאגר, תיעוד דיאלקטים וטבלאות פרמטרים.',
+      'הגדרת מדיניות אבטחת המידע והנוהל להכנסת כלי תוכנה לתהליך ייצור.',
+      'הקצאת זמן שבועי קבוע להשוואה ולמדידה בשלב מצב הצל.',
+    ],
+  },
+  {
+    who: 'FutureProof Agents',
+    items: [
+      'ניתוח המאגר וחילוץ הכללים לכדי מסמך מפורש ומתועד.',
+      'פיתוח שכבת ההמרה, שכבת האימות ותשתית מצב הצל.',
+      'אפיון התהליכים העסקיים והתפעוליים סביב המערכת.',
+      'הטמעה, הדרכה ותיעוד, כך שהמערכת תישאר ניתנת לתחזוקה בידי צורון.',
+    ],
+  },
+];
+
+const background = [
+  {
+    tag: 'מכונות CNC ותפעול מפעלים',
+    body: 'עבודה שוטפת מול ספק מכונות ה CNC הגדול ברומניה, על קטלוג פתרונות AI למפעלים שהוא משרת: שיבוץ טכנאים למשימות, ניהול תקלות מהדיווח ועד הסגירה, והעברת מידע בין ה ERP, דיווחי השטח ומערכות השירות.',
   },
   {
     tag: 'תעשייה ביטחונית ישראלית',
-    body: 'ליצרן ישראלי ותיק של מערכות נשיאה טקטיות בנינו פורטל ניהול מוצר מבוסס AI: תהליך אחיד אחד שמעביר כל פרויקט דרך חמישה שערי החלטה, מהדרישות דרך העיצוב והבדיקות ועד ניהול הידע. שם למדנו מה זו סביבה עם סיווג, נהלים ותיעוד.',
+    body: 'פורטל ניהול מוצר מבוסס AI ליצרן ישראלי ותיק של מערכות נשיאה טקטיות: תהליך אחיד המעביר כל פרויקט דרך חמישה שערי החלטה, מהדרישות דרך העיצוב והבדיקות ועד ניהול הידע. עבודה בסביבה בעלת סיווג, נהלים ודרישות תיעוד.',
   },
   {
     tag: 'אפיון תהליכים תעשייתי',
-    body: 'בצוות שלנו יושבת ארכיטקטית תהליכים עסקיים עם עשרות שנות ניהול תפעולי בקבוצות קמעונאות, אנרגיה ובנייה מהגדולות בישראל. התפקיד שלה הוא להפוך את הדרך שבה אתם באמת עובדים לתרשים שאפשר לבנות עליו מערכת.',
+    body: 'ארכיטקטית תהליכים עסקיים בצוות, עם עשרות שנות ניהול תפעולי בקבוצות קמעונאות, אנרגיה ובנייה מהגדולות בישראל. אחראית על תרגום אופן העבודה בפועל לתרשימי זרימה ברי מימוש.',
   },
   {
     tag: 'מערכות AI בייצור',
-    body: 'JVP, Ginger Insurance, iPracticom ואחרים. מערכות חיות שרצות בסביבת פרודקשן מול לקוחות אמיתיים, לא הדגמות. כשאנחנו אומרים שמשהו עובד, זה אומר שהוא באוויר.',
+    body: 'מערכות חיות בסביבת פרודקשן עבור JVP, Ginger Insurance, iPracticom ואחרים, מול משתמשי קצה אמיתיים.',
   },
+];
+
+const required = [
+  { t: '10 עד 20 זוגות מלאים מכל סוג מכונה: השרטוט המקורי, השרטוט לאחר ההכנה, וקובץ המכונה הסופי', c: 'חובה' },
+  { t: 'אותו חלק בשתי גרסאות: הקובץ שיצא מהמתכנת והקובץ שרץ בפועל במכונה', c: 'חובה' },
+  { t: 'תיעוד הדיאלקט או מדריך התכנות של כל בקר, ורשימת מכונות עם דגם, בקר ושנה', c: 'חובה' },
+  { t: 'טבלאות הפרמטרים לפי חומר ועובי, כולל פיצוי צריבה ופיצוי קרף', c: 'חובה' },
+  { t: 'נתוני נפח: כמות עבודות חודשית, שיעור העבודות החוזרות, וזמן טיפול ממוצע', c: 'חובה' },
+  { t: 'מדיניות אבטחת המידע והנוהל להכנסת כלי תוכנה חדש לתהליך ייצור לפי AS9100', c: 'חובה' },
+  { t: 'הוראות עבודה, נהלים או צ׳ק ליסטים קיימים של תהליך התכנות', c: 'גבוהה' },
+  { t: 'רשימת אי התאמות או תקלות שמקורן בקובץ מכונה בשנה האחרונה', c: 'גבוהה' },
+  { t: 'שם המתכנת הבכיר שילווה את הפרויקט והקצאת שעות שבועית. תנאי סף', c: 'חובה' },
+];
+
+const deliverables = [
+  'משפחת חלקים אחת שנבחרה לפיילוט, בצירוף הנימוק לבחירה',
+  'הארכיטקטורה המומלצת, מתוך הגישות שנסקרו בסעיף 7',
+  'קריטריון קבלה מספרי: שיעור הקבצים שיעברו ללא התערבות אנושית כתנאי להצלחה',
+  'לוח זמנים והיקף עבודה לפיילוט, מבוסס על ממצאי הניתוח ולא על הערכה',
+  'במידה והמסקנה היא שאין הצדקה לפיתוח, תינתן מסקנה זו בכתב בצירוף נימוק',
 ];
 
 const sources = [
@@ -203,12 +264,12 @@ const sources = [
   <meta charset="UTF-8" />
   <script is:inline>(function(){var h=location.hostname;if(h==='futureproofagents.com'||h==='localhost'||h==='127.0.0.1')return;var p=location.pathname;if(p==='/'||p==='/index.html')p='/he/links/';location.replace('https://futureproofagents.com'+p+location.search+location.hash);})();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>צורון × FutureProof Agents · משרטוט לקובץ מכונה</title>
-  <meta name="description" content="דוח בשלושה עמודים לצורון א.ג.ש.ח: מה באמת אפשר לאוטומט בדרך משרטוט AutoCAD לקובץ מכונה, השוואה כנה מול CAM Assist, והדרך המומלצת קדימה." />
+  <title>צורון א.ג.ש.ח · מסמך עבודה: אוטומציה של המרת שרטוט לקובץ מכונה</title>
+  <meta name="description" content="מסמך אפיון ראשוני והערכת היתכנות עבור צורון א.ג.ש.ח: דרישה, תיאור בעיה, סקירת פתרונות קיימים, גישות טכניות והפתרון המוצע." />
   <meta name="robots" content="noindex, nofollow" />
   <meta name="theme-color" content="#000000" />
-  <meta property="og:title" content="צורון × FutureProof Agents · משרטוט לקובץ מכונה" />
-  <meta property="og:description" content="דוח בשלושה עמודים: מה הבעיה באמת, השוואה מול CAM Assist, והדרך קדימה." />
+  <meta property="og:title" content="צורון א.ג.ש.ח · מסמך עבודה" />
+  <meta property="og:description" content="אפיון ראשוני והערכת היתכנות לאוטומציה של המרת שרטוט לקובץ מכונה." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content={`${site}/zuron/`} />
 
@@ -229,7 +290,7 @@ const sources = [
       --panel: #16181c;
       --panel2: #0f1419;
     }
-    html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
     html, body { min-height: 100%; }
     body {
       font-family: 'Heebo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -250,7 +311,7 @@ const sources = [
       width: 700px;
       height: 700px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(29,155,240,0.18) 0%, rgba(29,155,240,0) 68%);
+      background: radial-gradient(circle, rgba(29,155,240,0.16) 0%, rgba(29,155,240,0) 68%);
       filter: blur(24px);
       z-index: 0;
       pointer-events: none;
@@ -259,13 +320,12 @@ const sources = [
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: 900px;
+      max-width: 920px;
       display: flex;
       flex-direction: column;
-      align-items: center;
     }
 
-    /* --- sticky page nav --- */
+    /* --- sticky part nav --- */
     .pagenav {
       position: sticky;
       top: 0;
@@ -276,245 +336,271 @@ const sources = [
       justify-content: center;
       gap: 8px;
       padding: 12px 0;
-      margin-bottom: 30px;
-      background: rgba(0,0,0,0.82);
+      margin-bottom: 34px;
+      background: rgba(0,0,0,0.84);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--line);
       flex-wrap: wrap;
     }
     .pagenav a {
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 800;
       color: var(--muted);
       text-decoration: none;
       border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 7px 15px;
+      border-radius: 6px;
+      padding: 7px 14px;
       transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
     }
     .pagenav a:hover { color: #fff; border-color: var(--blue); background: rgba(29,155,240,0.10); }
     .pagenav .home { color: var(--blue); border-color: rgba(29,155,240,0.32); }
 
-    /* --- hero --- */
+    /* --- document header --- */
     .doc-tag {
-      font-size: 12.5px;
+      align-self: flex-start;
+      font-size: 11.5px;
       font-weight: 800;
       color: var(--blue);
       background: rgba(29,155,240,0.12);
       border: 1px solid rgba(29,155,240,0.24);
-      padding: 6px 15px;
-      border-radius: 999px;
+      padding: 6px 14px;
+      border-radius: 6px;
       margin-bottom: 20px;
-      text-align: center;
+      letter-spacing: 0.4px;
     }
     h1 {
-      font-size: clamp(29px, 4.8vw, 50px);
-      line-height: 1.14;
-      text-align: center;
+      font-size: clamp(27px, 3.9vw, 42px);
+      line-height: 1.22;
       color: #fff;
       font-weight: 800;
-      max-width: 840px;
+      max-width: 800px;
     }
-    h1 span { color: var(--blue); }
-    .sub {
+    .doc-sub {
       font-size: 17px;
-      line-height: 1.8;
-      text-align: center;
+      line-height: 1.7;
       color: var(--soft);
-      max-width: 740px;
-      margin: 20px auto 0;
+      max-width: 760px;
+      margin-top: 14px;
     }
-    .sub b { color: #fff; font-weight: 700; }
     .meta-row {
       width: 100%;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 32px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 30px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 18px 0;
     }
-    .meta {
-      background: rgba(22,24,28,0.78);
+    .meta .k { color: var(--muted); font-size: 11px; font-weight: 800; margin-bottom: 5px; letter-spacing: 0.4px; }
+    .meta .v { color: #fff; font-size: 14px; font-weight: 700; line-height: 1.5; }
+
+    /* --- exec summary --- */
+    .summary {
+      background: linear-gradient(180deg, rgba(29,155,240,0.10), rgba(22,24,28,1) 76%);
+      border: 1px solid rgba(29,155,240,0.32);
+      border-radius: 10px;
+      padding: 26px;
+      margin-top: 34px;
+    }
+    .summary h2 { color: #fff; font-size: 19px; font-weight: 800; margin-bottom: 16px; }
+    .summary ol { list-style: none; counter-reset: s; display: flex; flex-direction: column; gap: 13px; }
+    .summary li {
+      counter-increment: s;
+      color: var(--soft);
+      font-size: 15.5px;
+      line-height: 1.75;
+      padding-inline-start: 32px;
+      position: relative;
+    }
+    .summary li::before {
+      content: counter(s);
+      position: absolute;
+      inset-inline-start: 0;
+      top: 2px;
+      width: 22px;
+      height: 22px;
+      border-radius: 4px;
+      background: rgba(29,155,240,0.16);
+      color: var(--blue);
+      font-size: 11.5px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* --- toc --- */
+    .toc {
       border: 1px solid var(--line);
       border-radius: 10px;
-      padding: 16px;
+      padding: 24px 26px;
+      margin-top: 18px;
+      background: var(--panel2);
     }
-    .meta .k { color: var(--muted); font-size: 11.5px; font-weight: 800; margin-bottom: 6px; letter-spacing: 0.3px; }
-    .meta .v { color: #fff; font-size: 14.5px; font-weight: 700; line-height: 1.5; }
-
-    /* --- page bands --- */
-    .page { width: 100%; scroll-margin-top: 76px; }
-    .page-band {
-      width: 100%;
-      display: flex;
-      align-items: baseline;
-      gap: 16px;
-      border-top: 1px solid var(--line);
-      padding-top: 26px;
-      margin: 52px 0 26px;
-    }
-    .page-band .no {
-      font-size: 46px;
-      font-weight: 900;
-      color: rgba(29,155,240,0.30);
-      line-height: 1;
-      letter-spacing: -1px;
-      direction: ltr;
-      flex-shrink: 0;
-    }
-    .page-band .txt .kicker {
+    .toc h2 { color: #fff; font-size: 17px; font-weight: 800; margin-bottom: 16px; }
+    .toc-part { margin-bottom: 16px; }
+    .toc-part:last-child { margin-bottom: 0; }
+    .toc-part .ph {
       font-size: 12px;
       font-weight: 800;
       color: var(--blue);
-      letter-spacing: 0.6px;
-      margin-bottom: 5px;
+      letter-spacing: 0.5px;
+      margin-bottom: 7px;
     }
-    .page-band .txt h2 {
-      font-size: clamp(23px, 3.2vw, 32px);
+    .toc a {
+      display: block;
+      color: var(--soft);
+      text-decoration: none;
+      font-size: 14.5px;
+      line-height: 1.6;
+      padding: 3px 0;
+    }
+    .toc a:hover { color: #fff; }
+    .toc a .tn {
+      display: inline-block;
+      min-width: 26px;
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    /* --- part bands --- */
+    .part { width: 100%; scroll-margin-top: 80px; }
+    .part-band {
+      width: 100%;
+      border-top: 2px solid var(--blue);
+      padding-top: 22px;
+      margin: 56px 0 8px;
+    }
+    .part-band .ph {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--blue);
+      letter-spacing: 0.7px;
+      margin-bottom: 6px;
+    }
+    .part-band h2 {
+      font-size: clamp(22px, 3vw, 29px);
       font-weight: 800;
       color: #fff;
       line-height: 1.25;
     }
 
-    section { width: 100%; }
-    .section-title {
-      color: var(--muted);
-      font-size: 13px;
+    /* --- sections --- */
+    section { width: 100%; scroll-margin-top: 80px; }
+    .sec-head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin: 40px 0 14px;
+    }
+    .sec-head .sn {
+      font-size: 15px;
+      font-weight: 900;
+      color: var(--blue);
+      flex-shrink: 0;
+      min-width: 26px;
+    }
+    .sec-head h3 {
+      font-size: clamp(19px, 2.4vw, 23px);
       font-weight: 800;
-      letter-spacing: 0.5px;
-      margin: 40px 0 16px;
-      text-align: center;
+      color: #fff;
+      line-height: 1.3;
     }
     p.body {
       color: var(--soft);
-      font-size: 16px;
+      font-size: 15.5px;
       line-height: 1.85;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     p.body b { color: #fff; font-weight: 700; }
 
-    .lead {
-      background: linear-gradient(180deg, rgba(29,155,240,0.11), rgba(22,24,28,1) 74%);
-      border: 1px solid rgba(29,155,240,0.34);
-      border-radius: 12px;
-      padding: 26px;
-      line-height: 1.85;
-      color: var(--soft);
-      font-size: 16px;
-    }
-    .lead strong { color: #fff; }
-    .lead .q {
-      color: #fff;
-      font-size: 17px;
-      font-weight: 700;
-      line-height: 1.7;
-      border-inline-start: 3px solid var(--blue);
-      padding-inline-start: 16px;
-      margin-bottom: 16px;
-    }
-
-    /* --- generic cards --- */
-    .cards3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-    .cards2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-    .card {
+    /* --- sub-blocks --- */
+    .blocks { display: flex; flex-direction: column; gap: 12px; }
+    .block {
       background: var(--panel);
       border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 22px;
-      transition: border-color 0.2s ease;
-    }
-    .card:hover { border-color: #3d4044; }
-    .card .pill {
-      display: inline-block;
-      color: var(--blue);
-      background: rgba(29,155,240,0.12);
-      border: 1px solid rgba(29,155,240,0.24);
-      border-radius: 999px;
-      padding: 4px 11px;
-      font-size: 11.5px;
-      font-weight: 800;
-      margin-bottom: 12px;
-    }
-    .card h3 { color: #fff; font-size: 19px; font-weight: 800; line-height: 1.3; margin-bottom: 10px; }
-    .card p { color: var(--soft); font-size: 14.5px; line-height: 1.7; }
-    .card .out {
-      margin-top: 14px;
-      padding-top: 12px;
-      border-top: 1px dashed var(--line);
-      font-size: 13.5px;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-    .card .out b { color: var(--blue); font-weight: 800; }
-
-    /* --- numbered rows --- */
-    .rows { display: flex; flex-direction: column; gap: 12px; }
-    .row {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 12px;
+      border-radius: 10px;
       padding: 22px;
       display: grid;
-      grid-template-columns: 52px 1fr;
-      gap: 18px;
+      grid-template-columns: 56px 1fr;
+      gap: 16px;
       align-items: start;
     }
-    .row .n {
-      font-size: 26px;
+    .block .bn {
+      font-size: 14px;
       font-weight: 900;
-      color: rgba(29,155,240,0.42);
-      line-height: 1;
-      direction: ltr;
+      color: var(--blue);
       padding-top: 3px;
+      direction: ltr;
+      text-align: start;
     }
-    .row h3 { color: #fff; font-size: 18.5px; font-weight: 800; line-height: 1.35; margin-bottom: 9px; }
-    .row p { color: var(--soft); font-size: 15px; line-height: 1.75; }
-    .row .out {
+    .block h4 { color: #fff; font-size: 17.5px; font-weight: 800; line-height: 1.35; margin-bottom: 9px; }
+    .block p { color: var(--soft); font-size: 15px; line-height: 1.75; }
+    .block .out {
       margin-top: 12px;
       font-size: 13.5px;
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.65;
       border-inline-start: 2px solid rgba(29,155,240,0.35);
       padding-inline-start: 12px;
     }
+    .block .out b { color: var(--blue); font-weight: 800; }
 
-    /* --- compare table --- */
-    .cmp {
+    /* --- tables --- */
+    .tbl {
       width: 100%;
       border: 1px solid var(--line);
-      border-radius: 12px;
+      border-radius: 10px;
       overflow: hidden;
       background: var(--panel2);
+      margin-top: 6px;
     }
-    .cmp-head, .cmp-row {
-      display: grid;
-      grid-template-columns: 190px 1fr 1fr;
-    }
-    .cmp-head { background: #000; border-bottom: 1px solid var(--line); }
-    .cmp-head div {
-      padding: 15px 18px;
-      font-size: 13.5px;
+    .tbl-head, .tbl-row { display: grid; }
+    .cmp .tbl-head, .cmp .tbl-row { grid-template-columns: 200px 1fr 1fr; }
+    .app .tbl-head, .app .tbl-row { grid-template-columns: 34px 1.05fr 1.35fr 1.15fr 134px; }
+    .req .tbl-head, .req .tbl-row { grid-template-columns: 34px 1fr 92px; }
+    .tbl-head { background: #000; border-bottom: 1px solid var(--line); }
+    .tbl-head div {
+      padding: 13px 16px;
+      font-size: 12.5px;
       font-weight: 800;
       color: var(--muted);
       letter-spacing: 0.3px;
     }
-    .cmp-head .a { color: #fff; }
-    .cmp-head .b { color: var(--blue); }
-    .cmp-row { border-bottom: 1px solid var(--line); }
-    .cmp-row:last-child { border-bottom: none; }
-    .cmp-row > div { padding: 17px 18px; font-size: 14.5px; line-height: 1.7; }
-    .cmp-row .k { color: #fff; font-weight: 700; background: rgba(255,255,255,0.02); }
-    .cmp-row .a { color: var(--soft); border-inline-start: 1px solid var(--line); }
-    .cmp-row .b { color: var(--soft); border-inline-start: 1px solid var(--line); background: rgba(29,155,240,0.045); }
-    .cmp-row .mob-k { display: none; }
+    .tbl-head .a { color: #fff; }
+    .tbl-head .b { color: var(--blue); }
+    .tbl-row { border-bottom: 1px solid var(--line); }
+    .tbl-row:last-child { border-bottom: none; }
+    .tbl-row > div { padding: 15px 16px; font-size: 14px; line-height: 1.7; color: var(--soft); }
+    .tbl-row .k { color: #fff; font-weight: 700; background: rgba(255,255,255,0.02); }
+    .tbl-row .num { color: var(--blue); font-weight: 900; font-size: 13px; }
+    .tbl-row .a { border-inline-start: 1px solid var(--line); }
+    .tbl-row .b { border-inline-start: 1px solid var(--line); background: rgba(29,155,240,0.045); }
+    .tbl-row .mob-k { display: none; }
+    .tag {
+      display: inline-block;
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 4px;
+      white-space: nowrap;
+      max-width: 100%;
+      overflow-wrap: break-word;
+    }
+    .tag.must { color: #ff6b6b; background: rgba(255,107,107,0.13); }
+    .tag.high { color: var(--amber); background: rgba(245,158,11,0.13); }
+    .tag.eff { color: var(--muted); background: rgba(139,152,165,0.13); }
     .mark {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 19px;
-      height: 19px;
-      border-radius: 999px;
-      font-size: 12px;
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      font-size: 11px;
       font-weight: 900;
       margin-inline-end: 7px;
       vertical-align: -3px;
@@ -522,7 +608,6 @@ const sources = [
     .mark.no { background: rgba(245,158,11,0.16); color: var(--amber); }
     .mark.yes { background: rgba(37,211,102,0.16); color: var(--green); }
     .mark.neutral { background: rgba(139,152,165,0.16); color: var(--muted); }
-
     .legend {
       display: flex;
       flex-wrap: wrap;
@@ -532,101 +617,102 @@ const sources = [
       color: var(--muted);
       font-weight: 700;
     }
-    .legend .mark { width: 17px; height: 17px; font-size: 11px; }
+    .legend .mark { width: 16px; height: 16px; font-size: 10px; }
 
     /* --- notes --- */
     .note {
       border-inline-start: 3px solid var(--amber);
-      background: rgba(245,158,11,0.08);
+      background: rgba(245,158,11,0.07);
       color: var(--soft);
       line-height: 1.8;
-      font-size: 15.5px;
+      font-size: 15px;
       padding: 20px 22px;
-      border-radius: 12px;
-      margin-top: 18px;
+      border-radius: 10px;
+      margin-top: 16px;
     }
     .note b { color: #fff; font-weight: 700; }
-    .note.green { border-inline-start-color: var(--green); background: rgba(37,211,102,0.08); }
-    .note.blue { border-inline-start-color: var(--blue); background: rgba(29,155,240,0.08); }
-    .note .t { color: #fff; font-weight: 800; font-size: 16.5px; margin-bottom: 8px; }
+    .note.green { border-inline-start-color: var(--green); background: rgba(37,211,102,0.07); }
+    .note.blue { border-inline-start-color: var(--blue); background: rgba(29,155,240,0.07); }
+    .note .t { color: #fff; font-weight: 800; font-size: 16px; margin-bottom: 7px; }
 
-    /* --- clean list --- */
-    ul.clean { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    /* --- role / background cards --- */
+    .cards2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 22px;
+    }
+    .card .pill {
+      display: inline-block;
+      color: var(--blue);
+      background: rgba(29,155,240,0.12);
+      border: 1px solid rgba(29,155,240,0.24);
+      border-radius: 5px;
+      padding: 4px 11px;
+      font-size: 11.5px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .card h4 { color: #fff; font-size: 17px; font-weight: 800; margin-bottom: 12px; }
+    .card p { color: var(--soft); font-size: 14.5px; line-height: 1.7; }
+
+    ul.clean { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     ul.clean li {
       color: var(--soft);
-      font-size: 15.5px;
-      line-height: 1.75;
-      padding-inline-start: 30px;
+      font-size: 14.5px;
+      line-height: 1.7;
+      padding-inline-start: 22px;
       position: relative;
     }
     ul.clean li::before {
-      content: "◆";
+      content: "";
       position: absolute;
       inset-inline-start: 0;
-      top: 1px;
-      color: var(--blue);
-      font-size: 12px;
-    }
-    ul.clean.num { counter-reset: c; }
-    ul.clean.num li::before {
-      counter-increment: c;
-      content: counter(c);
-      font-size: 11.5px;
-      font-weight: 900;
-      background: rgba(29,155,240,0.14);
-      border-radius: 999px;
-      width: 21px;
-      height: 21px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      top: 3px;
+      top: 9px;
+      width: 6px;
+      height: 6px;
+      border-radius: 2px;
+      background: var(--blue);
     }
 
     /* --- cta --- */
-    .cta-wrap { text-align: center; margin-top: 30px; }
+    .cta-wrap { margin-top: 28px; }
     .cta {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      min-height: 56px;
-      padding: 15px 32px;
+      min-height: 54px;
+      padding: 14px 30px;
       background: var(--green);
       color: #04210f;
-      border-radius: 999px;
+      border-radius: 8px;
       text-decoration: none;
-      font-size: 16.5px;
+      font-size: 16px;
       font-weight: 800;
-      box-shadow: 0 8px 26px rgba(37,211,102,0.20);
+      box-shadow: 0 8px 24px rgba(37,211,102,0.18);
       transition: transform 0.2s ease, filter 0.2s ease;
     }
-    .cta svg { width: 22px; height: 22px; fill: #04210f; }
+    .cta svg { width: 21px; height: 21px; fill: #04210f; }
     .cta:hover { transform: translateY(-2px); filter: brightness(1.05); }
-    .cta-sub { font-size: 14px; color: var(--muted); margin-top: 14px; line-height: 1.7; }
+    .cta-sub { font-size: 14px; color: var(--muted); margin-top: 14px; line-height: 1.8; }
     .cta-sub a { color: var(--blue); text-decoration: none; font-weight: 700; }
 
-    /* --- sources --- */
-    .sources {
-      margin-top: 20px;
-      font-size: 12.5px;
-      color: var(--muted);
-      line-height: 1.9;
-    }
-    .sources .t { font-weight: 800; color: var(--soft); margin-bottom: 8px; }
-    .src-list { display: flex; flex-wrap: wrap; gap: 8px 10px; }
-    .sources a {
+    /* --- appendix --- */
+    .src-list { display: flex; flex-wrap: wrap; gap: 8px 10px; margin-top: 10px; }
+    .src-list a {
       direction: ltr;
       unicode-bidi: isolate;
       color: var(--muted);
       text-decoration: none;
       border: 1px solid var(--line);
-      border-radius: 999px;
+      border-radius: 5px;
       padding: 4px 12px;
       font-size: 12px;
       line-height: 1.5;
     }
-    .sources a:hover { color: var(--blue); border-color: rgba(29,155,240,0.34); }
+    .src-list a:hover { color: var(--blue); border-color: rgba(29,155,240,0.34); }
 
     .endnote {
       margin-top: 46px;
@@ -637,348 +723,437 @@ const sources = [
     }
     .endnote a { color: var(--text); text-decoration: none; font-weight: 800; }
 
-    @media (max-width: 860px) {
-      .cards3, .cards2, .meta-row { grid-template-columns: 1fr; }
-      .cmp-head { display: none; }
-      .cmp-row { grid-template-columns: 1fr; }
-      .cmp-row { border-bottom: 8px solid #000; }
-      .cmp-row > div { padding: 14px 16px; }
-      .cmp-row .k { font-size: 16px; border-bottom: 1px solid var(--line); }
-      .cmp-row .a, .cmp-row .b { border-inline-start: none; }
-      .cmp-row .mob-k {
+    @media (max-width: 880px) {
+      .cards2, .meta-row { grid-template-columns: 1fr; }
+      .meta-row { gap: 16px; }
+      .cmp .tbl-head, .app .tbl-head, .req .tbl-head { display: none; }
+      .cmp .tbl-row, .app .tbl-row, .req .tbl-row { grid-template-columns: 1fr; border-bottom: 8px solid #000; }
+      .tbl-row > div { padding: 13px 16px; }
+      .tbl-row .k { font-size: 15.5px; border-bottom: 1px solid var(--line); }
+      .tbl-row .a, .tbl-row .b { border-inline-start: none; }
+      .tbl-row .mob-k {
         display: block;
         font-size: 11.5px;
         font-weight: 800;
         letter-spacing: 0.3px;
         margin-bottom: 5px;
       }
-      .cmp-row .a .mob-k { color: var(--muted); }
-      .cmp-row .b .mob-k { color: var(--blue); }
-      .page-band { gap: 12px; }
-      .page-band .no { font-size: 34px; }
-      .row { grid-template-columns: 1fr; gap: 8px; }
-      .row .n { font-size: 22px; }
-      .lead, .card, .note { padding: 20px; }
+      .tbl-row .a .mob-k { color: var(--muted); }
+      .tbl-row .b .mob-k { color: var(--blue); }
+      .block { grid-template-columns: 1fr; gap: 8px; }
+      .summary, .toc, .card, .note { padding: 20px; }
     }
 
     @media print {
       body { background: #fff; color: #111; padding: 0; }
       body::before, .pagenav, .cta-wrap { display: none; }
-      .page { page-break-after: always; }
-      .page:last-of-type { page-break-after: auto; }
-      .card, .row, .cmp, .lead, .note { border-color: #ccc; background: #fff; }
-      h1, h2, h3, .cmp-row .k { color: #000; }
-      p, .card p, .row p, ul.clean li { color: #222; }
+      .part { page-break-after: always; }
+      .part:last-of-type { page-break-after: auto; }
+      .card, .block, .tbl, .summary, .toc, .note { border-color: #ccc; background: #fff; }
+      h1, h2, h3, h4, .tbl-row .k { color: #000; }
+      p, .card p, .block p, ul.clean li, .summary li { color: #222; }
     }
   </style>
 </head>
 <body>
   <main class="container">
 
-    <nav class="pagenav" aria-label="ניווט בדוח">
+    <nav class="pagenav" aria-label="ניווט במסמך">
       <a class="home" href="/he/">FutureProof Agents</a>
-      <a href="#p1">1 · הבעיה</a>
-      <a href="#p2">2 · CAM Assist</a>
-      <a href="#p3">3 · הדרך קדימה</a>
+      <a href="#partA">חלק א · הבעיה</a>
+      <a href="#partB">חלק ב · פתרונות קיימים</a>
+      <a href="#partC">חלק ג · הפתרון המוצע</a>
     </nav>
 
-    <!-- ============ HERO ============ -->
-    <div class="doc-tag">מסמך עבודה · צורון א.ג.ש.ח בע״מ × FutureProof Agents</div>
-    <h1>משרטוט לקובץ מכונה.<br /><span>מה באמת אפשר לאוטומט, ומה לא.</span></h1>
-    <p class="sub">
-      דוח קצר בשלושה עמודים, שנכתב אחרי קריאה של תיאור הפעילות שלכם, ניתוח שלושת קווי הייצור, ובדיקה רצינית של CAM Assist שהעליתם.
-      <b>עמוד ראשון:</b> למה זו לא בעיה אחת אלא שלוש.
-      <b>עמוד שני:</b> השוואה כנה מול CAM Assist, כולל איפה הוא עדיף עלינו.
-      <b>עמוד שלישי:</b> איך ניגשים, מה הניסיון שלנו עם מכונות, ומה הצעד הבא.
+    <!-- ============ DOCUMENT HEADER ============ -->
+    <div class="doc-tag">מסמך עבודה · אפיון ראשוני והערכת היתכנות</div>
+    <h1>אוטומציה של תהליך ההמרה משרטוט הנדסי לקובץ מכונה</h1>
+    <p class="doc-sub">
+      מסמך זה מסכם בחינה ראשונית של הדרישה שהוצגה על ידי צורון א.ג.ש.ח, מגדיר את הבעיה על שלושת קווי הייצור,
+      סוקר את הפתרונות הקיימים בשוק לרבות CAM Assist, ומציג את הגישות הטכניות האפשריות ואת הפתרון המוצע.
     </p>
 
     <div class="meta-row">
       <div class="meta">
         <div class="k">לכבוד</div>
-        <div class="v">צורון א.ג.ש.ח בע״מ, קיבוץ מעגן מיכאל</div>
+        <div class="v">צורון א.ג.ש.ח בע״מ<br />קיבוץ מעגן מיכאל</div>
       </div>
       <div class="meta">
         <div class="k">מאת</div>
-        <div class="v">יובל קשטכר · FutureProof Agents</div>
+        <div class="v">יובל קשטכר<br />FutureProof Agents</div>
       </div>
       <div class="meta">
-        <div class="k">תאריך</div>
-        <div class="v">5 באוגוסט 2026</div>
+        <div class="k">תאריך · גרסה</div>
+        <div class="v">5 באוגוסט 2026<br />גרסה 1.0</div>
+      </div>
+      <div class="meta">
+        <div class="k">סטטוס</div>
+        <div class="v">טיוטה לדיון<br />טרם בוצע ניתוח מאגר</div>
       </div>
     </div>
 
-    <!-- ============ PAGE 1 ============ -->
-    <article class="page" id="p1">
-      <div class="page-band">
-        <div class="no">01</div>
-        <div class="txt">
-          <div class="kicker">עמוד 1 מתוך 3</div>
-          <h2>מה ביקשתם, ומה הבעיה באמת</h2>
+    <!-- ============ EXECUTIVE SUMMARY ============ -->
+    <div class="summary">
+      <h2>תקציר מנהלים</h2>
+      <ol>
+        {summary.map((s) => (<li>{s}</li>))}
+      </ol>
+    </div>
+
+    <!-- ============ TOC ============ -->
+    <nav class="toc" aria-label="תוכן עניינים">
+      <h2>תוכן עניינים</h2>
+      {toc.map((p) => (
+        <div class="toc-part">
+          <div class="ph">{p.part} · {p.title}</div>
+          {p.items.map((i) => (
+            <a href={i.href}><span class="tn">{i.n}</span>{i.t}</a>
+          ))}
         </div>
+      ))}
+    </nav>
+
+    <!-- ============ PART A ============ -->
+    <article class="part" id="partA">
+      <div class="part-band">
+        <div class="ph">חלק א</div>
+        <h2>הדרישה, הבעיה והאילוצים</h2>
       </div>
 
-      <section>
-        <div class="lead">
-          <div class="q">
-            "אני מחפש פתרון שיאפשר להמיר שרטוטי AutoCAD לקבצי שפת מכונה עבור המכונות שלנו, בצורה כמה שיותר אוטומטית.
-            יש לי מאגר גדול של עבודות קיימות, הכולל גם את השרטוטים וגם את קבצי שפת המכונה שנוצרו מהם, ואני רוצה לבדוק
-            האם ניתן להשתמש בהם כדי ללמד את המערכת את שיטת העבודה שלנו."
-          </div>
-          <strong>זו בקשה מדויקת, והיא גם נכונה.</strong> המאגר המזווג שיש לכם הוא בדיוק סוג הנכס שאפשר לבנות עליו מערכת,
-          ומעט מאוד מפעלים בישראל יושבים על משהו כזה. הדבר היחיד שצריך לתקן בניסוח הוא ההנחה שמדובר בבעיה אחת.
-          אצלכם זו לא בעיה אחת. אלה שלוש בעיות הנדסיות שונות, ולכל אחת מהן פלט אחר לגמרי.
+      <section id="s1">
+        <div class="sec-head"><div class="sn">1</div><h3>הדרישה</h3></div>
+        <p class="body">
+          צורון מבקשת להמיר שרטוטי AutoCAD לקבצי שפת מכונה עבור מכונות המפעל, בתהליך אוטומטי ככל האפשר.
+          במפעל קיים מאגר נרחב של עבודות שבוצעו בעבר, הכולל הן את השרטוטים והן את קבצי המכונה שנוצרו מהם.
+          הדרישה כוללת בחינה של האפשרות להשתמש במאגר זה כדי ללמד את המערכת את שיטת העבודה הנהוגה במפעל.
+        </p>
+        <p class="body">
+          <b>הנחת יסוד שיש לתקן:</b> הדרישה כפי שנוסחה מתייחסת לתהליך אחד. בפועל, שלושת קווי הייצור המרכזיים
+          של צורון מייצרים שלושה סוגי פלט שונים מהותית זה מזה. הפרדה זו היא תנאי לאפיון נכון, והיא מפורטת בסעיף 2.
+        </p>
+      </section>
+
+      <section id="s2">
+        <div class="sec-head"><div class="sn">2</div><h3>תיאור הבעיה: שלושה קווי ייצור, שלוש שפות פלט</h3></div>
+        <div class="blocks">
+          {lines.map((l) => (
+            <article class="block">
+              <div class="bn">{l.n}</div>
+              <div>
+                <h4>{l.title}</h4>
+                <p>{l.body}</p>
+                <div class="out"><b>פורמט הפלט:</b> {l.out}</div>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div class="note">
+          <div class="t">השלכה על אופן ניהול הפרויקט</div>
+          מדובר בשלושה פרויקטים הנדסיים נפרדים המוצגים כפרויקט אחד. <b>ניסיון לטפל בשלושתם במקביל בשלב הראשון
+          מהווה את סיכון הכשל המרכזי.</b> בחירה של משפחת חלקים אחת, על קו ייצור אחד, מאפשרת להגיע לתוצר בר הצגה
+          בתוך חודשיים. זוהי ההחלטה הראשונה שיש לקבל, והיא קודמת לכל בחירה טכנולוגית.
         </div>
       </section>
 
-      <div class="section-title">שלושה קווי ייצור, שלוש שפות פלט שונות</div>
-      <div class="cards3">
-        {techs.map((t) => (
-          <article class="card">
-            <span class="pill">{t.tag}</span>
-            <h3>{t.title}</h3>
-            <p>{t.body}</p>
-            <div class="out"><b>הפלט:</b> {t.out}</div>
-          </article>
-        ))}
-      </div>
+      <section id="s3">
+        <div class="sec-head"><div class="sn">3</div><h3>המאגר ההיסטורי כמקור נתונים</h3></div>
+        <p class="body">
+          מאגר המכיל זוגות מזווגים של שרטוט וקובץ מכונה לאורך עשרות שנים הוא נכס נדיר, וזהו הבסיס שעליו נשען
+          הפתרון כולו. עם זאת, ערכו מותנה בשאלה אחת שיש לברר לפני כל החלטה ארכיטקטונית:
+        </p>
+        <p class="body">
+          <b>האם הקובץ השמור במאגר הוא הקובץ שיצא ממחלקת התכנות, או הקובץ שרץ בפועל במכונה לאחר התאמות המפעיל?</b>
+        </p>
+        <p class="body">
+          במידה שהמפעיל מבצע כוונונים ותיקונים במכונה ורק הגרסה המקורית נשמרת, המאגר אינו מתעד את מה שעובד בפועל,
+          ואינו יכול לשמש אמת ייחוס לאימון. הפער בין שתי הגרסאות הוא בדיוק הידע שיש לחלץ, ולכן אחד הפריטים
+          הראשונים ברשימת החומרים הנדרשים הוא אותו חלק בשתי הגרסאות, להשוואה ישירה.
+        </p>
+      </section>
 
-      <div class="note">
-        <div class="t">למה זה קריטי כבר עכשיו</div>
-        אלה שלושה פרויקטים שונים שמתחפשים לפרויקט אחד. <b>פרויקט שמנסה לפתור את שלושתם במקביל בשלב הראשון נכשל.</b>
-        פרויקט שבוחר משפחת חלקים אחת, על קו ייצור אחד, מגיע לתוצאה שאפשר להראות למתכנת תוך חודשיים.
-        זו ההחלטה הראשונה שצריך לקבל, והיא חשובה יותר מכל בחירה טכנולוגית שתבוא אחריה.
-      </div>
-
-      <div class="section-title">המאגר שלכם הוא הנכס, בתנאי אחד</div>
-      <p class="body">
-        עשרות שנים של זוגות שרטוט וקובץ מכונה הן דבר נדיר. אבל יש שאלה אחת שקובעת אם המאגר הזה הוא אמת ייחוס או רק ארכיון:
-        <b>האם הקובץ ששמור אצלכם הוא הקובץ שיצא מהמתכנת, או הקובץ שבאמת רץ במכונה אחרי שהמפעיל נגע בו?</b>
-      </p>
-      <p class="body">
-        אם המפעיל מכוון ומתקן במכונה, ורק הגרסה המקורית נשמרת, אז המאגר לא מתעד את מה שבאמת עובד.
-        הפער בין שתי הגרסאות האלה הוא בדיוק הידע שאנחנו רוצים לחלץ. זו גם הסיבה שאחת הבקשות הראשונות שלנו
-        תהיה לראות את אותו חלק בשתי הגרסאות, זו לצד זו.
-      </p>
-
-      <div class="section-title">חמש נעלמות שקובעות את כל הארכיטקטורה</div>
-      <div class="rows">
-        {unknowns.map((u) => (
-          <article class="row">
-            <div class="n">{u.n}</div>
-            <div>
-              <h3>{u.q}</h3>
-              <p>{u.why}</p>
-            </div>
-          </article>
-        ))}
-      </div>
-
-      <div class="note blue">
-        <div class="t">ולכן, בכנות</div>
-        אף אחד לא יכול להעריך את הפרויקט הזה ברצינות לפני שראה זוגות אמיתיים מהמאגר שלכם.
-        <b>ספק שמתחייב לכם על לוח זמנים ועל תוצאה לפני שהוא ניתח זוגות מהמאגר, מוכר לכם ניחוש.</b>
-        גם אנחנו לא נעשה את זה.
-      </div>
+      <section id="s4">
+        <div class="sec-head"><div class="sn">4</div><h3>אילוצים ונעלמות פתוחות</h3></div>
+        <p class="body">
+          חמשת המשתנים הבאים קובעים את הארכיטקטורה, את המורכבות ואת לוח הזמנים. כל אחד מהם עשוי לשנות את
+          אופי הפרויקט, ולכן יש לברר אותם בשלב האפיון ולא במהלך הפיתוח.
+        </p>
+        <div class="blocks">
+          {unknowns.map((u) => (
+            <article class="block">
+              <div class="bn">{u.n}</div>
+              <div>
+                <h4>{u.q}</h4>
+                <p>{u.why}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div class="note blue">
+          <div class="t">מגבלת המסמך הנוכחי</div>
+          מסמך זה נכתב על בסיס תיאור הפעילות הפומבי של צורון ועל בסיס הדרישה שהוצגה, ללא גישה לקבצים.
+          <b>לא ניתן לקבוע היקף עבודה ולוח זמנים מחייבים לפני ניתוח מדגם מייצג מהמאגר.</b>
+          כל גורם המתחייב על תוצאה ועל לוח זמנים לפני ניתוח כזה מבסס זאת על הערכה בלבד.
+        </div>
+      </section>
     </article>
 
-    <!-- ============ PAGE 2 ============ -->
-    <article class="page" id="p2">
-      <div class="page-band">
-        <div class="no">02</div>
-        <div class="txt">
-          <div class="kicker">עמוד 2 מתוך 3</div>
-          <h2>CAM Assist מול מה שאנחנו בונים</h2>
-        </div>
+    <!-- ============ PART B ============ -->
+    <article class="part" id="partB">
+      <div class="part-band">
+        <div class="ph">חלק ב</div>
+        <h2>סקירת פתרונות קיימים בשוק</h2>
       </div>
 
-      <section>
-        <div class="lead">
-          <strong>הערכנו את הגילוי הנאות, ובדקנו את CAM Assist ברצינות.</strong> אז נתחיל מהחלק שלא נעים למוכר להגיד:
-          זה מוצר טוב. חברת CloudNC בנתה תוסף AI שמתחבר לתוכנות CAM מובילות ומייצר אסטרטגיות ומסלולי כלי מתוך מודל תלת ממדי,
-          כולל הערכת זמן מחזור ובחירת פרמטרים. אם היה לכם מפעל כרסום קלאסי, היינו אומרים לכם
-          לקנות אותו ולא לדבר איתנו. אבל אתם לא מפעל כרסום קלאסי, ולכן שווה להסתכל שורה שורה.
+      <section id="s5">
+        <div class="sec-head"><div class="sn">5</div><h3>הערכת CAM Assist מבית CloudNC</h3></div>
+        <p class="body">
+          CAM Assist הוא תוסף מבוסס AI המתחבר לתוכנות CAM מובילות ומייצר אסטרטגיות עיבוד ומסלולי כלי מתוך מודל
+          תלת ממדי, לרבות בחירת פרמטרים והערכת זמן מחזור. מדובר במוצר בוגר ומוכח בתחומו. <b>הבחינה שלהלן אינה
+          מעריכה את איכות המוצר אלא את התאמתו לדרישה הספציפית של צורון,</b> כפי שהוגדרה בסעיפים 1 עד 3.
+        </p>
+        <div class="tbl cmp">
+          <div class="tbl-head">
+            <div>פרמטר</div>
+            <div class="a">CAM Assist</div>
+            <div class="b">הפתרון המוצע</div>
+          </div>
+          {compare.map((r) => (
+            <div class="tbl-row">
+              <div class="k">{r.k}</div>
+              <div class="a">
+                <div class="mob-k">CAM Assist</div>
+                <span class={`mark ${r.tone}`}>{r.tone === 'yes' ? '✓' : r.tone === 'no' ? '!' : '·'}</span>{r.cam}
+              </div>
+              <div class="b">
+                <div class="mob-k">הפתרון המוצע</div>
+                {r.us}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div class="legend">
+          <span><span class="mark yes">✓</span> נותן מענה לדרישה</span>
+          <span><span class="mark no">!</span> אינו נותן מענה לדרישה</span>
+          <span><span class="mark neutral">·</span> הבדל מבני, ללא הכרעה</span>
+        </div>
+        <div class="note green">
+          <div class="t">מסקנת הסעיף</div>
+          במידה שקיים במפעל רישיון CAM נתמך וקו העיבוד השבבי הוא צוואר הבקבוק המרכזי,
+          <b> CAM Assist הוא רכש מוצדק ואנו ממליצים לשקול אותו לגופו.</b>
+          עם זאת, הוא נותן מענה לאחד משלושת קווי הייצור בלבד, נקודת המוצא שלו היא מודל תלת ממדי ולא שרטוט
+          דו ממדי כפי שמופק היום בצורון, והוא אינו לומד מהמאגר ההיסטורי. הידע הסמוי של המתכנת הוותיק אינו
+          מתועד או משתמר באמצעותו. הפתרון הנדון במסמך זה אינו מתחרה בו, אלא משלים אותו במרחב שאינו מכוסה על ידו.
         </div>
       </section>
 
-      <div class="section-title">השוואה, שורה שורה</div>
-      <div class="cmp">
-        <div class="cmp-head">
-          <div>הפרמטר</div>
-          <div class="a">CAM Assist</div>
-          <div class="b">מה שאנחנו מציעים לבנות</div>
+      <section id="s6">
+        <div class="sec-head"><div class="sn">6</div><h3>קריטריונים להערכת פתרון</h3></div>
+        <p class="body">
+          שלושת הקריטריונים הבאים מוצעים כמסננת ראשונה לכל פתרון או ספק הנבחן לצורך זה, לרבות הפתרון המוצע במסמך זה.
+        </p>
+        <div class="blocks">
+          <article class="block">
+            <div class="bn">6.1</div>
+            <div>
+              <h4>מהו פורמט הפלט בקו הצריבה הפוטוכימית</h4>
+              <p>תשובה שאינה artwork מפוצה בפורמט Gerber לפוטופלוטר מעידה על כך שהפתרון אינו ממופה לתהליכי הייצור בפועל.</p>
+            </div>
+          </article>
+          <article class="block">
+            <div class="bn">6.2</div>
+            <div>
+              <h4>מהו מקור הידע שהמערכת מפעילה</h4>
+              <p>מודל כללי שאומן על נתונים חיצוניים, או המאגר ההיסטורי של המפעל. רק האפשרות השנייה הופכת את הידע הסמוי של צורון לנכס מתועד שנשאר בבעלותה.</p>
+            </div>
+          </article>
+          <article class="block">
+            <div class="bn">6.3</div>
+            <div>
+              <h4>היכן מעובדת הגאומטריה</h4>
+              <p>עבור ספק מורשה של משרד הביטחון זוהי שאלת סיווג ולא שאלה טכנית. יש לקבל את התשובה ולאשר אותה מול גורמי אבטחת המידע בטרם תחילת פיתוח.</p>
+            </div>
+          </article>
         </div>
-        {compare.map((r) => (
-          <div class="cmp-row">
-            <div class="k">{r.k}</div>
-            <div class="a">
-              <div class="mob-k">CAM Assist</div>
-              <span class={`mark ${r.tone}`}>{r.tone === 'yes' ? '✓' : r.tone === 'no' ? '!' : '·'}</span>{r.cam}
-            </div>
-            <div class="b">
-              <div class="mob-k">מה שאנחנו מציעים לבנות</div>
-              {r.us}
-            </div>
+      </section>
+    </article>
+
+    <!-- ============ PART C ============ -->
+    <article class="part" id="partC">
+      <div class="part-band">
+        <div class="ph">חלק ג</div>
+        <h2>הפתרון המוצע ודרך הפעולה</h2>
+      </div>
+
+      <section id="s7">
+        <div class="sec-head"><div class="sn">7</div><h3>גישות טכניות שנבחנו</h3></div>
+        <p class="body">
+          נבחנו שש גישות מימוש אפשריות. אף אחת מהן אינה מספקת מענה מלא בפני עצמה, והבחירה ביניהן תלויה
+          במשתנים שפורטו בסעיף 4, ובראשם שיעור העבודות החוזרות וקיומו של ממשק תכנותי בתוכנה הקיימת.
+        </p>
+        <div class="tbl app">
+          <div class="tbl-head">
+            <div>#</div>
+            <div>הגישה</div>
+            <div>מתי היא מתאימה</div>
+            <div>הסיכון העיקרי</div>
+            <div>מאמץ</div>
           </div>
-        ))}
-      </div>
-      <div class="legend">
-        <span><span class="mark yes">✓</span> נותן מענה לצורך שלכם</span>
-        <span><span class="mark no">!</span> לא נותן מענה לצורך שלכם</span>
-        <span><span class="mark neutral">·</span> הבדל מבני, לא יתרון או חיסרון</span>
-      </div>
+          {approaches.map((a) => (
+            <div class="tbl-row">
+              <div class="num">{a.n}</div>
+              <div class="k">{a.name}</div>
+              <div><div class="mob-k">מתי היא מתאימה</div>{a.fit}</div>
+              <div><div class="mob-k">הסיכון העיקרי</div>{a.risk}</div>
+              <div><div class="mob-k">מאמץ</div><span class="tag eff">{a.effort}</span></div>
+            </div>
+          ))}
+        </div>
+      </section>
 
-      <div class="note green">
-        <div class="t">המסקנה שלנו, וזו לא תשובה מכירתית</div>
-        אם יש לכם רישיון CAM נתמך ומחלקת העיבוד השבבי היא הכאב הגדול, <b>CAM Assist הוא קנייה טובה ואנחנו נגיד לכם את זה גם בפגישה.</b>
-        הוא פותר תהליך אחד מתוך שלושה, הוא מתחיל ממודל תלת ממדי ולא משרטוטי ה AutoCAD שלכם, והוא לא לומד דבר
-        מהמאגר בן עשרות השנים שאתם יושבים עליו. הידע של המתכנת הוותיק שלכם נשאר בראש שלו גם אחרי שקניתם אותו.
-        הפרויקט שדיברנו עליו הוא לא מתחרה שלו. במקרה הטוב הוא השכבה שמעליו.
-      </div>
+      <section id="s8">
+        <div class="sec-head"><div class="sn">8</div><h3>הפתרון המוצע: היברידי מדורג</h3></div>
+        <p class="body">
+          ההמלצה היא שילוב מדורג של הגישות, על משפחת חלקים אחת בלבד בשלב הראשון. סדר השלבים נקבע כך שכל שלב
+          מייצר תוצר בעל ערך עצמאי, ושאף שלב אינו נוגע בייצור לפני שקדם לו אימות. השלבים מתבצעים לפי הסדר,
+          ומעבר בין שלבים מותנה בעמידה בקריטריון הקבלה של השלב הקודם.
+        </p>
+        <div class="blocks">
+          {stages.map((s) => (
+            <article class="block">
+              <div class="bn">{s.n}</div>
+              <div>
+                <h4>{s.title}</h4>
+                <p>{s.body}</p>
+                <div class="out">{s.out}</div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
 
-      <div class="section-title">שלוש שאלות שכדאי לשאול כל ספק, כולל אותנו</div>
-      <div class="cards3">
-        <article class="card">
-          <span class="pill">שאלה 1</span>
-          <h3>מה הפלט שלך בצריבה פוטוכימית?</h3>
-          <p>אם התשובה אינה artwork מפוצה בפורמט Gerber לפוטופלוטר, הספק לא הבין את המפעל שלכם. הוא מדבר על עולם אחר.</p>
-        </article>
-        <article class="card">
-          <span class="pill">שאלה 2</span>
-          <h3>מאיפה מגיע הידע שהמערכת מפעילה?</h3>
-          <p>ממודל כללי שאומן על חלקים של אחרים, או מהמאגר שלכם? רק התשובה השנייה הופכת את הידע הסמוי שלכם לנכס שנשאר אצלכם.</p>
-        </article>
-        <article class="card">
-          <span class="pill">שאלה 3</span>
-          <h3>איפה בדיוק רצה הגאומטריה שלי?</h3>
-          <p>כספק מורשה של משרד הביטחון, זו לא שאלה טכנית אלא שאלת סיווג. התשובה חייבת להתקבל אצלכם לפני שנכתבת שורת קוד אחת.</p>
-        </article>
-      </div>
+      <section id="s9">
+        <div class="sec-head"><div class="sn">9</div><h3>בקרות חובה: שכבת אימות ומצב צל</h3></div>
+        <p class="body">
+          שתי הבקרות הבאות אינן אופציונליות ואינן תלויות בגישה שתיבחר. בהיעדרן, הפתרון אינו בר הטמעה
+          בסביבת ייצור המחויבת ל AS9100, גם אם הוא עובד מבחינה טכנית.
+        </p>
+        <div class="cards2">
+          <article class="card">
+            <span class="pill">9.1 · לאורך כל הפרויקט</span>
+            <h4>שכבת אימות</h4>
+            <p>
+              כל קובץ שנוצר על ידי המערכת עובר בדיקת תחביר מול מפרט הדיאלקט, השוואה גאומטרית מול השרטוט המקורי,
+              בדיקת חריגה מטבלאות הפרמטרים המאושרות, ו backplot או סימולציה אוטומטית. קובץ שאינו עובר את השכבה
+              אינו מגיע למפעיל.
+            </p>
+          </article>
+          <article class="card">
+            <span class="pill">9.2 · לפני מגע בייצור</span>
+            <h4>מצב צל</h4>
+            <p>
+              המערכת מייצרת קובץ במקביל למתכנת האנושי לאורך תקופה מוגדרת, ללא ייצור בפועל מאף קובץ שלה.
+              הפלטים מושווים ונמדדים מול קריטריון הקבלה שהוגדר מראש. מעבר לייצור מותנה בעמידה בקריטריון,
+              והוא גם המנגנון שבונה את אמון מחלקת התכנות במערכת.
+            </p>
+          </article>
+        </div>
+      </section>
 
-      <div class="sources">
-        <div class="t">מקורות לנתונים על CAM Assist</div>
+      <section id="s10">
+        <div class="sec-head"><div class="sn">10</div><h3>חלוקת אחריות ותפקידים</h3></div>
+        <p class="body">
+          פרויקט זה אינו פרויקט מכונות אלא פרויקט חילוץ ותיעוד ידע. <b>הידע ההנדסי על המכונות, החומרים
+          ותהליכי העיבוד נמצא בצורון ונשאר בצורון.</b> המתכנת הבכיר אינו נעקף על ידי המערכת אלא מהווה את
+          סמכות ההכרעה המקצועית שלה. חלוקת האחריות המוצעת:
+        </p>
+        <div class="cards2">
+          {roles.map((r) => (
+            <article class="card">
+              <span class="pill">{r.who}</span>
+              <ul class="clean">
+                {r.items.map((i) => (<li>{i}</li>))}
+              </ul>
+            </article>
+          ))}
+        </div>
+
+        <div class="sec-head" style="margin-top:30px"><div class="sn">10.1</div><h3>רקע וניסיון רלוונטי</h3></div>
+        <div class="cards2">
+          {background.map((b) => (
+            <article class="card">
+              <span class="pill">{b.tag}</span>
+              <p>{b.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="s11">
+        <div class="sec-head"><div class="sn">11</div><h3>נתונים וחומרים נדרשים</h3></div>
+        <p class="body">
+          הפריטים הבאים נדרשים לצורך ניתוח ההיתכנות. הפריטים המסומנים כחובה הם תנאי לביצוע הניתוח,
+          ובהיעדרם כל הערכה תהיה ספקולטיבית.
+        </p>
+        <div class="tbl req">
+          <div class="tbl-head">
+            <div>#</div>
+            <div>הפריט</div>
+            <div>קריטיות</div>
+          </div>
+          {required.map((r, i) => (
+            <div class="tbl-row">
+              <div class="num">{i + 1}</div>
+              <div class="k" style="font-weight:400;color:var(--soft);background:none">{r.t}</div>
+              <div><div class="mob-k">קריטיות</div><span class={r.c === 'חובה' ? 'tag must' : 'tag high'}>{r.c}</span></div>
+            </div>
+          ))}
+        </div>
+        <div class="note">
+          <div class="t">מסמך נלווה</div>
+          רשימת 86 שאלות האפיון המלאה, פירוט תשע הגישות הטכניות על סיכוניהן, ורשימת החומרים המלאה,
+          רוכזו בגיליון עבודה נפרד. <b>הגיליון הועבר לצורון ונמצא בבעלותה ללא תלות בהמשך התהליך.</b>
+          <div style="margin-top:10px"><a href={sheetLink} target="_blank" rel="noopener noreferrer" style="color:var(--blue);font-weight:800;text-decoration:none">לגיליון האפיון המלא ←</a></div>
+        </div>
+      </section>
+
+      <section id="s12">
+        <div class="sec-head"><div class="sn">12</div><h3>הצעד הבא</h3></div>
+        <p class="body">
+          <b>שיחת אפיון ממוקדת</b> בהשתתפות המתכנת הבכיר ומנהלת התפעול. במסגרתה נעבור על זוגות אמיתיים מהמאגר,
+          נמפה את שלושת קווי הייצור, ונגדיר יחד את מסמך ההיתכנות. תוצרי השיחה:
+        </p>
+        <ul class="clean">
+          {deliverables.map((d) => (<li>{d}</li>))}
+        </ul>
+        <div class="note green">
+          <div class="t">במקרה של מסקנה שלילית</div>
+          במידה שהניתוח יצביע על כך שאין הצדקה הנדסית או תפעולית לפיתוח, המסקנה תימסר בכתב בצירוף נימוק.
+          <b>המסמך שייצא מהתהליך הוא בבעלות צורון</b> וניתן להעבירו לכל ספק אחר בשוק, לרבות CloudNC.
+        </div>
+
+        <div class="cta-wrap">
+          <a class="cta" href={waLink} target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.115zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+            לתיאום שיחת אפיון
+          </a>
+          <div class="cta-sub">
+            יובל קשטכר · FutureProof Agents · FutureProof Experience Ltd<br />
+            <a href="mailto:y@futureproofagents.com">y@futureproofagents.com</a>
+          </div>
+        </div>
+
+        <div class="sec-head" style="margin-top:34px"><div class="sn">נספח</div><h3>מקורות לנתונים על CAM Assist</h3></div>
         <div class="src-list">
           {sources.map((s) => (
             <a href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a>
           ))}
         </div>
-      </div>
-    </article>
-
-    <!-- ============ PAGE 3 ============ -->
-    <article class="page" id="p3">
-      <div class="page-band">
-        <div class="no">03</div>
-        <div class="txt">
-          <div class="kicker">עמוד 3 מתוך 3</div>
-          <h2>איך ניגשים, ומה הצעד הבא</h2>
-        </div>
-      </div>
-
-      <section>
-        <div class="lead">
-          <strong>הגישה: היברידי בשלבים, על משפחת חלקים אחת.</strong> מיפינו תשע גישות טכניות אפשריות לבעיה שלכם,
-          מהפעלה אוטומטית של התוכנה הקיימת ועד מודל שפה שמייצר טיוטת תוכנית. השילוב שמגיע לתוצאה נראית הכי מהר,
-          בלי לסכן אף חלק בייצור, הוא הסדר הבא.
-        </div>
       </section>
-
-      <div class="section-title">ארבעה שלבים, לפי הסדר</div>
-      <div class="rows">
-        {approach.map((a) => (
-          <article class="row">
-            <div class="n">{a.n}</div>
-            <div>
-              <h3>{a.title}</h3>
-              <p>{a.body}</p>
-              <div class="out">{a.out}</div>
-            </div>
-          </article>
-        ))}
-      </div>
-
-      <div class="cards2" style="margin-top:14px">
-        <article class="card">
-          <span class="pill">רץ לאורך כל הדרך</span>
-          <h3>שכבת אימות. לא אופציונלית.</h3>
-          <p>
-            כל קובץ שהמערכת מייצרת עובר בדיקת תחביר, השוואה גאומטרית מול השרטוט המקורי, בדיקת חריגה מטבלאות
-            הפרמטרים, ו backplot או סימולציה אוטומטית. בלי השכבה הזו שום גישה לא תעבור אישור בתעשייה ביטחונית,
-            גם אם היא עובדת מצוין.
-          </p>
-        </article>
-        <article class="card">
-          <span class="pill">לפני שנוגעים בייצור</span>
-          <h3>מצב צל</h3>
-          <p>
-            המערכת מייצרת קובץ במקביל לאדם, למשך תקופה, בלי שאף חלק מיוצר ממנו. משווים, מודדים, מתקנים.
-            רק כשהמספרים עומדים בקריטריון שהגדרנו מראש היא נכנסת לתהליך אמיתי. זה גם מה שמייצר את האמון
-            של המתכנת במערכת, וזה תנאי לאימוץ.
-          </p>
-        </article>
-      </div>
-
-      <div class="section-title">״כמה ניסיון יש לכם עם מכונות?״</div>
-      <p class="body">
-        זו השאלה הראשונה ששאלה מנהלת התפעול שלכם, והיא השאלה הנכונה. התשובה הישרה מתחילה במה שאנחנו <b>לא</b>:
-        אנחנו לא מתכנתי CAM, ולא נציג שאנחנו. אנחנו לא נכתוב פוסט פרוססור טוב יותר מהמתכנת הבכיר שלכם,
-        ולא נדע להגיד לו איך לחתוך חלק.
-      </p>
-      <p class="body">
-        <b>בפרויקט הזה הוא לא נעקף, הוא במרכז.</b> הוא זה שמגדיר את קריטריון הקבלה, הוא זה שמאשר כל פלט,
-        והתפקיד שלנו הוא להוציא את מה שנמצא בראש שלו לכללים מפורשים שאפשר להריץ, לבדוק ולתחזק.
-        זה לא פרויקט מכונות. זה פרויקט חילוץ ידע. מה שאנחנו כן מביאים לשולחן:
-      </p>
-      <div class="cards2">
-        {proof.map((p) => (
-          <article class="card">
-            <span class="pill">{p.tag}</span>
-            <p>{p.body}</p>
-          </article>
-        ))}
-      </div>
-
-      <div class="section-title">מה נצטרך מכם</div>
-      <ul class="clean num">
-        {asks.map((a) => (<li>{a}</li>))}
-      </ul>
-      <div class="note">
-        <div class="t">הכנו לכם את זה מראש</div>
-        את 86 השאלות המלאות, תשע הגישות הטכניות עם הסיכון והמאמץ של כל אחת, ורשימת החומרים המלאה,
-        ריכזנו לכם בגיליון עבודה אחד. <b>הוא שלכם, גם אם לא נעבוד יחד.</b>
-        <div style="margin-top:10px"><a href={sheetLink} target="_blank" rel="noopener noreferrer" style="color:var(--blue);font-weight:800;text-decoration:none">לגיליון השאלות והגישות ←</a></div>
-      </div>
-
-      <div class="section-title">הצעד הבא: שיחת אפיון</div>
-      <p class="body">
-        שיחת אפיון ממוקדת אחת, יחד עם המתכנת הבכיר ומנהלת התפעול. יושבים על זוגות אמיתיים מהמאגר,
-        עוברים על שלושת קווי הייצור, ומגדירים יחד את מסמך ההיתכנות. מה שיוצא מהשיחה הזו:
-      </p>
-      <ul class="clean">
-        {deliverables.map((d) => (<li>{d}</li>))}
-      </ul>
-
-      <div class="note green" style="margin-top:22px">
-        <div class="t">ומה אם המסקנה היא שלא כדאי</div>
-        אנחנו נגיד לכם את זה, ונגיד את זה בכתב. <b>המסמך שייצא מהשיחה הוא שלכם,</b>
-        ואתם יכולים לקחת אותו לכל ספק בשוק, כולל ל CloudNC. אנחנו מעדיפים לצאת מהשיחה
-        עם תמונה נכונה מאשר עם פרויקט שלא היה צריך לקרות.
-      </div>
-
-      <div class="cta-wrap">
-        <a class="cta" href={waLink} target="_blank" rel="noopener noreferrer">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.115zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-          לתאם שיחת אפיון
-        </a>
-        <div class="cta-sub">
-          או במייל: <a href="mailto:y@futureproofagents.com">y@futureproofagents.com</a><br />
-          יובל קשטכר · FutureProof Agents · FutureProof Experience Ltd
-        </div>
-      </div>
     </article>
 
     <SiteFooter lang="he" />
     <div class="endnote">
-      <a href="/he/">FutureProof Agents</a> · מסמך עבודה ללקוח · לא מאונדקס
+      <a href="/he/">FutureProof Agents</a> · מסמך עבודה ללקוח · גרסה 1.0 · לא מאונדקס
     </div>
   </main>
 </body>
