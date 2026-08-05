@@ -8,3 +8,21 @@ services:
       - type: redirect
         source: /blog/organizational-brain-git-repo-architecture/*
         destination: /blog/how-to-build-an-organizational-brain/
+      - type: redirect
+        source: /he/factory
+        destination: /he/
+      - type: redirect
+        source: /he/factory/*
+        destination: /he/
+      - type: redirect
+        source: /factory-he
+        destination: /he/
+      - type: redirect
+        source: /factory-he/*
+        destination: /he/
+      - type: redirect
+        source: /factory
+        destination: /
+      - type: redirect
+        source: /factory/*
+        destination: /

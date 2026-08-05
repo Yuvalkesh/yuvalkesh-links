@@ -56,19 +56,6 @@ const cases = [
   },
 ];
 
-const factories = [
-  {
-    tag: 'מכונות CNC · רומניה',
-    title: 'קטלוג פתרונות לשוק שלם של מפעלים',
-    body: 'אנחנו בעיצומה של עבודה עם ספק מכונות ה-CNC הגדול ברומניה. יחד אנחנו בונים קטלוג של פתרונות AI שהספק יציע להמון המפעלים שהוא כבר עובד איתם: שיבוץ חכם של טכנאים למשימות, טיפול בתקלות ובפרויקטים מהדיווח הראשון ועד הסגירה, והעברת מידע אוטומטית בין ה-ERP, עדכוני הוואטסאפ מהשטח ומערכות השירות. ארכיטקטית התהליכים שלנו כבר מיפתה את התהליכים הראשונים לתרשימי זרימה מלאים, והפרויקט בתנועה.',
-  },
-  {
-    tag: 'תעשייה ביטחונית · ישראל',
-    title: 'פורטל ניהול מוצר מבוסס AI ליצרן ותיק',
-    body: 'ליצרן ישראלי ותיק של מערכות נשיאה טקטיות עיצבנו פורטל ניהול מוצר מבוסס AI: תהליך אחיד אחד שמעביר כל פרויקט דרך חמישה שערי החלטה, מהדרישות ועד העיצוב, הבדיקות וניהול הידע.',
-  },
-];
-
 const team = [
   {
     hue: '#22c55e',
@@ -119,7 +106,7 @@ const jsonLd = {
   <script is:inline>(function(){var h=location.hostname;if(h==='futureproofagents.com'||h==='localhost'||h==='127.0.0.1')return;var p=location.pathname;if(p==='/'||p==='/index.html')p='/he/links/';location.replace('https://futureproofagents.com'+p+location.search+location.hash);})();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FutureProof Agents — מערכות סוכני AI לעסקים אמיתיים</title>
-  <meta name="description" content="FutureProof Agents בונים ומטמיעים מערכות סוכני AI בעסקים אמיתיים. מהאפיון ועד ההטמעה המלאה. JVP, Ginger, iPracticom, מפעלים בישראל וברומניה." />
+  <meta name="description" content="FutureProof Agents בונים ומטמיעים מערכות סוכני AI בעסקים אמיתיים. מהאפיון ועד ההטמעה המלאה. JVP, Ginger, iPracticom." />
   <link rel="canonical" href={`${site}/he/`} />
   <link rel="alternate" hreflang="he" href={`${site}/he/`} />
   <link rel="alternate" hreflang="en" href={`${site}/`} />
@@ -432,27 +419,6 @@ const jsonLd = {
     }
     .quote .who { font-size: 13px; color: var(--muted); margin-top: 6px; font-style: normal; font-weight: 700; }
 
-    /* --- factories --- */
-    .factory-intro {
-      font-size: 14.5px;
-      color: #cfd2d4;
-      line-height: 1.7;
-      text-align: center;
-      max-width: 500px;
-      margin: -8px auto 24px;
-    }
-    .factory-intro b { color: #fff; font-weight: 700; }
-    .more-link {
-      display: block;
-      text-align: center;
-      margin-top: 20px;
-      font-size: 14.5px;
-      font-weight: 700;
-      color: var(--x-blue);
-      text-decoration: none;
-    }
-    .more-link:hover { text-decoration: underline; }
-
     /* --- team --- */
     .team-grid {
       display: grid;
@@ -688,28 +654,7 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- 5. FOCUS: FACTORIES -->
-    <hr class="divider fade" style="animation-delay:0.49s" />
-    <section class="fade" style="animation-delay:0.5s">
-      <div class="section-title">פוקוס: מפעלים ותעשייה</div>
-      <p class="factory-intro">מפעלים הם המקום שבו AI מזיז את שורת הרווח הכי מהר, וכמעט אף אחד עוד לא שם. אנחנו בונים את שכבת האינטליגנציה <b>מעל האקסל, הוואטסאפ וה-ERP שהרצפה שלכם כבר עובדת איתם</b>. בלי מיגרציות, בלי מערכת חדשה שאף אחד לא יאמץ.</p>
-      <div class="cases">
-        {factories.map((f) => (
-          <article class="case">
-            <div class="case-head">
-              <span class="case-tag">{f.tag}</span>
-            </div>
-            <div class="case-row">
-              <div class="k">{f.title}</div>
-              <div class="v">{f.body}</div>
-            </div>
-          </article>
-        ))}
-      </div>
-      <a class="more-link" href="/he/factory/">להצעה המלאה למפעלים ←</a>
-    </section>
-
-    <!-- 6. THE TEAM -->
+    <!-- 5. THE TEAM -->
     <hr class="divider fade" style="animation-delay:0.51s" />
     <section class="fade" style="animation-delay:0.52s">
       <div class="method-head">
@@ -765,7 +710,7 @@ const jsonLd = {
       <p class="team-note">בני אדם איפה שצריך שיקול דעת, סוכנים איפה שצריך מהירות. <b>בדיוק ככה אנחנו בונים גם בתוך החברה שלכם.</b></p>
     </section>
 
-    <!-- 7. FOUNDER -->
+    <!-- 6. FOUNDER -->
     <hr class="divider fade" style="animation-delay:0.53s" />
     <section class="founder fade" style="animation-delay:0.54s">
       <div class="section-title">מי מאחורי האופרציה</div>
@@ -778,7 +723,7 @@ const jsonLd = {
       <p class="lead">לפני עשור הקמתי את UX Writing Hub, בית הספר הבינלאומי לכתיבת חוויית משתמש, עם יותר מאלף בוגרים בחברות הגדולות בעולם, והרצתי את כל העסק על אוטומציות. כשהגיע Claude Code, התחלתי לבנות את אותן מערכות לעסקים אחרים. היום אני מאתר איפה AI באמת מזיז את שורת הרווח, ובונה את המערכת איתכם עד שהיא עובדת, ונשארת אצלכם.</p>
     </section>
 
-    <!-- 8. COMMUNITY: THELOOP -->
+    <!-- 7. COMMUNITY: THELOOP -->
     <hr class="divider fade" style="animation-delay:0.55s" />
     <section class="loop fade" style="animation-delay:0.56s">
       <div class="section-title">מנוע הקהילה שלנו</div>
@@ -791,7 +736,7 @@ const jsonLd = {
       </a>
     </section>
 
-    <!-- 9. CLOSING -->
+    <!-- 8. CLOSING -->
     <hr class="divider fade" style="animation-delay:0.57s" />
     <section class="closing fade" style="animation-delay:0.58s">
       <h2>יש לכם עסק. לנו יש את האופרציה.</h2>

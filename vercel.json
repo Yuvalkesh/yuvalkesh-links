@@ -66,12 +66,32 @@
     },
     {
       "source": "/factory-he",
-      "destination": "/he/factory/",
+      "destination": "/he/",
       "permanent": true
     },
     {
       "source": "/factory-he/",
-      "destination": "/he/factory/",
+      "destination": "/he/",
+      "permanent": true
+    },
+    {
+      "source": "/he/factory",
+      "destination": "/he/",
+      "permanent": true
+    },
+    {
+      "source": "/he/factory/",
+      "destination": "/he/",
+      "permanent": true
+    },
+    {
+      "source": "/factory",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/factory/",
+      "destination": "/",
       "permanent": true
     },
     {
