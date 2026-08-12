@@ -16,6 +16,11 @@ const blog = defineCollection({
     draft: z.boolean().default(false),
     canonical: z.string().url().optional(),
     translationOf: z.string().optional(),
+    stickyCta: z.object({
+      href: z.string().url(),
+      label: z.string(),
+      eyebrow: z.string().optional(),
+    }).optional(),
   }),
 });
 
