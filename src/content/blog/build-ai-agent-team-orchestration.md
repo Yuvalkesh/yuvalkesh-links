@@ -4,6 +4,7 @@ description: "A practical guide to multi-agent orchestration with five specialis
 pubDate: 2026-08-12
 lang: en
 tags: ["AI agent orchestration", "multi-agent systems", "OpenClaw", "Claude Code", "Codex"]
+translationOf: build-ai-agent-team-orchestration-he
 faq:
   - q: "What is AI agent orchestration?"
     a: "AI agent orchestration is the control layer that routes work between specialized agents, preserves shared context, manages tools and permissions, and handles failures and approvals."
@@ -356,4 +357,3 @@ That is orchestration: not “agents talking to agents,” but a system where re
 I share the experiments that survive contact with real work — including the failures — with the Future Proof Agents community. Use the WhatsApp community link below and bring the first workflow you want to orchestrate.
 
 *Case study source: Yuval Keshtcher and Itamar Melul working session, August 11, 2026. Product interfaces and limits change; verify current documentation before implementation.*
-
