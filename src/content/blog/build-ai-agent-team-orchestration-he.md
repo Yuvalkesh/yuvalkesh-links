@@ -2,6 +2,7 @@
 title: "איך לבנות צוות סוכני AI שבאמת יודע לעבוד יחד"
 description: "מדריך מעשי לבניית מערכת מרובת סוכנים: חמישה מומחים, מנהל מרכזי, כלי עבודה, בקרת איכות, הרשאות וטיפול בתקלות."
 pubDate: 2026-08-12
+updatedDate: 2026-08-12
 lang: he
 tags: ["אורקסטרציה של סוכני AI", "מערכות מרובות סוכנים", "OpenClaw", "Claude Code", "Codex"]
 translationOf: build-ai-agent-team-orchestration
