@@ -3,7 +3,7 @@ import { getCollection, render } from 'astro:content';
 import ArticleLayout from '../../layouts/ArticleLayout.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ data }) => !data.draft && data.lang === 'en');
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
   return posts.map((post) => ({
     params: { slug: post.id },
     props: { post },
@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content, headings } = await render(post);
 
-const morePosts = (await getCollection('blog', ({ data }) => !data.draft && data.lang === 'en'))
+const morePosts = (await getCollection('blog', ({ data }) => !data.draft))
   .filter((p) => p.id !== post.id)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3)
@@ -39,6 +39,7 @@ const morePosts = (await getCollection('blog', ({ data }) => !data.draft && data
   slug={post.id}
   headings={headings}
   faq={post.data.faq}
+  stickyCta={post.data.stickyCta}
   morePosts={morePosts}
 >
   <Content />
