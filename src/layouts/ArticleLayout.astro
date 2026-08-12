@@ -1,5 +1,4 @@
 ---
-import SiteFooter from '../components/SiteFooter.astro';
 interface Heading {
   depth: number;
   slug: string;
@@ -20,16 +19,15 @@ interface Props {
   slug: string;
   headings?: Heading[];
   faq?: { q: string; a: string }[];
+  stickyCta?: { href: string; label: string; eyebrow?: string };
   morePosts?: { slug: string; title: string; description: string; lang: 'he' | 'en'; pubDate: Date }[];
 }
 
-const { title, description, pubDate, updatedDate, lang, tags, ogImage, coverImage, canonical, translationOf, slug, headings = [], faq = [], morePosts = [] } = Astro.props;
+const { title, description, pubDate, updatedDate, lang, tags, ogImage, coverImage, canonical, translationOf, slug, headings = [], faq = [], stickyCta, morePosts = [] } = Astro.props;
 
 const dir = lang === 'he' ? 'rtl' : 'ltr';
 const site = Astro.site!.href.replace(/\/$/, '');
-const blogBase = lang === 'he' ? '/he/blog' : '/blog';
-const otherBlogBase = lang === 'he' ? '/blog' : '/he/blog';
-const pageUrl = `${site}${blogBase}/${slug}/`;
+const pageUrl = `${site}/blog/${slug}/`;
 const canonicalUrl = canonical ?? pageUrl;
 const ogImageUrl = ogImage
   ? new URL(ogImage, Astro.site).href
@@ -69,7 +67,7 @@ const articleLd = {
       'https://github.com/Yuvalkesh',
     ],
   },
-  publisher: { '@type': 'Organization', name: 'FutureProof Agents', url: site },
+  publisher: { '@type': 'Person', name: 'Yuval Keshtcher', url: site },
 };
 
 const faqLd = faq.length
@@ -88,15 +86,15 @@ const breadcrumbLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'FutureProof Agents', item: `${site}/` },
-    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${site}${blogBase}/` },
+    { '@type': 'ListItem', position: 1, name: 'yuvkesh', item: `${site}/` },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${site}/blog/` },
     { '@type': 'ListItem', position: 3, name: title, item: pageUrl },
   ],
 };
 
 const socials = [
   {
-    href: 'https://chat.whatsapp.com/KjeF05QrMTZ0s5ty66Ee92',
+    href: 'https://chat.whatsapp.com/Eav9Kgs0nSs70YWBvHgU4r',
     label: lang === 'he' ? 'קבוצת הוואטסאפ' : 'WhatsApp community',
     cls: 'ico-whatsapp',
     path: 'M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.115zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z',
@@ -119,17 +117,16 @@ const socials = [
 <html lang={lang} dir={dir}>
 <head>
   <meta charset="UTF-8" />
-  <script is:inline>(function(){var h=location.hostname;if(h==='futureproofagents.com'||h==='localhost'||h==='127.0.0.1')return;var p=location.pathname;if(p==='/'||p==='/index.html')p='/he/links/';location.replace('https://futureproofagents.com'+p+location.search+location.hash);})();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{title} | FutureProof Agents</title>
+  <title>{title} | yuvkesh</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalUrl} />
-  <link rel="alternate" type="application/rss+xml" title="FutureProof Agents" href={`${site}/rss.xml`} />
+  <link rel="alternate" type="application/rss+xml" title="yuvkesh" href={`${site}/rss.xml`} />
   {translationOf && (
     <>
       <link rel="alternate" hreflang={lang} href={pageUrl} />
-      <link rel="alternate" hreflang={otherLang} href={`${site}${otherBlogBase}/${translationOf}/`} />
-      <link rel="alternate" hreflang="x-default" href={lang === 'en' ? pageUrl : `${site}${otherBlogBase}/${translationOf}/`} />
+      <link rel="alternate" hreflang={otherLang} href={`${site}/blog/${translationOf}/`} />
+      <link rel="alternate" hreflang="x-default" href={lang === 'en' ? pageUrl : `${site}/blog/${translationOf}/`} />
     </>
   )}
 
@@ -266,6 +263,24 @@ const socials = [
     .toc a:hover { color: var(--x-blue); }
     .toc a::before { content: '#'; color: var(--x-blue); margin-inline-end: 8px; font-weight: 700; }
     .divider { border: none; border-top: 1px solid var(--line); margin-bottom: 36px; }
+    .sticky-cta {
+      position: sticky; top: 10px; z-index: 20;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      margin: 0 0 30px; padding: 11px 12px 11px 18px;
+      border: 1px solid rgba(29,155,240,0.5); border-radius: 16px;
+      background: rgba(10,12,14,0.94); box-shadow: 0 12px 36px rgba(0,0,0,0.55);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    }
+    .sticky-cta-copy { min-width: 0; }
+    .sticky-cta-eyebrow { color: #8b98a5; font-size: 12px; line-height: 1.2; margin-bottom: 2px; }
+    .sticky-cta-title { color: #e7e9ea; font-size: 14px; font-weight: 800; line-height: 1.35; }
+    .sticky-cta-button {
+      flex: none; padding: 9px 17px; border-radius: 999px;
+      background: var(--x-blue); color: #fff; text-decoration: none;
+      font-size: 13.5px; font-weight: 800; white-space: nowrap;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .sticky-cta-button:hover { background: #1a8cd8; transform: translateY(-1px); }
     .content { font-size: 17.5px; line-height: 1.85; color: #d6d9db; }
     .content :global(h2) {
       font-size: 25px; font-weight: 800; color: #e7e9ea;
@@ -389,24 +404,28 @@ const socials = [
       .content { font-size: 16.5px; }
       .follow-links { flex-direction: column; align-items: stretch; }
       .follow-link { justify-content: center; }
+      .sticky-cta { top: 6px; gap: 10px; padding: 9px 9px 9px 12px; border-radius: 14px; }
+      .sticky-cta-eyebrow { display: none; }
+      .sticky-cta-title { font-size: 12.5px; }
+      .sticky-cta-button { padding: 8px 13px; font-size: 12.5px; }
     }
   </style>
 </head>
 <body>
   <article class="wrap">
     <nav class="top-nav">
-      <a href={`${blogBase}/`}>{backLabel}</a>
+      <a href="/blog/">{backLabel}</a>
       {translationOf && (
         <div class="lang-switch" dir="ltr" role="navigation" aria-label={lang === 'he' ? 'שפה' : 'Language'}>
           {lang === 'en' ? (
             <span class="lang-opt active" aria-current="true">EN</span>
           ) : (
-            <a class="lang-opt" href={`${otherBlogBase}/${translationOf}/`} lang="en" title="Read in English">EN</a>
+            <a class="lang-opt" href={`/blog/${translationOf}/`} lang="en" title="Read in English">EN</a>
           )}
           {lang === 'he' ? (
             <span class="lang-opt active" aria-current="true">עב</span>
           ) : (
-            <a class="lang-opt" href={`${otherBlogBase}/${translationOf}/`} lang="he" title="קראו בעברית">עב</a>
+            <a class="lang-opt" href={`/blog/${translationOf}/`} lang="he" title="קראו בעברית">עב</a>
           )}
         </div>
       )}
@@ -428,6 +447,15 @@ const socials = [
       </nav>
     )}
     <hr class="divider" />
+    {stickyCta && (
+      <aside class="sticky-cta" aria-label={stickyCta.eyebrow ?? stickyCta.label}>
+        <div class="sticky-cta-copy">
+          {stickyCta.eyebrow && <div class="sticky-cta-eyebrow">{stickyCta.eyebrow}</div>}
+          <div class="sticky-cta-title">{lang === 'he' ? 'רוצים לבנות צוות סוכנים כזה?' : 'Want to build an agent team like this?'}</div>
+        </div>
+        <a class="sticky-cta-button" href={stickyCta.href} target="_blank" rel="sponsored noopener noreferrer">{stickyCta.label}</a>
+      </aside>
+    )}
     <div class="content">
       <slot />
     </div>
@@ -457,7 +485,7 @@ const socials = [
         <div class="more-title">{moreLabel}</div>
         <div class="more-list">
           {morePosts.map((p) => (
-            <a class="more-card" href={`${p.lang === 'he' ? '/he/blog' : '/blog'}/${p.slug}/`} dir={p.lang === 'he' ? 'rtl' : 'ltr'} lang={p.lang}>
+            <a class="more-card" href={`/blog/${p.slug}/`} dir={p.lang === 'he' ? 'rtl' : 'ltr'} lang={p.lang}>
               <h3>{p.title}</h3>
               <p>{p.description}</p>
               <div class="row">
@@ -469,7 +497,6 @@ const socials = [
         </div>
       </section>
     )}
-    <SiteFooter lang={lang} />
   </article>
 </body>
 </html>
