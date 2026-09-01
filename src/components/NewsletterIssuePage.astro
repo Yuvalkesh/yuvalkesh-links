@@ -1,0 +1,242 @@
+---
+import SiteFooter from './SiteFooter.astro';
+
+interface Props {
+  lang: 'en' | 'he';
+}
+
+const { lang } = Astro.props;
+const he = lang === 'he';
+const site = Astro.site!.href.replace(/\/$/, '');
+const pagePath = he ? '/he/newsletter/issue-001/' : '/newsletter/issue-001/';
+const alternatePath = he ? '/newsletter/issue-001/' : '/he/newsletter/issue-001/';
+const newsletterPath = he ? '/he/newsletter/' : '/newsletter/';
+
+const copy = he
+  ? {
+      title: 'האימוץ קפץ. הרווח לא זז.',
+      description: 'חמש התפתחויות בהטמעת AI וחמש החלטות למנכ״לים — גיליון 001 של FutureProof Newsletter.',
+      tagline: 'ניוזלטר הטמעת ה-AI למנכ״לים',
+      issue: 'גיליון 001',
+      date: '1 בספטמבר 2026 · 7 דקות קריאה',
+      switcher: 'English',
+      back: 'חזרה לניוזלטר',
+      deck: 'תאגידים גדולים הרחיבו את מספר הסוכנים שהם מריצים בכמעט חצי. שיעור החברות שרואות מזה השפעה על הרווח נשאר בדיוק במקום.',
+      thesisLabel: 'התזה',
+      thesis: 'הפער בין מספר החברות שמפעילות סוכנים לבין מספר החברות שמפיקות מהם רווח הוא לא בעיית טכנולוגיה. הוא בעיית בעלות.',
+      moveLabel: 'מהלך למנכ״ל',
+      sourceLabel: 'למקור',
+      stories: [
+        {
+          title: '1. סוף סוף מישהו מדד את פער ההטמעה',
+          body: 'בסקר של 1,719 מנהלים, שיעור החברות הגדולות שמרחיבות סוכני AI עלה מ־27% ל־40%. שיעור החברות שמדווחות על השפעה כלשהי על הרווח התפעולי נשאר על 37%, ורק 6% מוגדרות כבעלות ביצועי AI גבוהים.',
+          move: 'קחו סוכן אחד שכבר עובד בייצור ותלו אותו על שורה בדוח רווח והפסד — עם שם של אחראי ועם מספר. בלי בעלים למספר, זה עדיין פיילוט.',
+          source: 'סקר State of AI של מקינזי',
+          href: 'https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai',
+        },
+        {
+          title: '2. החלטת הרכש הופכת להחלטת בנייה',
+          body: 'קרוב לשליש מהמשיבים סיפרו שבחרו לבנות יכולת בעזרת כלי פיתוח סוכניים במקום לרכוש פיצ׳ר תוכנה. רכש תוכנה כבר אינו רק משא ומתן על מחיר; הוא השוואה בין קנייה לבין בנייה מהירה וממוקדת.',
+          move: 'לפני חידוש תוכנה משמעותי, בקשו מהצוות לתמחר את בניית שלוש היכולות שבהן הארגון באמת משתמש.',
+          source: 'הנתון בסקר מקינזי',
+          href: 'https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai',
+        },
+        {
+          title: '3. כשיכולת ליבה חסרה, זמן שווה יותר מבנייה',
+          body: 'העסקה של ואנגארד לרכישת Altruist ממחישה מה חברות גדולות קונות כשהן לא רוצות לחכות: תשתית, מומחיות ושנות ביצוע שכבר התרחשו. השאלה למנכ״ל היא לא רק מה אפשר לבנות, אלא מה אסור לארגון לבנות לאט.',
+          move: 'הגדירו יכולת אסטרטגית אחת שהחברה לא תבנה בעצמה, והתחילו לתמחר רכישה או שותפות כבר ברבעון הזה.',
+          source: 'הודעת ואנגארד',
+          href: 'https://corporate.vanguard.com/content/corporatesite/us/en/corp/who-we-are/pressroom/press-release-vanguard-announcement-082626.html',
+        },
+        {
+          title: '4. סוכנים עוברים מהמסך לעולם הפיזי',
+          body: 'תקנים להפעלת ציוד פיזי בידי סוכנים פותחים חזית חדשה במעבדות, במפעלים ובמחסנים. היתרון לא יתחיל במודל; הוא יתחיל בארגון שכבר תיעד היטב את תהליכי העבודה סביב המכשירים שלו.',
+          move: 'בחרו תהליך אחד סביב מכשיר אחד והתחילו לתעד פעולות, חריגות ותוצאות. הדאטה הזה יהיה חומר הגלם להטמעה.',
+          source: 'תצוגת המחקר של Anthropic',
+          href: 'https://www.anthropic.com/news/model-hardware-standard-research-preview',
+        },
+        {
+          title: '5. שכבת הבקרה היא חלק מהמוצר',
+          body: 'ככל שסוכנים מקבלים יותר סמכות, אמון, בטיחות ובקרה הופכים מתקורה למערכת הפעלה. ארגון שמתקצב את הסוכן אבל משאיר את הבקרה לדיון מאוחר בונה חוב תפעולי מהיום הראשון.',
+          move: 'תקצבו את שכבת הבקרה מאותה שורת תקציב של הסוכן ואשרו את שתיהן באותה ישיבה.',
+          source: 'הודעת Alice על סבב הגיוס',
+          href: 'https://alice.io/blog/alice-raises-140m',
+        },
+      ],
+      bigLabel: 'התמונה הגדולה',
+      big: 'החברות שמפיקות ערך מ־AI אינן פשוט קונות יותר כלים. הן מחברות כל הטמעה לבעלים עסקי, למדד תפעולי ולשכבת בקרה. הטכנולוגיה היא רק תחילת העבודה.',
+      usefulLabel: 'דבר אחד שימושי השבוע',
+      useful: 'בחרו הטמעת AI אחת שכבר נמצאת בארגון. כתבו לידה שלושה דברים: מי הבעלים, איזה מספר אמור להשתנות, ומתי בודקים אותו. אם אחת התשובות חסרה, זו המשימה לשבוע הקרוב.',
+      closing: 'סוכן אחד. מדד אחד. בעלים אחד.',
+      subscribe: 'להרשמה ל־FutureProof Newsletter',
+    }
+  : {
+      title: 'Adoption doubled. Profit did not.',
+      description: 'Five AI implementation developments and five decisions for CEOs — Issue 001 of FutureProof Newsletter.',
+      tagline: 'The AI implementation newsletter for CEOs',
+      issue: 'Issue 001',
+      date: 'September 1, 2026 · 7 min read',
+      switcher: 'עברית',
+      back: 'Back to the newsletter',
+      deck: 'Large companies expanded their agent rollouts by nearly half. The share reporting any impact on profit stayed exactly where it was.',
+      thesisLabel: 'The thesis',
+      thesis: 'The gap between companies running agents and companies earning from them is not a technology problem. It is an ownership problem.',
+      moveLabel: 'CEO move',
+      sourceLabel: 'Source',
+      stories: [
+        {
+          title: '1. Someone finally measured the implementation gap',
+          body: 'In a survey of 1,719 leaders, the share of large companies scaling AI agents rose from 27% to 40%. The share reporting any operating-profit impact stayed at 37%, and only 6% qualified as AI high performers.',
+          move: 'Take one agent already in production and put it on a P&L line—with a named owner and a number. Without an owner for the number, it is still a pilot.',
+          source: 'McKinsey State of AI survey',
+          href: 'https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai',
+        },
+        {
+          title: '2. The buying decision is becoming a build decision',
+          body: 'Nearly a third of respondents said they chose to build a capability with agentic development tools instead of buying a software feature. Software procurement is no longer only a price negotiation; it is a comparison between buying and building quickly for the exact need.',
+          move: 'Before the next major software renewal, ask the team to price the cost of building the three capabilities the company actually uses.',
+          source: 'The finding in McKinsey’s survey',
+          href: 'https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai',
+        },
+        {
+          title: '3. When a core capability is missing, time matters more than building',
+          body: 'Vanguard’s agreement to acquire Altruist illustrates what large companies buy when they do not want to wait: infrastructure, expertise, and years of execution already completed. The CEO question is not only what can be built, but what the company cannot afford to build slowly.',
+          move: 'Name one strategic capability the company will not build itself, then begin pricing an acquisition or partnership this quarter.',
+          source: 'Vanguard announcement',
+          href: 'https://corporate.vanguard.com/content/corporatesite/us/en/corp/who-we-are/pressroom/press-release-vanguard-announcement-082626.html',
+        },
+        {
+          title: '4. Agents are moving from screens into the physical world',
+          body: 'Standards for agents operating physical equipment open a new front in laboratories, factories, and warehouses. The advantage will not begin with the model. It will begin with the company that already documented the workflows around its equipment.',
+          move: 'Choose one workflow around one instrument and start logging actions, exceptions, and results. That data will become the raw material for implementation.',
+          source: 'Anthropic research preview',
+          href: 'https://www.anthropic.com/news/model-hardware-standard-research-preview',
+        },
+        {
+          title: '5. The control layer is part of the product',
+          body: 'As agents receive more authority, trust, safety, and control move from overhead to operating system. A company that funds the agent but postpones governance creates operational debt from day one.',
+          move: 'Fund the control layer from the same budget line as the agent and approve both in the same meeting.',
+          source: 'Alice funding announcement',
+          href: 'https://alice.io/blog/alice-raises-140m',
+        },
+      ],
+      bigLabel: 'The big picture',
+      big: 'Companies creating value from AI are not simply buying more tools. They connect every implementation to a business owner, an operating metric, and a control layer. The technology is only the beginning of the work.',
+      usefulLabel: 'One useful thing this week',
+      useful: 'Choose one AI implementation already inside the company. Write down three things: who owns it, which number should change, and when that number gets reviewed. If one answer is missing, that is this week’s job.',
+      closing: 'One agent. One metric. One owner.',
+      subscribe: 'Subscribe to FutureProof Newsletter',
+    };
+---
+<!DOCTYPE html>
+<html lang={lang} dir={he ? 'rtl' : 'ltr'}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{copy.title} | FutureProof Newsletter</title>
+  <meta name="description" content={copy.description} />
+  <meta name="theme-color" content="#000000" />
+  <link rel="canonical" href={`${site}${pagePath}`} />
+  <link rel="alternate" hreflang="en" href={`${site}/newsletter/issue-001/`} />
+  <link rel="alternate" hreflang="he" href={`${site}/he/newsletter/issue-001/`} />
+  <link rel="alternate" hreflang="x-default" href={`${site}/newsletter/issue-001/`} />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content={copy.title} />
+  <meta property="og:description" content={copy.description} />
+  <meta property="og:url" content={`${site}${pagePath}`} />
+  <meta property="og:image" content={`${site}/avatar.jpg`} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style is:inline>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --blue:#1d9bf0; --ink:#e7e9ea; --muted:#8b949e; --panel:#101214; --line:#2f3336; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { min-height:100vh; background:#000; color:var(--ink); font-family:'Inter',sans-serif; }
+    html[dir='rtl'] body { font-family:'Heebo',Arial,sans-serif; }
+    body::before { content:''; position:fixed; top:-320px; left:50%; translate:-50% 0; width:760px; height:620px; border-radius:50%; background:radial-gradient(circle,rgba(29,155,240,.18),transparent 68%); pointer-events:none; }
+    a { color:inherit; }
+    .shell { position:relative; z-index:1; }
+    .topbar { width:min(920px,calc(100% - 36px)); min-height:76px; margin:auto; display:flex; align-items:center; justify-content:space-between; gap:18px; border-bottom:1px solid rgba(255,255,255,.08); }
+    .brand { text-decoration:none; font-size:16px; font-weight:850; }
+    .brand span { color:var(--blue); }
+    .actions { display:flex; align-items:center; gap:10px; }
+    .pill { display:inline-flex; align-items:center; min-height:38px; padding:7px 14px; border:1px solid var(--line); border-radius:999px; color:var(--muted); text-decoration:none; font-size:12.5px; font-weight:750; }
+    .pill:hover { color:#fff; border-color:#4a5056; }
+    article { width:min(760px,calc(100% - 36px)); margin:auto; padding:82px 0 30px; }
+    .tagline { color:var(--blue); font-size:12px; font-weight:850; letter-spacing:1.25px; text-transform:uppercase; }
+    html[dir='rtl'] .tagline { letter-spacing:0; text-transform:none; }
+    .issue-meta { margin-top:16px; color:var(--muted); font-size:13px; font-weight:650; }
+    h1 { margin-top:20px; color:#fff; font-size:clamp(44px,8vw,74px); line-height:1.01; letter-spacing:-4px; font-weight:900; }
+    html[dir='rtl'] h1 { line-height:1.12; letter-spacing:-1.3px; }
+    .deck { margin-top:24px; color:#c4c8cc; font-size:clamp(18px,2.6vw,22px); line-height:1.62; }
+    .thesis { margin:42px 0 64px; padding:25px 27px; border:1px solid rgba(29,155,240,.35); border-inline-start:4px solid var(--blue); border-radius:16px; background:rgba(29,155,240,.09); }
+    .label { color:var(--blue); font-size:11px; font-weight:850; letter-spacing:1.2px; text-transform:uppercase; }
+    html[dir='rtl'] .label { letter-spacing:0; text-transform:none; }
+    .thesis p,.move p { margin-top:8px; color:#e1e4e6; font-size:16px; line-height:1.72; font-weight:550; }
+    .story { padding:0 0 58px; margin:0 0 58px; border-bottom:1px solid var(--line); }
+    h2 { color:#fff; font-size:clamp(27px,4.6vw,38px); line-height:1.2; letter-spacing:-1.4px; font-weight:900; }
+    html[dir='rtl'] h2 { letter-spacing:-.4px; }
+    .story > p { margin-top:19px; color:#bec3c7; font-size:17px; line-height:1.82; }
+    .source { display:inline-block; margin-top:18px; color:var(--blue); font-size:13px; font-weight:750; text-decoration:none; }
+    .source:hover { text-decoration:underline; }
+    .move { margin-top:25px; padding:20px 22px; border:1px solid rgba(29,155,240,.28); border-radius:15px; background:linear-gradient(145deg,rgba(29,155,240,.11),rgba(16,18,20,.8)); }
+    .summary { margin-bottom:56px; }
+    .summary p { margin-top:15px; color:#c4c8cc; font-size:17px; line-height:1.8; }
+    .closing { margin-top:18px; padding:38px 26px; border:1px solid var(--line); border-radius:20px; background:var(--panel); text-align:center; }
+    .closing strong { display:block; color:#fff; font-size:clamp(24px,4vw,34px); }
+    .closing a { display:inline-flex; margin-top:20px; min-height:48px; align-items:center; justify-content:center; padding:0 22px; border-radius:999px; background:var(--blue); color:#001522; text-decoration:none; font-size:14px; font-weight:850; }
+    @media(max-width:620px){ .topbar{min-height:66px}.pill.back{display:none}article{padding-top:58px}h1{letter-spacing:-2.5px}.thesis{margin-bottom:50px}.story{padding-bottom:46px;margin-bottom:46px} }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href={he ? '/he/' : '/'}>FutureProof <span>Agents</span></a>
+      <div class="actions">
+        <a class="pill back" href={newsletterPath}>{copy.back}</a>
+        <a class="pill" href={alternatePath} hreflang={he ? 'en' : 'he'}>{copy.switcher}</a>
+      </div>
+    </header>
+    <article>
+      <div class="tagline">{copy.tagline}</div>
+      <div class="issue-meta">{copy.issue} · {copy.date}</div>
+      <h1>{copy.title}</h1>
+      <p class="deck">{copy.deck}</p>
+
+      <section class="thesis">
+        <div class="label">{copy.thesisLabel}</div>
+        <p>{copy.thesis}</p>
+      </section>
+
+      {copy.stories.map((story) => (
+        <section class="story">
+          <h2>{story.title}</h2>
+          <p>{story.body}</p>
+          <a class="source" href={story.href} target="_blank" rel="noopener noreferrer">{copy.sourceLabel}: {story.source} ↗</a>
+          <div class="move">
+            <div class="label">{copy.moveLabel}</div>
+            <p>{story.move}</p>
+          </div>
+        </section>
+      ))}
+
+      <section class="summary">
+        <div class="label">{copy.bigLabel}</div>
+        <h2>{copy.bigLabel}</h2>
+        <p>{copy.big}</p>
+      </section>
+      <section class="summary">
+        <div class="label">{copy.usefulLabel}</div>
+        <h2>{copy.usefulLabel}</h2>
+        <p>{copy.useful}</p>
+      </section>
+      <div class="closing">
+        <strong>{copy.closing}</strong>
+        <a href={`${newsletterPath}#subscribe`}>{copy.subscribe}</a>
+      </div>
+    </article>
+    <SiteFooter lang={lang} />
+  </div>
+</body>
+</html>

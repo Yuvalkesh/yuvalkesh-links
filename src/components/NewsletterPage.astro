@@ -10,16 +10,17 @@ const he = lang === 'he';
 const site = Astro.site!.href.replace(/\/$/, '');
 const pagePath = he ? '/he/newsletter/' : '/newsletter/';
 const alternatePath = he ? '/newsletter/' : '/he/newsletter/';
+const issuePath = he ? '/he/newsletter/issue-001/' : '/newsletter/issue-001/';
 
 const copy = he
   ? {
-      title: 'FutureProof Newsletter — תדריך ה-AI למנהלים',
-      description: 'חמישה דברים שבאמת השתנו השבוע בעולם ה-AI, וחמש החלטות מעשיות למנהלים. שלוש דקות, פעם בשבוע.',
+      title: 'FutureProof Newsletter — ניוזלטר הטמעת ה-AI למנכ״לים',
+      description: 'ניוזלטר שבועי למנכ״לים על הטמעת AI בחברה — מה באמת עובד, איך ארגונים מובילים מיישמים, ומה לעשות עכשיו.',
       switcher: 'English',
-      eyebrow: 'התדריך השבועי למנהלים',
+      eyebrow: 'ניוזלטר הטמעת ה-AI למנכ״לים',
       headlineA: 'AI זז מהר.',
       headlineB: 'אתם צריכים לדעת לאן.',
-      intro: 'חמישה דברים שבאמת השתנו השבוע בעולם ה-AI, וחמש החלטות מעשיות שאפשר לקחת לישיבת ההנהלה. בלי הייפ, בלי סיכומי השקות, ועם מקור לכל טענה.',
+      intro: 'מה מנכ״לים צריכים לדעת כדי להטמיע AI בחברה באמת: מה עובד בארגונים מובילים, איפה ההטמעה נתקעת, וחמש החלטות מעשיות שאפשר לקחת לישיבת ההנהלה. בלי הייפ ועם מקור לכל טענה.',
       email: 'האימייל שלך',
       cta: 'שלחו לי את התדריך',
       loading: 'מצרפים…',
@@ -41,6 +42,7 @@ const copy = he
       latestTitle: 'האימוץ קפץ. הרווח לא זז.',
       latestDek: 'בחברות גדולות, השימוש בסוכנים עלה כמעט בחצי. שיעור החברות שמדווחות על השפעה כלשהי על הרווח נשאר על 37%. הפער הזה הוא לא בעיית טכנולוגיה. הוא בעיית בעלות.',
       signalsTitle: 'חמשת הסיגנלים של השבוע',
+      readIssue: 'לקריאת הגיליון המלא',
       signals: [
         ['40%', 'מהחברות מעל מיליארד דולר כבר מרחיבות סוכנים'],
         ['37%', 'בלבד מדווחות על השפעה כלשהי על הרווח התפעולי'],
@@ -55,13 +57,13 @@ const copy = he
       home: 'FutureProof Agents',
     }
   : {
-      title: 'FutureProof Newsletter — The AI brief for executives',
-      description: 'Five developments that actually changed in AI this week, and five decisions for executives. Three minutes, once a week.',
+      title: 'FutureProof Newsletter — The AI implementation newsletter for CEOs',
+      description: 'A weekly newsletter for CEOs implementing AI inside their companies: what works, how leading teams deploy it, and what to do next.',
       switcher: 'עברית',
-      eyebrow: 'The weekly executive AI brief',
+      eyebrow: 'The AI implementation newsletter for CEOs',
       headlineA: 'AI moves fast.',
       headlineB: 'Know where it is going.',
-      intro: 'Five developments that actually changed in AI this week, and five decisions you can take into the leadership meeting. No launch recaps, no hype, and a source behind every claim.',
+      intro: 'What CEOs need to implement AI inside the company: what works in leading organizations, where implementation gets stuck, and five practical decisions for the leadership meeting. No launch recaps, no hype, and a source behind every claim.',
       email: 'Your work email',
       cta: 'Send me the brief',
       loading: 'Joining…',
@@ -83,6 +85,7 @@ const copy = he
       latestTitle: 'Adoption doubled. Profit did not.',
       latestDek: 'At large companies, agent rollouts rose by nearly half. The share reporting any EBIT impact stayed flat at 37%. That gap is not a technology problem. It is an ownership problem.',
       signalsTitle: 'This week in three numbers',
+      readIssue: 'Read the full issue',
       signals: [
         ['40%', 'of billion-dollar companies are now scaling AI agents'],
         ['37%', 'report any impact at all on operating profit'],
@@ -308,13 +311,19 @@ const copy = he
     .issue-name { color: #fff; font-size: 15px; font-weight: 800; }
     .issue-desc { color: var(--muted); font-size: 14px; line-height: 1.55; }
     .latest {
+      display: block;
       position: relative;
       border: 1px solid var(--line);
       border-radius: 24px;
       background: linear-gradient(145deg, #15181b, #0c0e10);
       overflow: hidden;
       box-shadow: 0 28px 80px rgba(0,0,0,.42);
+      color: inherit;
+      text-decoration: none;
+      transition: transform .25s, border-color .25s, box-shadow .25s;
     }
+    .latest:hover { transform: translateY(-4px); border-color: #46505a; box-shadow: 0 34px 90px rgba(0,0,0,.55); }
+    .latest:focus-visible { outline: 3px solid var(--blue); outline-offset: 5px; }
     .latest::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 3px; background: var(--blue); }
     html[dir='rtl'] .latest::before { inset: 0 0 0 auto; }
     .latest-main { padding: 42px 42px 36px; }
@@ -330,6 +339,11 @@ const copy = he
     html[dir='rtl'] .move-label { letter-spacing: .2px; text-transform: none; }
     .move p { margin-top: 8px; color: #e1e4e6; font-size: 15px; line-height: 1.67; font-weight: 550; }
     .source { padding: 25px 42px 38px; color: #626970; font-size: 12px; line-height: 1.5; }
+    .read-issue { display: inline-flex; align-items: center; gap: 8px; margin: 0 42px 36px; color: var(--blue); font-size: 14px; font-weight: 850; }
+    .read-issue::after { content: '→'; transition: transform .2s; }
+    html[dir='rtl'] .read-issue::after { content: '←'; }
+    .latest:hover .read-issue::after { transform: translateX(4px); }
+    html[dir='rtl'] .latest:hover .read-issue::after { transform: translateX(-4px); }
     .closing { padding: 84px 0 32px; text-align: center; }
     .closing h2 { max-width: 700px; margin-inline: auto; }
     .closing > p { max-width: 570px; margin: 17px auto 0; color: var(--muted); font-size: 15.5px; line-height: 1.65; }
@@ -358,6 +372,7 @@ const copy = he
       .signal span { margin: 0; }
       .move { margin: 24px 24px 0; }
       .source { padding: 22px 24px 30px; }
+      .read-issue { margin: 0 24px 30px; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -390,7 +405,7 @@ const copy = he
         <div class="eyebrow reveal">{copy.eyebrow}</div>
         <h1 class="reveal">{copy.headlineA}<span>{copy.headlineB}</span></h1>
         <p class="hero-copy reveal">{copy.intro}</p>
-        <div class="signup-wrap reveal">
+        <div class="signup-wrap reveal" id="subscribe">
           <form class="signup-form" data-newsletter-form novalidate>
             <label class="honeypot" aria-hidden="true">Company<input name="company" type="text" tabindex="-1" autocomplete="off" /></label>
             <input name="email" type="email" dir="ltr" inputmode="email" autocomplete="email" required placeholder={copy.email} aria-label={copy.email} />
@@ -426,7 +441,7 @@ const copy = he
       <hr class="rule" />
 
       <section class="section" id="latest">
-        <article class="latest">
+        <a class="latest" href={issuePath} aria-label={`${copy.readIssue}: ${copy.latestTitle}`}>
           <div class="latest-main">
             <div class="eyebrow">{copy.latestEyebrow}</div>
             <h2>{copy.latestTitle}</h2>
@@ -442,7 +457,8 @@ const copy = he
             <p>{copy.move}</p>
           </div>
           <p class="source">{copy.source}</p>
-        </article>
+          <span class="read-issue">{copy.readIssue}</span>
+        </a>
       </section>
 
       <hr class="rule" />
