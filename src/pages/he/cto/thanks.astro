@@ -28,7 +28,7 @@ const waLink = `https://wa.me/972526414555?text=${waMsg}`;
     .container { position: relative; z-index: 1; width: 100%; max-width: 680px; display: flex; flex-direction: column; align-items: center; text-align: center; }
     .fade { opacity: 0; transform: translateY(14px); animation: fadeUp 0.62s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-    .check { width: 96px; height: 96px; border-radius: 28px; background: var(--card); border: 1px solid var(--line); box-shadow: 0 0 0 4px rgba(37,211,102,0.12), 0 10px 40px rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; margin: 30px 0 24px; }
+    .check { flex-shrink: 0; width: 96px; height: 96px; border-radius: 28px; background: var(--card); border: 1px solid var(--line); box-shadow: 0 0 0 4px rgba(37,211,102,0.12), 0 10px 40px rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; margin: 30px 0 24px; }
     .check svg { width: 46px; height: 46px; fill: none; stroke: #25d366; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
     .check path { stroke-dasharray: 40; stroke-dashoffset: 40; animation: draw 0.7s ease-out 0.5s forwards; }
     @keyframes draw { to { stroke-dashoffset: 0; } }
