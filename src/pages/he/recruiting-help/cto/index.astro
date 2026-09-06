@@ -1,7 +1,8 @@
 ---
-import SiteFooter from '../../../components/SiteFooter.astro';
+import SiteFooter from '../../../../components/SiteFooter.astro';
 const site = Astro.site!.href.replace(/\/$/, '');
 const API = 'https://fpa-cto-form.vercel.app/api/submit';
+const PATH = '/he/recruiting-help/cto/';
 
 const musts = [
   {
@@ -12,7 +13,7 @@ const musts = [
   {
     icon: '🧭',
     title: 'מבין תהליכים עסקיים לעומק',
-    desc: 'איך הכסף זז, איפה הזמן נשרף, מה באמת כואב בשטח. הטכנולוגיה באה אחרי ההבנה, לא לפניה.',
+    desc: 'איך עסקה נסגרת, איפה הזמן נשרף בין שיווק, מכירות וניהול נכסים, מה באמת כואב בשטח. הטכנולוגיה באה אחרי ההבנה, לא לפניה.',
   },
   {
     icon: '📐',
@@ -32,16 +33,16 @@ const musts = [
   <meta charset="UTF-8" />
   <script is:inline>(function(){var h=location.hostname;if(h==='futureproofagents.com'||h==='localhost'||h==='127.0.0.1')return;location.replace('https://futureproofagents.com'+location.pathname+location.search+location.hash);})();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>מחפשים CTO — FutureProof Agents</title>
-  <meta name="description" content="חברה מבוססת מחפשת CTO: בילדר שמבין תהליכים עסקיים לעומק, יודע לאפיין אותם ומוביל צוותים לבנות פתרונות טכנולוגיים וסוכני AI. תפקיד גמיש ומעניין." />
+  <title>מחפשים CTO לחברת נדל״ן ותיקה · בסיוע FutureProof Agents</title>
+  <meta name="description" content="חברת נדל״ן ישראלית ותיקה מחפשת CTO ראשון: בילדר שמבין תהליכים עסקיים לעומק, יודע לאפיין אותם ומוביל צוותים לבנות פתרונות טכנולוגיים וסוכני AI. FutureProof Agents מסייעים לחברה בגיוס. תפקיד גמיש ומעניין." />
   <meta name="robots" content="noindex, follow" />
-  <link rel="canonical" href={`${site}/he/cto/`} />
+  <link rel="canonical" href={`${site}${PATH}`} />
 
-  <meta property="og:title" content="מחפשים CTO — בילדר שמבין עסקים" />
-  <meta property="og:description" content="חברה מבוססת מחפשת CTO שמבין תהליכים עסקיים לעומק, יודע לאפיין ומוביל צוותים לבנות פתרונות שכוללים סוכני AI. תפקיד גמיש ומעניין." />
+  <meta property="og:title" content="מחפשים CTO לחברת נדל״ן ותיקה" />
+  <meta property="og:description" content="חברת נדל״ן ותיקה ורווחית מחפשת CTO ראשון שמבין תהליכים עסקיים לעומק, יודע לאפיין ומוביל צוותים לבנות פתרונות שכוללים סוכני AI. אנחנו מסייעים לה בגיוס. תפקיד גמיש ומעניין." />
   <meta property="og:image" content={`${site}/avatar.jpg`} />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content={`${site}/he/cto/`} />
+  <meta property="og:url" content={`${site}${PATH}`} />
   <meta name="theme-color" content="#000000" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -99,6 +100,11 @@ const musts = [
     .must p { font-size: 14px; line-height: 1.6; color: #b8bcbf; }
     .must-foot { font-size: 14.5px; line-height: 1.7; color: #cfd2d4; text-align: center; max-width: 480px; margin: 24px auto 0; }
     .must-foot b { color: #fff; font-weight: 700; }
+
+    .about-grid { display: grid; grid-template-columns: 1fr; gap: 14px; width: 100%; }
+    .about-card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 20px 22px; }
+    .about-card h3 { font-size: 13px; font-weight: 800; color: var(--x-blue); letter-spacing: 0.5px; margin-bottom: 8px; }
+    .about-card p { font-size: 14.5px; line-height: 1.7; color: #d6d9db; }
 
     /* --- form --- */
     .form-card { width: 100%; background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 28px 24px; }
@@ -178,20 +184,43 @@ const musts = [
         <circle cx="24" cy="23" r="3" fill="#fff"/>
       </svg>
     </div>
-    <div class="eyebrow fade" style="animation-delay:0.09s">משרה פתוחה · בליווי FutureProof Agents</div>
-    <h1 class="fade" style="animation-delay:0.12s">מחפשים <span>CTO</span></h1>
-    <div class="brand-sub fade" style="animation-delay:0.16s">חברה מבוססת · השם נשמר בשלב הזה</div>
-    <p class="lead fade" style="animation-delay:0.24s">חברה ותיקה ורווחית מחפשת את מי שיוביל אצלה את הטכנולוגיה. <b>לא עוד מנהל פיתוח.</b> מישהו שמבין את העסק לעומק, יודע לאפיין אותו, ומוביל צוות לבנות ממנו פתרונות אמיתיים. תפקיד גמיש ומעניין, עם הרבה מקום לעצב אותו.</p>
+    <div class="eyebrow fade" style="animation-delay:0.09s">משרה פתוחה · FutureProof Agents מסייעים בגיוס</div>
+    <h1 class="fade" style="animation-delay:0.12s">מחפשים <span>CTO</span><br />לחברת נדל״ן ותיקה</h1>
+    <div class="brand-sub fade" style="animation-delay:0.16s">אנחנו לא המעסיק. אנחנו עוזרים לחברה למצוא את האדם הנכון</div>
+    <p class="lead fade" style="animation-delay:0.24s">חברת נדל״ן ישראלית ותיקה ורווחית החליטה לבנות שכבה טכנולוגית אמיתית, ופנתה אלינו ב FutureProof Agents לעזור לה למצוא את מי שיוביל את זה מבפנים. <b>לא עוד מנהל פיתוח.</b> מישהו שמבין את העסק לעומק, יודע לאפיין אותו, ומוביל צוות לבנות ממנו פתרונות אמיתיים. תפקיד גמיש ומעניין, עם הרבה מקום לעצב אותו.</p>
     <div class="pill-row fade" style="animation-delay:0.3s">
+      <span class="pill"><b>נדל״ן</b> · חברה ותיקה ורווחית</span>
       <span class="pill"><b>גמיש</b> · היקף ומודל עבודה לפי הבנאדם</span>
       <span class="pill"><b>מעניין</b> · בונים, לא מתחזקים</span>
       <span class="pill"><b>דיסקרטי</b> · שם החברה נמסר בשיחה</span>
     </div>
 
+    <hr class="divider fade" style="animation-delay:0.34s" />
+    <section class="fade" style="animation-delay:0.35s">
+      <div class="section-head">
+        <div class="section-title">על החברה ועל התפקיד</div>
+        <h2>נדל״ן ותיק, טכנולוגיה מאפס</h2>
+      </div>
+      <div class="about-grid">
+        <article class="about-card">
+          <h3>החברה</h3>
+          <p>חברת נדל״ן ישראלית ותיקה, מבוססת ורווחית, עם פעילות רחבה ותהליכים שרובם עדיין רצים על אנשים, טלפונים ואקסלים. ההנהלה החליטה שהגיע הזמן לבנות שכבה טכנולוגית: מערכות, אוטומציות וסוכני AI שיושבים על התהליכים העסקיים האמיתיים של החברה. שם החברה נמסר בשיחה הראשונה.</p>
+        </article>
+        <article class="about-card">
+          <h3>התפקיד</h3>
+          <p>CTO ראשון בחברה. מי שייכנס יעצב את התפקיד מאפס: ימפה את התהליכים, יאפיין מה בונים, ויוביל צוות של ידיים עובדות שיבנה את זה. תפקיד גמיש בהיקף ובמודל העבודה, ומעניין בגלל שבונים ולא מתחזקים.</p>
+        </article>
+        <article class="about-card">
+          <h3>ומי אנחנו</h3>
+          <p>FutureProof Agents מלווים את החברה בהטמעת AI ומסייעים לה בגיוס. הפנייה, הסינון הראשוני ושיחת ההיכרות עוברים דרכנו. משם, ההנהלה של החברה עצמה.</p>
+        </article>
+      </div>
+    </section>
+
     <hr class="divider fade" style="animation-delay:0.36s" />
     <section class="fade" style="animation-delay:0.38s">
       <div class="section-head">
-        <div class="section-title">את מי אנחנו מחפשים</div>
+        <div class="section-title">את מי החברה מחפשת</div>
         <h2>בילדר שמבין עסקים</h2>
         <p class="tag">ארבעה דברים שחייבים להיות. אם שלושה מהם מרגישים כמוך, שווה לשלוח.</p>
       </div>
@@ -212,7 +241,7 @@ const musts = [
       <div class="section-head">
         <div class="section-title">הגשת מועמדות</div>
         <h2>ספרו לנו עליכם</h2>
-        <p class="tag">חמש דקות. כל מי ששולח מקבל תשובה.</p>
+        <p class="tag">חמש דקות. הפנייה מגיעה אלינו ב FutureProof Agents, וכל מי ששולח מקבל תשובה.</p>
       </div>
 
       <form class="form-card" id="cto-form" novalidate>
@@ -289,7 +318,7 @@ const musts = [
           <span class="label">שליחת מועמדות</span>
         </button>
         <div class="form-err" id="formErr">משהו השתבש בשליחה. נסו שוב בעוד רגע, או כתבו לנו בוואטסאפ.</div>
-        <p class="privacy">הפרטים נשמרים אצלנו בלבד ומועברים לחברה המגייסת רק אחרי שיחה ראשונית איתכם.</p>
+        <p class="privacy">הפרטים נשמרים אצלנו ב FutureProof Agents בלבד ומועברים לחברה המגייסת רק אחרי שיחה ראשונית איתכם.</p>
       </form>
     </section>
     <SiteFooter lang="he" />
@@ -365,7 +394,7 @@ const musts = [
           var res = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
           var data = null; try { data = await res.json(); } catch (_) {}
           if (!res.ok || !data || !data.ok) throw new Error((data && data.error) || ('HTTP ' + res.status));
-          location.href = '/he/cto/thanks/';
+          location.href = '/he/recruiting-help/cto/thanks/';
         } catch (err) {
           console.error('[cto-form]', err);
           formErr.classList.add('show');
