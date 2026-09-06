@@ -342,6 +342,29 @@ const socials = [
       display: block;
     }
     .content :global(em) { color: #b8bcbf; }
+    .content :global(table) {
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+      border-collapse: collapse;
+      margin: 8px 0 30px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    .content :global(th), .content :global(td) {
+      border: 1px solid var(--line);
+      padding: 10px 12px;
+      text-align: start;
+      vertical-align: top;
+      min-width: 110px;
+    }
+    .content :global(th) {
+      background: #16181c;
+      color: #f2f4f5;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .content :global(tr:nth-child(even) td) { background: rgba(255,255,255,0.02); }
     .author {
       margin-top: 56px;
       border-top: 1px solid var(--line);
