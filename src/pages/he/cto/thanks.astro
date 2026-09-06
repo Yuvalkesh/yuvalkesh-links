@@ -1,0 +1,74 @@
+---
+import SiteFooter from '../../../components/SiteFooter.astro';
+const site = Astro.site!.href.replace(/\/$/, '');
+const waMsg = encodeURIComponent('היי יובל, הגשתי מועמדות למשרת ה CTO דרך האתר ורציתי להוסיף משהו');
+const waLink = `https://wa.me/972526414555?text=${waMsg}`;
+---
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <script is:inline>(function(){var h=location.hostname;if(h==='futureproofagents.com'||h==='localhost'||h==='127.0.0.1')return;location.replace('https://futureproofagents.com'+location.pathname+location.search+location.hash);})();</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>תודה, קיבלנו — FutureProof Agents</title>
+  <meta name="description" content="המועמדות התקבלה. מישהו מהצוות ייצור איתך קשר בימים הקרובים." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="canonical" href={`${site}/he/cto/thanks/`} />
+  <meta name="theme-color" content="#000000" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style is:inline>
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    :root { --x-blue: #1d9bf0; --line: #2f3336; --muted: #71767b; --card: #16181c; }
+    html, body { height: 100%; }
+    body { font-family: 'Heebo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; background: #000; color: #e7e9ea; display: flex; justify-content: center; padding: 56px 18px 64px; overflow-x: hidden; position: relative; }
+    body::before { content: ""; position: fixed; top: -260px; inset-inline: 0; margin: auto; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(37,211,102,0.18) 0%, rgba(37,211,102,0) 70%); filter: blur(20px); z-index: 0; pointer-events: none; opacity: 0; animation: glowIn 1.4s ease-out 0.2s forwards; }
+    @keyframes glowIn { to { opacity: 1; } }
+    .container { position: relative; z-index: 1; width: 100%; max-width: 680px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .fade { opacity: 0; transform: translateY(14px); animation: fadeUp 0.62s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .check { width: 96px; height: 96px; border-radius: 28px; background: var(--card); border: 1px solid var(--line); box-shadow: 0 0 0 4px rgba(37,211,102,0.12), 0 10px 40px rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; margin: 30px 0 24px; }
+    .check svg { width: 46px; height: 46px; fill: none; stroke: #25d366; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+    .check path { stroke-dasharray: 40; stroke-dashoffset: 40; animation: draw 0.7s ease-out 0.5s forwards; }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    h1 { font-size: 34px; font-weight: 900; letter-spacing: -0.5px; color: #fff; line-height: 1.15; }
+    h1 span { color: #25d366; }
+    .lead { font-size: 16.5px; color: #cfd2d4; max-width: 460px; line-height: 1.75; margin: 16px 0 28px; }
+    .lead b { color: #fff; font-weight: 700; }
+    .steps { width: 100%; max-width: 460px; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 20px 22px; text-align: start; margin-bottom: 28px; }
+    .steps .t { font-size: 12.5px; font-weight: 800; color: var(--muted); letter-spacing: 0.5px; margin-bottom: 12px; }
+    .step { display: flex; gap: 12px; align-items: flex-start; font-size: 14.5px; line-height: 1.6; color: #d6d9db; margin-bottom: 10px; }
+    .step:last-child { margin-bottom: 0; }
+    .step .n { width: 24px; height: 24px; border-radius: 50%; background: rgba(29,155,240,0.12); border: 1px solid rgba(29,155,240,0.25); color: var(--x-blue); font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+    .cta { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 12px 26px; background: #25d366; color: #04210f; border-radius: 999px; text-decoration: none; font-size: 15.5px; font-weight: 800; box-shadow: 0 8px 26px rgba(37,211,102,0.22); transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease; }
+    .cta svg { width: 20px; height: 20px; fill: #04210f; }
+    .cta:hover { transform: translateY(-2px); filter: brightness(1.05); box-shadow: 0 12px 32px rgba(37,211,102,0.3); }
+    .home { margin-top: 18px; font-size: 13.5px; font-weight: 700; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; transition: color 0.2s ease; }
+    .home:hover { color: #e7e9ea; }
+    @media (max-width: 600px) { body { padding: 36px 14px 48px; } h1 { font-size: 29px; } }
+    @media (prefers-reduced-motion: reduce) { .fade, body::before, .check path { animation: none; opacity: 1; transform: none; stroke-dashoffset: 0; } }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="check fade" style="animation-delay:0.05s" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M4 12.5 9.5 18 20 6.5"/></svg>
+    </div>
+    <h1 class="fade" style="animation-delay:0.12s">תודה, <span>קיבלנו</span></h1>
+    <p class="lead fade" style="animation-delay:0.2s">המועמדות שלך אצלנו. <b>מישהו מהצוות ייצור איתך קשר</b> בימים הקרובים, גם אם התשובה היא לא. שם החברה והפרטים המלאים נמסרים בשיחה הראשונה.</p>
+    <div class="steps fade" style="animation-delay:0.26s">
+      <div class="t">מה קורה עכשיו</div>
+      <div class="step"><span class="n">1</span><span>אנחנו עוברים על המועמדות ועל הלינקדאין.</span></div>
+      <div class="step"><span class="n">2</span><span>שיחת היכרות קצרה בטלפון או בזום.</span></div>
+      <div class="step"><span class="n">3</span><span>אם יש התאמה, פגישה עם החברה עצמה.</span></div>
+    </div>
+    <a class="cta fade" style="animation-delay:0.32s" href={waLink} target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.115zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+      יש משהו להוסיף? בוואטסאפ
+    </a>
+    <a class="home fade" style="animation-delay:0.38s" href="/he/">חזרה לעמוד הראשי</a>
+  </main>
+  <SiteFooter lang="he" />
+</body>
+</html>
