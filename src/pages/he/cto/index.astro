@@ -133,7 +133,7 @@ const musts = [
     .file-clear { display: none; margin-inline-start: auto; background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 999px; padding: 4px 10px; font-size: 12px; font-family: inherit; cursor: pointer; position: relative; z-index: 2; }
     .file-drop.has .file-clear { display: inline-block; }
 
-    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+    .hp { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); opacity: 0; pointer-events: none; }
 
     .submit {
       position: relative; width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
@@ -292,8 +292,8 @@ const musts = [
         <p class="privacy">הפרטים נשמרים אצלנו בלבד ומועברים לחברה המגייסת רק אחרי שיחה ראשונית איתכם.</p>
       </form>
     </section>
+    <SiteFooter lang="he" />
   </main>
-  <SiteFooter lang="he" />
 
   <script is:inline define:vars={{ API }}>
     (function () {
